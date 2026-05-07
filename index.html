@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <title>LEFT-CONFIGS | Elite Solutions</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -12,8 +11,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
 
 :root{
-    --bg:#030303;
-    --card:#0a0a0a;
+    --bg:#020202;
+    --card:#0b0b0b;
     --red:#ff0000;
     --blue:#00a2ff;
 }
@@ -24,14 +23,20 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#000;
-    color:white;
+    color:#fff;
     overflow-x:hidden;
     font-family:'Inter',sans-serif;
 }
 
-/* ===== REAL BACKGROUND ===== */
+/* =========================
+   REAL BACKGROUND
+========================= */
 
 #bg-canvas{
     position:fixed;
@@ -46,393 +51,377 @@ body{
     position:fixed;
     inset:0;
     z-index:-2;
-    opacity:.05;
+    opacity:.08;
+    pointer-events:none;
     background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,0,0,.35), transparent 25%),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,.08), transparent 20%),
-    radial-gradient(circle at 50% 80%, rgba(255,0,0,.2), transparent 30%);
-    filter:blur(70px);
-    animation:bgMove 12s ease-in-out infinite alternate;
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size:4px 4px;
+    mix-blend-mode:overlay;
 }
 
-@keyframes bgMove{
-    0%{
-        transform:scale(1) translateY(0px);
-    }
-    100%{
-        transform:scale(1.2) translateY(-30px);
-    }
-}
-
-.grid-overlay{
+.bg-vignette{
     position:fixed;
     inset:0;
     z-index:-1;
-    background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size:60px 60px;
-    mask-image:radial-gradient(circle at center, black 30%, transparent 100%);
+    pointer-events:none;
+    background:
+    radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.95) 100%);
 }
 
-/* ===== NAV ===== */
+/* =========================
+   NAVBAR
+========================= */
 
 nav{
     position:fixed;
     top:0;
     left:0;
     width:100%;
-    z-index:999;
-    background:rgba(0,0,0,.7);
-    backdrop-filter:blur(20px);
+    z-index:100;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(18px);
     border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.nav-inner{
-    max-width:1400px;
-    margin:auto;
-    padding:22px 40px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    cursor:pointer;
-}
-
-.logo-box{
-    width:42px;
-    height:42px;
-    background:red;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transform:skewX(-10deg);
-}
-
-.logo-box span{
-    transform:skewX(10deg);
-    font-size:24px;
-    font-weight:900;
-}
-
-.logo-text{
+.sync{
     font-family:'Syncopate',sans-serif;
-    font-weight:700;
-    letter-spacing:-1px;
 }
 
-.nav-links{
-    display:flex;
-    gap:50px;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:3px;
-    font-weight:700;
-}
-
-.nav-links a{
-    color:#888;
-    text-decoration:none;
+.nav-link{
+    color:#8f8f8f;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.22em;
     transition:.3s;
+    text-transform:uppercase;
 }
 
-.nav-links a:hover{
-    color:white;
+.nav-link:hover{
+    color:#fff;
 }
 
-/* ===== HERO ===== */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    padding-top:180px;
-    padding-bottom:120px;
-    text-align:center;
     position:relative;
+    padding-top:180px;
+    padding-bottom:140px;
+    text-align:center;
 }
 
-.hero-watermark{
+.watermark{
     position:absolute;
-    top:0;
+    top:40px;
     left:50%;
     transform:translateX(-50%);
-    font-size:22vw;
+    font-size:24vw;
     font-weight:900;
     opacity:.03;
     pointer-events:none;
     user-select:none;
 }
 
-.hero-status{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 18px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);
-    border-radius:999px;
-    margin-bottom:40px;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:3px;
-}
-
-.status-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#00ff6a;
-    box-shadow:0 0 12px #00ff6a;
-}
-
-.hero h1{
-    font-size:clamp(70px,10vw,170px);
-    line-height:.9;
-    font-family:'Syncopate',sans-serif;
+.hero-title{
+    font-size:clamp(60px,9vw,150px);
+    line-height:.88;
     font-weight:900;
-    margin-bottom:40px;
+    letter-spacing:-.06em;
+    font-style:italic;
 }
 
-.hero h1 span{
-    color:red;
-    text-shadow:0 0 30px rgba(255,0,0,.8);
+.red-glow{
+    color:var(--red);
+    text-shadow:
+    0 0 20px rgba(255,0,0,.8),
+    0 0 60px rgba(255,0,0,.35);
 }
 
-.hero p{
+.hero-desc{
     max-width:700px;
-    margin:auto;
-    color:#777;
-    font-size:18px;
-    line-height:1.7;
+    margin:35px auto 0;
+    color:#8a8a8a;
+    line-height:1.8;
+    font-size:17px;
 }
 
-/* ===== CARDS ===== */
-
-.products{
-    max-width:1400px;
-    margin:auto;
-    padding:100px 40px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:40px;
-}
-
-.card{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:30px;
-    padding:40px;
-    min-height:620px;
-    transition:.5s;
-    position:relative;
-    overflow:hidden;
-}
-
-.card:hover{
-    transform:translateY(-15px);
-    border-color:rgba(255,0,0,.5);
-    box-shadow:0 40px 100px rgba(255,0,0,.15);
-}
-
-.card-blue:hover{
-    border-color:rgba(0,162,255,.5);
-    box-shadow:0 40px 100px rgba(0,162,255,.2);
-}
-
-.tag{
-    display:inline-block;
-    padding:7px 14px;
-    font-size:10px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    background:red;
-    border-radius:8px;
-}
-
-.card-icon{
-    width:170px;
-    height:170px;
-    border-radius:30px;
-    margin:60px auto 40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:black;
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.ue-icon{
-    border:8px solid white;
-    width:120px;
-    height:120px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:55px;
-    font-weight:900;
-}
-
-.kh-icon{
-    border:5px solid red;
-    width:120px;
-    height:120px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:50px;
-    font-weight:900;
-}
-
-.yub-icon{
-    background:#00a2ff;
-    border:6px solid #004c8c;
-    width:120px;
-    height:120px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:70px;
-    font-weight:900;
-}
-
-.card h2{
-    text-align:center;
-    font-size:42px;
-    font-weight:900;
-    font-family:'Syncopate',sans-serif;
-}
-
-.card p{
-    text-align:center;
-    color:#666;
-    margin-top:20px;
-    line-height:1.7;
-}
-
-.price{
-    margin-top:80px;
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-}
-
-.price h3{
-    font-size:44px;
-    font-weight:900;
-}
+/* =========================
+   BUTTONS
+========================= */
 
 .btn{
     width:100%;
-    margin-top:30px;
     padding:18px;
-    border:none;
     border-radius:14px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    background:white;
-    color:black;
+    border:none;
     cursor:pointer;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:linear-gradient(135deg,#fff,#9d9d9d);
+    color:#000;
     transition:.4s;
 }
 
 .btn:hover{
-    transform:scale(1.03);
+    transform:translateY(-3px);
+    box-shadow:0 0 35px rgba(255,255,255,.18);
 }
 
-/* ===== VIDEOS ===== */
+/* =========================
+   PRODUCT CARDS
+========================= */
+
+.products{
+    max-width:1450px;
+    margin:auto;
+    padding:50px 30px 130px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+    gap:35px;
+}
+
+.card{
+    background:rgba(10,10,10,.88);
+    border:1px solid rgba(255,255,255,.05);
+    border-radius:34px;
+    overflow:hidden;
+    position:relative;
+    min-height:620px;
+    padding:40px;
+    transition:.6s cubic-bezier(.16,1,.3,1);
+    backdrop-filter:blur(18px);
+}
+
+.card:hover{
+    transform:translateY(-14px) scale(1.02);
+    border-color:rgba(255,0,0,.35);
+    box-shadow:
+    0 25px 80px rgba(255,0,0,.15),
+    inset 0 0 0 1px rgba(255,255,255,.03);
+}
+
+.card.blue:hover{
+    border-color:rgba(0,162,255,.4);
+    box-shadow:
+    0 25px 80px rgba(0,162,255,.15);
+}
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:60px;
+}
+
+.tag{
+    padding:7px 14px;
+    font-size:10px;
+    font-weight:900;
+    border-radius:8px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+}
+
+.tag.red{
+    background:#ff0000;
+}
+
+.tag.blue{
+    background:#0066ff;
+}
+
+.tag.white{
+    background:#fff;
+    color:#000;
+}
+
+.icon-wrap{
+    width:170px;
+    height:170px;
+    margin:auto;
+    border-radius:28px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#000;
+    transition:.5s;
+}
+
+.card:hover .icon-wrap{
+    transform:scale(1.08) rotate(3deg);
+}
+
+.ue{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.ue::before{
+    content:'';
+    position:absolute;
+    inset:16px;
+    border:8px solid #fff;
+}
+
+.ue span{
+    font-size:70px;
+    font-weight:900;
+    letter-spacing:-8px;
+}
+
+.yub{
+    width:100%;
+    height:100%;
+    background:#00a2ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.yub::before{
+    content:'';
+    position:absolute;
+    inset:16px;
+    border:6px solid #0059a8;
+}
+
+.yub span{
+    font-size:100px;
+    font-weight:900;
+}
+
+.kh{
+    width:100%;
+    height:100%;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.kh::before{
+    content:'';
+    position:absolute;
+    inset:14px;
+    border:5px solid red;
+}
+
+.kh span{
+    font-size:65px;
+    font-weight:900;
+    color:#fff;
+}
+
+.card-title{
+    text-align:center;
+    font-size:44px;
+    margin-top:30px;
+    font-weight:900;
+    font-style:italic;
+}
+
+.card-desc{
+    text-align:center;
+    color:#6f6f6f;
+    margin-top:18px;
+    line-height:1.7;
+}
+
+.card-bottom{
+    margin-top:70px;
+    padding-top:30px;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+.price{
+    font-size:44px;
+    font-weight:900;
+}
+
+/* =========================
+   SHOWCASE
+========================= */
 
 .showcase{
     max-width:1500px;
     margin:auto;
-    padding:140px 40px;
-    border-top:1px solid rgba(255,255,255,.05);
+    padding:140px 30px;
+    border-top:1px solid rgba(255,255,255,.06);
 }
 
-.showcase-title{
+.section-title{
     text-align:center;
-    margin-bottom:80px;
+    margin-bottom:90px;
 }
 
-.showcase-title h2{
-    font-size:70px;
+.section-title h2{
+    font-size:60px;
     font-weight:900;
-    font-family:'Syncopate',sans-serif;
+    font-style:italic;
 }
 
-.showcase-title p{
-    margin-top:20px;
-    color:#666;
-    text-transform:uppercase;
-    letter-spacing:5px;
-    font-size:10px;
+.section-title p{
+    margin-top:14px;
+    color:#6f6f6f;
+    letter-spacing:.35em;
+    font-size:11px;
+    font-weight:900;
 }
 
 .video-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
     gap:30px;
 }
 
-.video-card{
-    background:#050505;
-    border:1px solid rgba(255,255,255,.06);
+.video-box{
+    position:relative;
     border-radius:28px;
     overflow:hidden;
-    transition:.5s;
+    background:#000;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.45s;
 }
 
-.video-card:hover{
-    transform:translateY(-10px);
-    border-color:rgba(255,0,0,.4);
-    box-shadow:0 25px 60px rgba(255,0,0,.15);
+.video-box:hover{
+    transform:translateY(-10px) scale(1.02);
+    border-color:rgba(255,0,0,.3);
+    box-shadow:0 20px 60px rgba(255,0,0,.14);
 }
 
-.video-wrap{
-    position:relative;
+.video-box iframe{
     width:100%;
-    padding-top:177.77%;
+    aspect-ratio:9/16;
+    display:block;
 }
 
-.video-wrap iframe{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    border:none;
-}
-
-/* ===== FOOTER ===== */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
-    padding:80px 20px;
-    text-align:center;
     border-top:1px solid rgba(255,255,255,.05);
+    text-align:center;
+    padding:100px 20px;
     color:#555;
-    font-size:10px;
-    letter-spacing:4px;
+    font-size:11px;
+    letter-spacing:.25em;
     text-transform:uppercase;
-}
-
-/* ===== MOBILE ===== */
-
-@media(max-width:900px){
-
-    .nav-links{
-        display:none;
-    }
-
-    .hero{
-        padding-top:150px;
-    }
-
-    .showcase-title h2{
-        font-size:44px;
-    }
+    font-weight:800;
 }
 </style>
 </head>
@@ -441,164 +430,227 @@ footer{
 
 <canvas id="bg-canvas"></canvas>
 <div class="bg-noise"></div>
-<div class="grid-overlay"></div>
+<div class="bg-vignette"></div>
+
+<!-- NAV -->
 
 <nav>
-    <div class="nav-inner">
-        <div class="logo">
-            <div class="logo-box">
-                <span>L</span>
+    <div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+
+        <div onclick="reloadHome()" class="flex items-center gap-3 cursor-pointer">
+            <div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center skew-x-[-12deg]">
+                <span class="text-white text-xl font-black skew-x-[12deg] italic">L</span>
             </div>
 
-            <div class="logo-text">
-                LEFT-CONFIGS
+            <div class="sync text-lg font-black">
+                LEFT-<span class="text-red-600">CONFIGS</span>
             </div>
         </div>
 
-        <div class="nav-links">
-            <a href="#products">Catalogue</a>
-            <a href="#showcase">Showcase</a>
-            <a href="https://discord.gg/jjefQyP2fU" target="_blank">Discord</a>
+        <div class="hidden lg:flex items-center gap-10">
+
+            <a href="javascript:void(0)" onclick="reloadHome()" class="nav-link">
+                HOME
+            </a>
+
+            <a href="#products" class="nav-link">
+                CATALOGUE
+            </a>
+
+            <a href="#showcase" class="nav-link">
+                SHOWCASE
+            </a>
+
+            <a href="#footer" class="nav-link">
+                LICENSE
+            </a>
+
+            <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="nav-link">
+                DISCORD
+            </a>
+
         </div>
+
     </div>
 </nav>
 
-<section class="hero">
+<!-- HERO -->
 
-    <div class="hero-watermark">
-        LEFT
+<section class="hero" id="home">
+
+    <div class="watermark sync">LEFT</div>
+
+    <div class="inline-flex items-center px-5 py-2 rounded-full border border-white/10 bg-white/5 mb-10">
+        <div class="w-2 h-2 rounded-full bg-green-500 mr-3 animate-pulse"></div>
+        <span class="text-[10px] tracking-[0.3em] font-black uppercase text-gray-400">
+            SYSTEM V5.3 ONLINE
+        </span>
     </div>
 
-    <div class="hero-status">
-        <div class="status-dot"></div>
-        SYSTEM V5.3 ONLINE
-    </div>
-
-    <h1>
+    <h1 class="hero-title sync">
         EVOLVE YOUR <br>
-        <span>INSTINCTS.</span>
+        <span class="red-glow">INSTINCTS.</span>
     </h1>
 
-    <p>
+    <p class="hero-desc">
         Uncompromising performance. Detection evasion at the highest level.
-        Built for users who demand absolute superiority.
+        LEFT-CONFIGS delivers elite execution power only granted to the chosen.
     </p>
+
 </section>
+
+<!-- PRODUCTS -->
 
 <section class="products" id="products">
 
-    <!-- UE -->
+    <div class="grid">
 
-    <div class="card">
+        <!-- UE -->
 
-        <div class="tag">
-            INTERNAL
-        </div>
+        <div class="card">
 
-        <div class="card-icon">
-            <div class="ue-icon">
-                UE
-            </div>
-        </div>
-
-        <h2>UE</h2>
-
-        <p>
-            Lightweight ultra-fast core system engineered for maximum efficiency and precision.
-        </p>
-
-        <div class="price">
-            <div>
-                <span style="color:#666;font-size:12px;">STARTING FROM</span>
-                <h3>€9.97</h3>
+            <div class="card-top">
+                <div class="tag white">INTERNAL</div>
+                <div class="text-white/20 font-black text-xl">PRO</div>
             </div>
 
-            <div style="color:#00ff6a;font-size:12px;font-weight:900;">
-                SAFE
-            </div>
-        </div>
-
-        <button class="btn">
-            BUY LICENSE
-        </button>
-
-    </div>
-
-    <!-- KH -->
-
-    <div class="card">
-
-        <div class="tag">
-            PREMIUM
-        </div>
-
-        <div class="card-icon">
-            <div class="kh-icon">
-                KH
-            </div>
-        </div>
-
-        <h2>KH V2</h2>
-
-        <p>
-            Advanced multifunctional scripting platform trusted worldwide by elite users.
-        </p>
-
-        <div class="price">
-            <div>
-                <span style="color:#666;font-size:12px;">STATUS</span>
-                <h3 style="font-size:26px;">STABLE</h3>
+            <div class="icon-wrap">
+                <div class="ue">
+                    <span>UE</span>
+                </div>
             </div>
 
-            <div style="color:#00ff6a;font-size:12px;font-weight:900;">
-                ONLINE
-            </div>
-        </div>
+            <div class="card-title sync">UE</div>
 
-        <button class="btn">
-            ACCESS SCRIPT
-        </button>
-
-    </div>
-
-    <!-- YUB-X -->
-
-    <div class="card card-blue"
-    onclick="window.open('https://yub-x.net/','_blank')"
-    style="cursor:pointer;">
-
-        <div class="tag" style="background:#0077ff;">
-            EXECUTOR
-        </div>
-
-        <div class="card-icon">
-            <div class="yub-icon">
-                X
-            </div>
-        </div>
-
-        <h2 style="color:#00a2ff;">
-            YUB-X
-        </h2>
-
-        <p>
-            High-speed community driven execution engine with optimized performance.
-        </p>
-
-        <div class="price">
-            <div>
-                <span style="color:#666;font-size:12px;">PRICING</span>
-                <h3 style="color:#00a2ff;">FREE</h3>
+            <div class="card-desc">
+                Lightweight ultra-fast core system designed
+                for maximum execution efficiency.
             </div>
 
-            <div style="color:#00ff6a;font-size:12px;font-weight:900;">
-                WORKING
+            <div class="card-bottom">
+
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+                            Pricing From
+                        </div>
+
+                        <div class="price">
+                            €9.97
+                        </div>
+                    </div>
+
+                    <div class="text-green-500 font-black uppercase text-xs">
+                        SAFE
+                    </div>
+                </div>
+
+                <button class="btn">
+                    Buy License
+                </button>
+
             </div>
+
         </div>
 
-        <button class="btn">
-            OFFICIAL SITE
-        </button>
+        <!-- KH -->
+
+        <div class="card">
+
+            <div class="card-top">
+                <div class="tag red">PREMIUM</div>
+                <div class="text-red-500 font-black">CLOUD</div>
+            </div>
+
+            <div class="icon-wrap">
+                <div class="kh">
+                    <span>KH</span>
+                </div>
+            </div>
+
+            <div class="card-title sync">
+                KH V2
+            </div>
+
+            <div class="card-desc">
+                Multifunctional scripting environment trusted
+                by users worldwide.
+            </div>
+
+            <div class="card-bottom">
+
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+                            STATUS
+                        </div>
+
+                        <div class="text-2xl font-black">
+                            STABLE
+                        </div>
+                    </div>
+
+                    <div class="text-green-500 font-black uppercase text-xs">
+                        WORKING
+                    </div>
+                </div>
+
+                <button class="btn">
+                    Access Script
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- YUB -->
+
+        <div class="card blue">
+
+            <div class="card-top">
+                <div class="tag blue">EXECUTOR</div>
+                <div class="text-blue-400 font-black">ENGINE</div>
+            </div>
+
+            <div class="icon-wrap">
+                <div class="yub">
+                    <span>X</span>
+                </div>
+            </div>
+
+            <div class="card-title sync text-blue-400">
+                YUB-X
+            </div>
+
+            <div class="card-desc">
+                Community-driven ultra fast execution engine.
+            </div>
+
+            <div class="card-bottom">
+
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+                            PRICE
+                        </div>
+
+                        <div class="price text-blue-400">
+                            FREE
+                        </div>
+                    </div>
+
+                    <div class="text-green-500 font-black uppercase text-xs">
+                        ONLINE
+                    </div>
+                </div>
+
+                <button class="btn">
+                    Official Site
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -608,167 +660,194 @@ footer{
 
 <section class="showcase" id="showcase">
 
-    <div class="showcase-title">
-        <h2>VISUAL PROOF</h2>
+    <div class="section-title">
+        <h2 class="sync">VISUAL PROOF</h2>
         <p>INTELLIGENCE IN MOTION</p>
     </div>
 
     <div class="video-grid">
 
-        <!-- VIDEO 1 -->
-
-        <div class="video-card">
-            <div class="video-wrap">
-                <iframe
+        <div class="video-box">
+            <iframe
                 src="https://www.tiktok.com/embed/v2/7634461082249219329"
-                allowfullscreen>
-                </iframe>
-            </div>
+                allowfullscreen
+                loading="lazy">
+            </iframe>
         </div>
 
-        <!-- VIDEO 2 -->
-
-        <div class="video-card">
-            <div class="video-wrap">
-                <iframe
+        <div class="video-box">
+            <iframe
                 src="https://www.tiktok.com/embed/v2/7627089280732597505"
-                allowfullscreen>
-                </iframe>
-            </div>
+                allowfullscreen
+                loading="lazy">
+            </iframe>
         </div>
 
-        <!-- VIDEO 3 -->
-
-        <div class="video-card">
-            <div class="video-wrap">
-                <iframe
+        <div class="video-box">
+            <iframe
                 src="https://www.tiktok.com/embed/v2/7626723329638026497"
-                allowfullscreen>
-                </iframe>
-            </div>
+                allowfullscreen
+                loading="lazy">
+            </iframe>
         </div>
 
-        <!-- VIDEO 4 -->
-
-        <div class="video-card">
-            <div class="video-wrap">
-                <iframe
+        <div class="video-box">
+            <iframe
                 src="https://www.tiktok.com/embed/v2/7625962066465148161"
-                allowfullscreen>
-                </iframe>
-            </div>
+                allowfullscreen
+                loading="lazy">
+            </iframe>
         </div>
 
     </div>
 
 </section>
 
-<footer>
+<!-- FOOTER -->
+
+<footer id="footer">
     © 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
 </footer>
 
 <script>
 
-/* ===== PREMIUM REAL BACKGROUND ===== */
+/* =========================
+   HOME BUTTON RELOAD
+========================= */
 
-const canvas = document.getElementById("bg-canvas");
-const ctx = canvas.getContext("2d");
+function reloadHome(){
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
 
-let particles = [];
-let mouse = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2
-};
-
-function resizeCanvas(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    setTimeout(()=>{
+        location.reload();
+    },300);
 }
 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
+/* =========================
+   REAL BACKGROUND
+========================= */
 
-window.addEventListener("mousemove", (e)=>{
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+
+let w,h;
+let particles=[];
+
+function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize',resize);
+resize();
 
 class Particle{
-
     constructor(){
         this.reset();
     }
 
     reset(){
-
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-
-        this.size = Math.random() * 2 + 1;
-
-        this.speedX = (Math.random() - .5) * .4;
-        this.speedY = (Math.random() - .5) * .4;
-
-        this.opacity = Math.random() * .5;
+        this.x = Math.random()*w;
+        this.y = Math.random()*h;
+        this.size = Math.random()*2+1;
+        this.speedX = (Math.random()-.5)*0.25;
+        this.speedY = (Math.random()-.5)*0.25;
+        this.alpha = Math.random()*0.5;
     }
 
     update(){
-
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if(
-            this.x < 0 ||
-            this.x > canvas.width ||
-            this.y < 0 ||
-            this.y > canvas.height
-        ){
+        if(this.x<0 || this.x>w || this.y<0 || this.y>h){
             this.reset();
         }
     }
 
     draw(){
-
         ctx.beginPath();
-
-        ctx.arc(
-            this.x,
-            this.y,
-            this.size,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
-
+        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
         ctx.fill();
     }
 }
 
-for(let i = 0; i < 140; i++){
+for(let i=0;i<140;i++){
     particles.push(new Particle());
 }
 
+let time = 0;
+
 function animate(){
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    time += 0.002;
 
-    const glow = ctx.createRadialGradient(
-        mouse.x,
-        mouse.y,
+    const gradient = ctx.createLinearGradient(0,0,w,h);
+
+    gradient.addColorStop(0,'#020202');
+    gradient.addColorStop(.5,'#080808');
+    gradient.addColorStop(1,'#000000');
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0,0,w,h);
+
+    /* animated glow */
+
+    const glow1 = ctx.createRadialGradient(
+        w*0.3 + Math.sin(time)*200,
+        h*0.4,
         0,
-        mouse.x,
-        mouse.y,
+        w*0.3,
+        h*0.4,
         500
     );
 
-    glow.addColorStop(0,"rgba(255,0,0,.15)");
-    glow.addColorStop(1,"transparent");
+    glow1.addColorStop(0,'rgba(255,0,0,.12)');
+    glow1.addColorStop(1,'transparent');
 
-    ctx.fillStyle = glow;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = glow1;
+    ctx.fillRect(0,0,w,h);
 
-    particles.forEach((p)=>{
+    const glow2 = ctx.createRadialGradient(
+        w*0.8,
+        h*0.2 + Math.cos(time)*150,
+        0,
+        w*0.8,
+        h*0.2,
+        400
+    );
+
+    glow2.addColorStop(0,'rgba(255,255,255,.05)');
+    glow2.addColorStop(1,'transparent');
+
+    ctx.fillStyle = glow2;
+    ctx.fillRect(0,0,w,h);
+
+    /* grid */
+
+    ctx.strokeStyle = 'rgba(255,255,255,.03)';
+    ctx.lineWidth = 1;
+
+    for(let x=0;x<w;x+=70){
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,h);
+        ctx.stroke();
+    }
+
+    for(let y=0;y<h;y+=70){
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(w,y);
+        ctx.stroke();
+    }
+
+    /* particles */
+
+    particles.forEach(p=>{
         p.update();
         p.draw();
     });
