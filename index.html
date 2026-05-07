@@ -3,378 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rivals Cheats | Early Summer Edition</title>
+    <title>left-configs | Premium Gaming Scripts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;900&display=swap');
 
         :root {
-            --summer-sky: #0ea5e9;
-            --summer-bg: #f8fafc;
-            --deep-ocean: #075985;
-            --sunlight: #fef08a;
+            --accent-red: #ff0000;
+            --dark-bg: #050505;
+            --card-bg: #0e0e0e;
+            --text-gray: #888888;
         }
 
         body {
-            background-color: var(--summer-bg);
-            color: #1e293b;
-            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* 夏の空の背景 */
-        #summer-background {
+        /* 背景エフェクト */
+        #background-canvas {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            top: 0;
-            left: 0;
-            background: linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%);
+            background: radial-gradient(circle at 50% 10%, #200000 0%, #050505 100%);
         }
 
-        .sun-ray {
-            position: absolute;
-            top: -10%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
-            filter: blur(60px);
-            animation: pulse 8s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulse {
-            from { transform: scale(1) translate(0, 0); opacity: 0.5; }
-            to { transform: scale(1.2) translate(-5%, 5%); opacity: 0.8; }
-        }
-
-        /* プレミアム・グラスカード */
-        .premium-card {
-            background: rgba(255, 255, 255, 0.7);
+        /* ヘッダー */
+        .glass-header {
+            background: rgba(5, 5, 5, 0.9);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 20px 50px rgba(14, 165, 233, 0.08);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .premium-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
-            overflow: hidden;
-        }
-
-        .premium-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .premium-card:hover::before {
-            left: 100%;
         }
 
         .premium-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px rgba(14, 165, 233, 0.15);
-            border-color: var(--summer-sky);
+            transform: translateY(-10px);
+            border-color: var(--accent-red);
+            box-shadow: 0 30px 60px rgba(255, 0, 0, 0.1);
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        .premium-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 0, 0, 0.03) 100%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .premium-card:hover::after {
+            opacity: 1;
+        }
+
+        .syncopate {
+            font-family: 'Syncopate', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .red-glow {
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
         }
 
         .btn-action {
-            background: #0ea5e9;
-            color: white;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+            background: #ffffff;
+            color: #000000;
+            font-weight: 900;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
         }
 
         .btn-action:hover {
-            background: #0284c7;
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
+            background: var(--accent-red);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
         }
 
-        .badge-summer {
-            background: #e0f2fe;
-            color: #0369a1;
-            font-size: 0.7rem;
-            font-weight: 800;
+        .badge {
+            font-size: 0.6rem;
+            font-weight: 900;
             padding: 4px 12px;
-            border-radius: 99px;
-            text-transform: uppercase;
+            border-radius: 2px;
+            letter-spacing: 0.1em;
         }
 
         /* ページアニメーション */
         .page-content {
             display: none;
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: slideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .page-content.active {
             display: block;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ロゴ */
-        .logo-ring {
-            background: linear-gradient(135deg, #0ea5e9, #0284c7);
-            padding: 2px;
-            border-radius: 12px;
+        .logo-box {
+            background: #ff0000;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
         }
 
-        .video-thumbnail {
-            aspect-ratio: 16/9;
-            background: #e2e8f0;
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-thumbnail::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
-        }
-
-        .play-circle {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            z-index: 10;
-            transition: all 0.3s;
-        }
-
-        .video-card:hover .play-circle {
-            transform: scale(1.15);
-            background: #0ea5e9;
-            color: white;
+        .video-overlay {
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
         }
     </style>
 </head>
 <body>
 
-    <div id="summer-background">
-        <div class="sun-ray"></div>
-    </div>
+    <div id="background-canvas"></div>
 
-    <!-- ナビゲーション -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-md border-b border-sky-100">
-        <div class="flex items-center justify-between px-10 py-5 max-w-7xl mx-auto">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-header">
+        <div class="flex items-center justify-between px-8 py-5 max-w-7xl mx-auto">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="location.reload()">
-                <div class="logo-ring">
-                    <div class="bg-white text-[#0ea5e9] font-black rounded-[10px] px-3 py-1 text-xl">R</div>
+                <div class="logo-box px-4 py-1">
+                    <span class="text-white font-black text-xl italic">L</span>
                 </div>
-                <span class="text-2xl font-black tracking-tighter text-[#0f172a] uppercase">Rivals <span class="font-normal text-sky-500">Cheats</span></span>
+                <span class="text-lg font-black syncopate tracking-tighter">left-<span class="text-red-600">configs</span></span>
             </div>
-            <div class="hidden md:flex items-center space-x-10 text-[11px] font-extrabold uppercase tracking-widest text-slate-500">
-                <a href="javascript:void(0)" onclick="location.reload()" class="hover:text-sky-600 transition">Home</a>
-                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-sky-600 transition">Catalog</a>
-                <a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-sky-600 transition">Legal</a>
-                <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-sky-600 transition">Support</a>
-                <a href="#" class="bg-slate-900 text-white px-8 py-3 rounded-full hover:bg-sky-600 transition-colors shadow-lg shadow-slate-200">Client Login</a>
+            <div class="hidden md:flex items-center space-x-10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
+                <a href="javascript:void(0)" onclick="location.reload()" class="hover:text-white transition">Home</a>
+                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-white transition">Inventory</a>
+                <a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-white transition">Legal</a>
+                <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-white transition">Support</a>
+                <a href="#" class="bg-white text-black px-6 py-2 rounded-sm hover:bg-red-600 hover:text-white transition shadow-lg">Console</a>
             </div>
         </div>
     </nav>
 
-    <!-- メイン (Home) -->
+    <!-- Main Content -->
     <div id="home-page" class="page-content active pt-40">
-        <!-- ヒーロー -->
-        <header class="text-center py-20 px-4">
-            <div class="inline-block badge-summer mb-6">Summer 2026 Collection</div>
-            <h1 class="text-7xl md:text-8xl font-black mb-8 gradient-text tracking-tighter">Start the Season<br>with Power.</h1>
-            <p class="max-w-2xl mx-auto text-slate-500 leading-relaxed mb-12 text-xl">
-                Elevate your gameplay with the most sophisticated tools in the market. Clean, secure, and ready for summer dominance.
+        <!-- Hero Section -->
+        <header class="text-center py-20 px-6">
+            <div class="inline-block border border-red-600/30 text-red-600 text-[10px] font-black px-4 py-1 mb-8 uppercase tracking-[0.3em]">
+                Unlocking Maximum Potential
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black mb-8 italic syncopate leading-[0.9] tracking-tighter">
+                PRECISION <br><span class="text-red-600 red-glow">ENGINEERING.</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-gray-500 font-medium mb-12 text-lg">
+                left-configsは、あなたのプレイ体験を劇的に変える次世代のスクリプトソリューションを提供します。
             </p>
-
-            <div class="flex justify-center items-center space-x-20">
+            <div class="flex justify-center space-x-16">
                 <div>
-                    <div class="text-4xl font-black text-slate-900">4,992+</div>
-                    <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-2">Active Licenses</div>
+                    <span class="block text-3xl font-black text-white">4,992+</span>
+                    <span class="text-[9px] font-bold text-gray-600 uppercase tracking-widest">Global Users</span>
                 </div>
-                <div class="h-10 w-px bg-slate-200"></div>
+                <div class="w-px h-12 bg-white/10"></div>
                 <div>
-                    <div class="text-4xl font-black text-slate-900">99.9%</div>
-                    <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-2">Uptime Rate</div>
+                    <span class="block text-3xl font-black text-red-600">UD</span>
+                    <span class="text-[9px] font-bold text-gray-600 uppercase tracking-widest">Status</span>
                 </div>
             </div>
         </header>
 
-        <!-- カタログ -->
-        <main id="products-section" class="max-w-7xl mx-auto px-6 pb-40">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-32">
+        <!-- Product Grid -->
+        <main id="products-section" class="max-w-7xl mx-auto px-6 py-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <!-- Matcha -->
-                <div class="premium-card rounded-[32px] p-10 flex flex-col">
-                    <div class="flex justify-between items-center mb-12">
-                        <div class="badge-summer">Official Build</div>
-                        <span class="text-sky-400"><i class="fa-solid fa-bolt"></i></span>
+                <div class="premium-card rounded-xl p-10 flex flex-col group">
+                    <div class="flex justify-between items-start mb-16">
+                        <span class="badge bg-white text-black">INTERNAL</span>
+                        <div class="w-8 h-8 border border-white/10 rounded flex items-center justify-center text-red-600 group-hover:border-red-600 transition">
+                            <i class="fa-solid fa-bolt-lightning text-xs"></i>
+                        </div>
                     </div>
-                    <div class="flex-grow flex flex-col items-center mb-12">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Internal Engine</div>
-                        <h3 class="text-5xl font-black text-slate-900 italic">MATCHA</h3>
+                    <div class="flex-grow text-center mb-16">
+                        <p class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.4em] mb-2">High Efficiency</p>
+                        <h3 class="text-5xl font-black italic tracking-tighter group-hover:scale-105 transition-transform duration-500">MATCHA</h3>
                     </div>
                     <div class="mt-auto">
-                        <div class="flex items-baseline space-x-2 mb-8">
-                            <span class="text-4xl font-black text-slate-900">€9.97</span>
-                            <span class="text-sm text-slate-300 line-through">€12.00</span>
+                        <div class="flex justify-between items-end mb-8">
+                            <div class="text-3xl font-black">€9.97</div>
+                            <div class="text-[10px] text-green-500 font-bold uppercase tracking-widest">Working</div>
                         </div>
-                        <button class="btn-action w-full py-5 rounded-2xl text-sm uppercase">Get Instant Access</button>
+                        <button class="btn-action w-full py-5 rounded-lg text-xs">Purchase License</button>
                     </div>
                 </div>
 
-                <!-- KH -->
-                <div class="premium-card rounded-[32px] p-10 flex flex-col border-b-4 border-b-sky-400">
-                    <div class="flex justify-between items-center mb-12">
-                        <div class="bg-green-50 text-green-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">Community Favorite</div>
-                        <span class="text-green-500"><i class="fa-solid fa-gift"></i></span>
-                    </div>
-                    <div class="flex-grow flex flex-col items-center mb-12">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Cloud Script</div>
-                        <h3 class="text-5xl font-black text-slate-900">KH <span class="text-sky-500">V2</span></h3>
-                    </div>
-                    <div class="mt-auto">
-                        <div class="mb-8">
-                            <span class="text-4xl font-black text-green-600">FREE</span>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">Open to everyone</p>
+                <!-- KH V2 (猫耳シルエット再現) -->
+                <div class="premium-card rounded-xl p-10 flex flex-col border-b-2 border-red-600 shadow-2xl shadow-red-900/10 group">
+                    <div class="flex justify-between items-start mb-16">
+                        <span class="badge bg-red-600 text-white">BEST SELLER</span>
+                        <div class="w-8 h-8 border border-red-600 rounded flex items-center justify-center text-red-600">
+                            <i class="fa-solid fa-crown text-xs"></i>
                         </div>
-                        <a href="https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua" target="_blank" class="btn-action w-full py-5 rounded-2xl text-sm uppercase block text-center bg-slate-900 hover:bg-black shadow-slate-300">Run Loader</a>
                     </div>
-                </div>
-
-                <!-- Yub-X -->
-                <div class="premium-card rounded-[32px] p-10 flex flex-col">
-                    <div class="flex justify-between items-center mb-12">
-                        <div class="badge-summer">Legacy Tool</div>
-                        <span class="text-amber-400"><i class="fa-solid fa-shield-halved"></i></span>
-                    </div>
-                    <div class="flex-grow flex flex-col items-center mb-12">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Execution Core</div>
-                        <div class="scale-125 py-4">
-                            <svg viewBox="0 0 100 100" class="w-16 h-16">
-                                <path d="M 50,5 L 95,85 L 5,85 Z" fill="#0ea5e9" />
-                                <text x="50" y="65" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="28" fill="white">Y</text>
+                    <div class="flex-grow flex flex-col items-center mb-16">
+                        <p class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.4em] mb-4">Cloud Based</p>
+                        <!-- KHロゴ (猫耳シルエット) -->
+                        <div class="relative w-32 h-24">
+                            <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-[0_0_10px_rgba(255,0,0,0.5)]">
+                                <!-- 猫耳のアウトライン -->
+                                <path d="M15 40 Q15 10 35 25 L50 35 L65 25 Q85 10 85 40 L85 70 Q85 80 75 80 L25 80 Q15 80 15 70 Z" fill="none" stroke="#ff0000" stroke-width="2.5" />
+                                <text x="50" y="65" text-anchor="middle" fill="white" font-family="Inter" font-weight="900" font-size="28">KH</text>
                             </svg>
                         </div>
+                        <span class="text-[10px] font-black text-red-600 tracking-[0.5em] mt-2">VERSION 2</span>
                     </div>
                     <div class="mt-auto">
-                        <div class="mb-8">
-                            <span class="text-4xl font-black text-green-600">FREE</span>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">Direct Download</p>
+                        <div class="flex justify-between items-end mb-8">
+                            <div class="text-3xl font-black">€9.97</div>
+                            <div class="text-[10px] text-red-600 font-bold uppercase tracking-widest">Restocking</div>
                         </div>
-                        <a href="https://yub-x.net/" target="_blank" class="btn-action w-full py-5 rounded-2xl text-sm uppercase block text-center">Get Executor</a>
+                        <button class="w-full py-5 rounded-lg text-xs bg-white/5 text-gray-600 cursor-not-allowed uppercase font-bold">Sold Out</button>
                     </div>
                 </div>
+
+                <!-- YUB-X (三角形グラデーションロゴ再現) -->
+                <div class="premium-card rounded-xl p-10 flex flex-col group">
+                    <div class="flex justify-between items-start mb-16">
+                        <span class="badge bg-white/10 text-gray-400">EXECUTOR</span>
+                        <div class="w-8 h-8 border border-white/10 rounded flex items-center justify-center text-gray-400 group-hover:text-blue-500 group-hover:border-blue-500 transition">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow flex flex-col items-center mb-16">
+                        <p class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.4em] mb-4">Core Tech</p>
+                        <!-- YUB-Xロゴ (三角形グラデーション) -->
+                        <div class="w-32 h-24 relative">
+                            <svg viewBox="0 0 100 90" class="w-full h-full">
+                                <defs>
+                                    <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff9000" />
+                                        <stop offset="50%" style="stop-color:#e000ff" />
+                                        <stop offset="100%" style="stop-color:#00e0ff" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M50 5 L95 85 L5 85 Z" fill="none" stroke="url(#triGrad)" stroke-width="4" stroke-linejoin="round" />
+                                <text x="50" y="65" text-anchor="middle" fill="url(#triGrad)" font-family="Inter" font-weight="900" font-size="28">Y</text>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-black italic tracking-widest uppercase mt-4">YUB-X</h3>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex justify-between items-end mb-8">
+                            <div class="text-3xl font-black text-green-500 italic">FREE</div>
+                            <div class="text-[10px] text-green-500 font-bold uppercase tracking-widest">Active</div>
+                        </div>
+                        <a href="https://yub-x.net/" target="_blank" class="btn-action w-full py-5 rounded-lg text-xs block text-center">Download Now</a>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- 動画セクション -->
-            <div class="pt-20">
+            <!-- Showcase Section -->
+            <div class="mt-48">
                 <div class="flex flex-col items-center mb-20">
-                    <h2 class="text-4xl font-black text-slate-900 uppercase tracking-tight italic">Action Replays</h2>
-                    <p class="text-slate-400 mt-2 font-medium">See the power in action before you buy.</p>
+                    <h2 class="text-4xl font-black syncopate italic text-white tracking-tighter">Performance Replays</h2>
+                    <div class="h-1 w-20 bg-red-600 mt-4"></div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    
-                    <a href="https://vt.tiktok.com/ZS9pRx8pK/" target="_blank" class="video-card group">
-                        <div class="video-thumbnail mb-6">
-                            <div class="play-circle group-hover:bg-sky-500 group-hover:text-white group-hover:scale-110 transition-all">
-                                <i class="fa-solid fa-play ml-1"></i>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <a href="https://vt.tiktok.com/ZS9pRx8pK/" target="_blank" class="relative group rounded-2xl overflow-hidden aspect-video bg-zinc-900 border border-white/5">
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:bg-red-600 group-hover:scale-110 transition duration-500">
+                                <i class="fa-solid fa-play text-white ml-1"></i>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center px-2">
-                            <span class="font-bold text-slate-900">Showcase #01</span>
-                            <span class="text-[10px] font-black text-sky-500 uppercase tracking-widest">Aimbot & Visuals</span>
+                        <div class="absolute bottom-0 left-0 right-0 p-8 video-overlay z-10">
+                            <p class="text-red-600 text-[10px] font-black uppercase mb-1">Combat Module</p>
+                            <h4 class="font-bold text-xl">Matcha External: Visual Showcase</h4>
                         </div>
                     </a>
 
-                    <a href="https://vt.tiktok.com/ZS9pRbETM/" target="_blank" class="video-card group">
-                        <div class="video-thumbnail mb-6">
-                            <div class="play-circle group-hover:bg-sky-500 group-hover:text-white group-hover:scale-110 transition-all">
-                                <i class="fa-solid fa-play ml-1"></i>
+                    <a href="https://vt.tiktok.com/ZS9pRbETM/" target="_blank" class="relative group rounded-2xl overflow-hidden aspect-video bg-zinc-900 border border-white/5">
+                        <div class="absolute inset-0 flex items-center justify-center z-20">
+                            <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:bg-red-600 group-hover:scale-110 transition duration-500">
+                                <i class="fa-solid fa-play text-white ml-1"></i>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center px-2">
-                            <span class="font-bold text-slate-900">Showcase #02</span>
-                            <span class="text-[10px] font-black text-sky-500 uppercase tracking-widest">Movement Mastery</span>
+                        <div class="absolute bottom-0 left-0 right-0 p-8 video-overlay z-10">
+                            <p class="text-red-600 text-[10px] font-black uppercase mb-1">Movement Module</p>
+                            <h4 class="font-bold text-xl">KH V2: Advanced Physics</h4>
                         </div>
                     </a>
-
-                    <a href="https://vt.tiktok.com/ZS9pRQEoA/" target="_blank" class="video-card group">
-                        <div class="video-thumbnail mb-6">
-                            <div class="play-circle group-hover:bg-sky-500 group-hover:text-white group-hover:scale-110 transition-all">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center px-2">
-                            <span class="font-bold text-slate-900">Showcase #03</span>
-                            <span class="text-[10px] font-black text-sky-500 uppercase tracking-widest">Secure Inject</span>
-                        </div>
-                    </a>
-
-                    <a href="https://vt.tiktok.com/ZS9pRvNy7/" target="_blank" class="video-card group">
-                        <div class="video-thumbnail mb-6">
-                            <div class="play-circle group-hover:bg-sky-500 group-hover:text-white group-hover:scale-110 transition-all">
-                                <i class="fa-solid fa-play ml-1"></i>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center px-2">
-                            <span class="font-bold text-slate-900">Showcase #04</span>
-                            <span class="text-[10px] font-black text-sky-500 uppercase tracking-widest">Config Setup</span>
-                        </div>
-                    </a>
-
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- 利用規約 (Terms) -->
-    <div id="terms-page" class="page-content pt-48 pb-32">
-        <div class="max-w-4xl mx-auto px-10">
-            <div class="bg-white rounded-[40px] p-16 shadow-2xl shadow-sky-100 border border-sky-50">
-                <h1 class="text-5xl font-black text-slate-900 mb-16 border-b-4 border-sky-400 pb-4 inline-block">Terms of Service</h1>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 text-slate-500 text-sm leading-relaxed">
-                    <div>
-                        <h2 class="text-slate-900 font-bold text-lg mb-4">01. Acceptance</h2>
-                        <p>By entering this platform, you acknowledge our authority over the provided assets. These protocols are designed for summer 2026 operations.</p>
-                    </div>
-                    <div>
-                        <h2 class="text-slate-900 font-bold text-lg mb-4">02. Purchases</h2>
-                        <p>All premium acquisitions are final. Our digital delivery system ensures immediate access upon verification.</p>
-                    </div>
-                    <div>
-                        <h2 class="text-slate-900 font-bold text-lg mb-2 underline decoration-sky-400 underline-offset-4">03. Refund Policy</h2>
-                        <p>We do not issue refunds for digital goods once delivered. Technical support is available via Discord for any injection issues.</p>
-                    </div>
+    <!-- Legal Page -->
+    <div id="terms-page" class="page-content pt-40 pb-40">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-zinc-900/50 border border-white/5 rounded-2xl p-16">
+                <div class="flex items-center space-x-4 mb-16">
+                    <div class="w-2 h-10 bg-red-600"></div>
+                    <h2 class="text-5xl font-black syncopate">Terms of Service</h2>
                 </div>
-                <div class="mt-20 text-center">
-                    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">Official Store Protocol v3.1</p>
+                
+                <div class="space-y-16 text-gray-500">
+                    <section>
+                        <h3 class="text-white font-bold text-xl mb-4">01. Service Agreement</h3>
+                        <p class="leading-relaxed">left-configsが提供する全ての製品およびサービスは、娯楽目的でのみ提供されています。当サービスを利用することにより、全ての利用規約に同意したものとみなされます。</p>
+                    </section>
+                    
+                    <section>
+                        <h3 class="text-white font-bold text-xl mb-4">02. No Refund Policy</h3>
+                        <p class="leading-relaxed">デジタル商品の性質上、一度ライセンスが付与された製品の返金および交換は一切受け付けておりません。互換性の問題等については、購入前に必ずサポートへお問い合わせください。</p>
+                    </section>
+                    
+                    <section>
+                        <h3 class="text-white font-bold text-xl mb-4">03. User Responsibility</h3>
+                        <p class="leading-relaxed">当ツールの使用によって生じたアカウントの制限、停止、その他いかなる損害についても、left-configsは一切の責任を負いません。全てのリスクはユーザーが負うものとします。</p>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 py-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-600 font-bold text-[10px] uppercase tracking-widest">
+            <p>© 2026 left-configs. Developed for the elite.</p>
+            <div class="flex space-x-8 mt-6 md:mt-0">
+                <a href="#" class="hover:text-white transition">Discord</a>
+                <a href="#" class="hover:text-white transition">TikTok</a>
+                <a href="#" class="hover:text-white transition">Status Page</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function showPage(pageId) {
@@ -390,38 +355,35 @@
             }, 100);
         }
 
-        // 夏のパーティクル (光の粒)
-        function createSunlightParticles() {
-            const container = document.getElementById('summer-background');
-            const particleCount = 40;
-
-            for (let i = 0; i < particleCount; i++) {
+        // 赤い浮遊パーティクル
+        function createParticles() {
+            const container = document.getElementById('background-canvas');
+            const count = 25;
+            for(let i=0; i<count; i++) {
                 const p = document.createElement('div');
                 p.style.position = 'absolute';
-                p.style.width = Math.random() * 6 + 2 + 'px';
+                p.style.width = Math.random() * 2 + 'px';
                 p.style.height = p.style.width;
-                p.style.background = 'white';
-                p.style.borderRadius = '50%';
-                p.style.top = Math.random() * 100 + '%';
+                p.style.background = '#ff0000';
                 p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
                 p.style.opacity = Math.random() * 0.4;
-                p.style.filter = 'blur(2px)';
+                p.style.boxShadow = '0 0 8px #ff0000';
                 
-                const duration = Math.random() * 20 + 10;
+                const duration = Math.random() * 10000 + 10000;
                 p.animate([
-                    { transform: 'translate(0,0) scale(1)', opacity: 0.2 },
-                    { transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * -100 - 50}px) scale(1.5)`, opacity: 0 }
+                    { transform: 'translateY(0) rotate(0deg)', opacity: p.style.opacity },
+                    { transform: `translateY(-200px) rotate(360deg)`, opacity: 0 }
                 ], {
-                    duration: duration * 1000,
+                    duration: duration,
                     iterations: Infinity,
-                    easing: 'ease-out'
+                    easing: 'linear'
                 });
-
                 container.appendChild(p);
             }
         }
 
-        window.onload = createSunlightParticles;
+        window.onload = createParticles;
     </script>
 </body>
 </html>
