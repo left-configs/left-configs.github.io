@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>LEFT-CONFIGS | Elite Solutions</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -11,10 +12,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
 
 :root{
-    --accent-red:#ff0000;
-    --dark-bg:#030303;
-    --card-bg:#0a0a0a;
-    --silver-grad:linear-gradient(135deg,#ffffff 0%,#a1a1a1 100%);
+    --bg:#030303;
+    --card:#0a0a0a;
+    --red:#ff0000;
+    --blue:#00a2ff;
 }
 
 *{
@@ -25,269 +26,413 @@
 
 body{
     background:#000;
-    color:#fff;
-    font-family:'Inter',sans-serif;
+    color:white;
     overflow-x:hidden;
+    font-family:'Inter',sans-serif;
 }
+
+/* ===== REAL BACKGROUND ===== */
 
 #bg-canvas{
     position:fixed;
     inset:0;
     width:100%;
     height:100%;
-    z-index:-2;
+    z-index:-3;
     background:#000;
 }
 
-.bg-overlay{
+.bg-noise{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    opacity:.05;
+    background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,0,0,.35), transparent 25%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,.08), transparent 20%),
+    radial-gradient(circle at 50% 80%, rgba(255,0,0,.2), transparent 30%);
+    filter:blur(70px);
+    animation:bgMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+    0%{
+        transform:scale(1) translateY(0px);
+    }
+    100%{
+        transform:scale(1.2) translateY(-30px);
+    }
+}
+
+.grid-overlay{
     position:fixed;
     inset:0;
     z-index:-1;
-    background:
-    radial-gradient(circle at center,
-    transparent 0%,
-    rgba(0,0,0,.85) 100%);
+    background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(circle at center, black 30%, transparent 100%);
 }
 
-.glass-header{
-    background:rgba(0,0,0,.8);
+/* ===== NAV ===== */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:999;
+    background:rgba(0,0,0,.7);
     backdrop-filter:blur(20px);
     border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.syncopate{
+.nav-inner{
+    max-width:1400px;
+    margin:auto;
+    padding:22px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
+
+.logo-box{
+    width:42px;
+    height:42px;
+    background:red;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:skewX(-10deg);
+}
+
+.logo-box span{
+    transform:skewX(10deg);
+    font-size:24px;
+    font-weight:900;
+}
+
+.logo-text{
     font-family:'Syncopate',sans-serif;
+    font-weight:700;
+    letter-spacing:-1px;
+}
+
+.nav-links{
+    display:flex;
+    gap:50px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-weight:700;
+}
+
+.nav-links a{
+    color:#888;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    padding-top:180px;
+    padding-bottom:120px;
+    text-align:center;
+    position:relative;
 }
 
 .hero-watermark{
     position:absolute;
-    top:10%;
+    top:0;
     left:50%;
     transform:translateX(-50%);
-    font-size:clamp(140px,20vw,350px);
+    font-size:22vw;
     font-weight:900;
     opacity:.03;
     pointer-events:none;
     user-select:none;
 }
 
-.red-glow{
-    text-shadow:0 0 25px rgba(255,0,0,.8);
-}
-
-.blue-glow{
-    text-shadow:0 0 25px rgba(0,162,255,.8);
+.hero-status{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 18px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    border-radius:999px;
+    margin-bottom:40px;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:3px;
 }
 
 .status-dot{
-    width:6px;
-    height:6px;
-    border-radius:999px;
-    display:inline-block;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#00ff6a;
+    box-shadow:0 0 12px #00ff6a;
 }
 
-.page-content{
-    display:none;
-}
-
-.page-content.active{
-    display:block;
-    animation:fade .8s ease;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.premium-card{
-    background:#0a0a0a;
-    border:1px solid rgba(255,255,255,.05);
-    transition:.5s;
-    overflow:hidden;
-    position:relative;
-    min-height:600px;
-}
-
-.premium-card:hover{
-    transform:translateY(-10px);
-    border-color:rgba(255,0,0,.4);
-    box-shadow:0 30px 80px rgba(255,0,0,.15);
-}
-
-.premium-card.yub-hover:hover{
-    border-color:rgba(0,162,255,.5);
-    box-shadow:0 30px 80px rgba(0,162,255,.15);
-}
-
-.card-icon-container{
-    width:160px;
-    height:160px;
-    border-radius:24px;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.ue-icon-repro{
-    width:100%;
-    height:100%;
-    background:#000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-}
-
-.ue-icon-repro::before{
-    content:'';
-    position:absolute;
-    inset:12%;
-    border:8px solid #fff;
-}
-
-.ue-icon-repro span{
-    font-size:64px;
+.hero h1{
+    font-size:clamp(70px,10vw,170px);
+    line-height:.9;
+    font-family:'Syncopate',sans-serif;
     font-weight:900;
-    letter-spacing:-5px;
+    margin-bottom:40px;
 }
 
-.kh-icon-repro{
-    width:100%;
-    height:100%;
-    background:#000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
+.hero h1 span{
+    color:red;
+    text-shadow:0 0 30px rgba(255,0,0,.8);
 }
 
-.kh-icon-repro::before{
-    content:'';
-    position:absolute;
-    inset:10%;
-    border:5px solid red;
+.hero p{
+    max-width:700px;
+    margin:auto;
+    color:#777;
+    font-size:18px;
+    line-height:1.7;
 }
 
-.kh-text-sub{
-    font-size:26px;
-    font-weight:900;
+/* ===== CARDS ===== */
+
+.products{
+    max-width:1400px;
+    margin:auto;
+    padding:100px 40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:40px;
 }
 
-.yub-icon-repro{
-    width:100%;
-    height:100%;
-    background:#00a2ff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-}
-
-.yub-icon-repro::before{
-    content:'';
-    position:absolute;
-    inset:10%;
-    border:6px solid #0056b3;
-}
-
-.yub-icon-repro span{
-    font-size:90px;
-    font-weight:900;
-    color:white;
-}
-
-.btn-silver{
-    background:var(--silver-grad);
-    color:#000;
-    font-weight:900;
-    transition:.3s;
-}
-
-.btn-silver:hover{
-    transform:scale(1.02);
-    box-shadow:0 0 20px rgba(255,255,255,.3);
-}
-
-.copy-box{
+.card{
     background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:30px;
+    padding:40px;
+    min-height:620px;
+    transition:.5s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-15px);
+    border-color:rgba(255,0,0,.5);
+    box-shadow:0 40px 100px rgba(255,0,0,.15);
+}
+
+.card-blue:hover{
+    border-color:rgba(0,162,255,.5);
+    box-shadow:0 40px 100px rgba(0,162,255,.2);
+}
+
+.tag{
+    display:inline-block;
+    padding:7px 14px;
+    font-size:10px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    background:red;
+    border-radius:8px;
+}
+
+.card-icon{
+    width:170px;
+    height:170px;
+    border-radius:30px;
+    margin:60px auto 40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:black;
     border:1px solid rgba(255,255,255,.08);
 }
 
-/* FIXED VIDEO SYSTEM */
+.ue-icon{
+    border:8px solid white;
+    width:120px;
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+    font-weight:900;
+}
 
-.video-card{
-    position:relative;
-    border-radius:26px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.08);
-    background:#050505;
+.kh-icon{
+    border:5px solid red;
+    width:120px;
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    font-weight:900;
+}
+
+.yub-icon{
+    background:#00a2ff;
+    border:6px solid #004c8c;
+    width:120px;
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:70px;
+    font-weight:900;
+}
+
+.card h2{
+    text-align:center;
+    font-size:42px;
+    font-weight:900;
+    font-family:'Syncopate',sans-serif;
+}
+
+.card p{
+    text-align:center;
+    color:#666;
+    margin-top:20px;
+    line-height:1.7;
+}
+
+.price{
+    margin-top:80px;
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+}
+
+.price h3{
+    font-size:44px;
+    font-weight:900;
+}
+
+.btn{
+    width:100%;
+    margin-top:30px;
+    padding:18px;
+    border:none;
+    border-radius:14px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    background:white;
+    color:black;
+    cursor:pointer;
     transition:.4s;
 }
 
-.video-card:hover{
-    transform:translateY(-6px) scale(1.02);
-    border-color:rgba(255,0,0,.4);
-    box-shadow:0 20px 50px rgba(255,0,0,.15);
+.btn:hover{
+    transform:scale(1.03);
 }
 
-.video-wrapper{
+/* ===== VIDEOS ===== */
+
+.showcase{
+    max-width:1500px;
+    margin:auto;
+    padding:140px 40px;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+.showcase-title{
+    text-align:center;
+    margin-bottom:80px;
+}
+
+.showcase-title h2{
+    font-size:70px;
+    font-weight:900;
+    font-family:'Syncopate',sans-serif;
+}
+
+.showcase-title p{
+    margin-top:20px;
+    color:#666;
+    text-transform:uppercase;
+    letter-spacing:5px;
+    font-size:10px;
+}
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.video-card{
+    background:#050505;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:28px;
+    overflow:hidden;
+    transition:.5s;
+}
+
+.video-card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(255,0,0,.4);
+    box-shadow:0 25px 60px rgba(255,0,0,.15);
+}
+
+.video-wrap{
     position:relative;
     width:100%;
-    aspect-ratio:9/16;
-    overflow:hidden;
+    padding-top:177.77%;
 }
 
-.video-wrapper iframe{
+.video-wrap iframe{
+    position:absolute;
+    inset:0;
     width:100%;
     height:100%;
     border:none;
 }
 
-.video-label{
-    position:absolute;
-    top:12px;
-    left:12px;
-    z-index:2;
-    background:rgba(0,0,0,.7);
-    border:1px solid rgba(255,255,255,.1);
-    padding:6px 10px;
-    border-radius:999px;
+/* ===== FOOTER ===== */
+
+footer{
+    padding:80px 20px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.05);
+    color:#555;
     font-size:10px;
-    font-weight:800;
-    letter-spacing:.2em;
+    letter-spacing:4px;
     text-transform:uppercase;
 }
 
-.lang-dropdown{
-    display:none;
-    position:absolute;
-    right:0;
-    top:100%;
-    background:#0a0a0a;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:10px;
-    overflow:hidden;
-}
+/* ===== MOBILE ===== */
 
-.lang-trigger:hover .lang-dropdown{
-    display:block;
-}
+@media(max-width:900px){
 
-::-webkit-scrollbar{
-    width:5px;
-}
+    .nav-links{
+        display:none;
+    }
 
-::-webkit-scrollbar-thumb{
-    background:#333;
+    .hero{
+        padding-top:150px;
+    }
+
+    .showcase-title h2{
+        font-size:44px;
+    }
 }
 </style>
 </head>
@@ -295,585 +440,320 @@ body{
 <body>
 
 <canvas id="bg-canvas"></canvas>
-<div class="bg-overlay"></div>
+<div class="bg-noise"></div>
+<div class="grid-overlay"></div>
 
-<nav class="fixed top-0 left-0 right-0 z-50 glass-header">
-<div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+<nav>
+    <div class="nav-inner">
+        <div class="logo">
+            <div class="logo-box">
+                <span>L</span>
+            </div>
 
-<div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
-<div class="bg-red-600 w-9 h-9 flex items-center justify-center skew-x-[-10deg] rounded-sm">
-<span class="font-black text-xl italic skew-x-[10deg]">L</span>
-</div>
-<span class="syncopate font-black">
-LEFT-<span class="text-red-600">CONFIGS</span>
-</span>
-</div>
+            <div class="logo-text">
+                LEFT-CONFIGS
+            </div>
+        </div>
 
-<div class="hidden lg:flex items-center gap-10 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
-
-<a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-white transition">
-Main
-</a>
-
-<a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-white transition">
-Catalogue
-</a>
-
-<a href="javascript:void(0)" onclick="scrollToSection('showcase')" class="hover:text-white transition">
-Showcase
-</a>
-
-<a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-white transition">
-License
-</a>
-
-<a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-white transition">
-Discord
-</a>
-
-<div class="relative lang-trigger py-2">
-<span class="cursor-pointer hover:text-white">
-Language
-</span>
-
-<div class="lang-dropdown">
-<div onclick="setLanguage('en')" class="px-5 py-3 hover:bg-white/5 cursor-pointer">
-English
-</div>
-
-<div onclick="setLanguage('ja')" class="px-5 py-3 hover:bg-white/5 cursor-pointer">
-日本語
-</div>
-</div>
-</div>
-
-<a href="#" class="btn-silver px-7 py-3 rounded-md">
-Dashboard
-</a>
-
-</div>
-</div>
+        <div class="nav-links">
+            <a href="#products">Catalogue</a>
+            <a href="#showcase">Showcase</a>
+            <a href="https://discord.gg/jjefQyP2fU" target="_blank">Discord</a>
+        </div>
+    </div>
 </nav>
 
-<!-- HOME -->
-<div id="home-page" class="page-content active pt-40">
-
-<header class="relative text-center py-32 px-6">
-
-<div class="hero-watermark">
-LEFT
-</div>
-
-<div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 mb-10">
-<span class="status-dot bg-green-500 animate-pulse"></span>
-<span class="text-[10px] uppercase tracking-[0.3em] font-black text-gray-400">
-System v5.3 Online
-</span>
-</div>
-
-<h1 class="text-7xl md:text-9xl font-black italic syncopate leading-[0.85]">
-EVOLVE YOUR <br>
-<span class="text-red-600 red-glow">
-INSTINCTS.
-</span>
-</h1>
-
-<p class="max-w-2xl mx-auto text-gray-400 mt-10 text-lg">
-Uncompromising performance. The forefront of detection evasion.
-</p>
-
-</header>
-
-<!-- PRODUCTS -->
-<section id="products-section" class="max-w-7xl mx-auto px-10 py-20">
-
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-
-<!-- UE -->
-<div class="premium-card rounded-3xl p-10 flex flex-col">
-
-<div class="flex justify-between items-center mb-16">
-<div class="bg-white text-black px-3 py-1 text-[10px] font-black skew-x-[-12deg]">
-<span class="inline-block skew-x-[12deg]">
-INTERNAL
-</span>
-</div>
-
-<div class="text-white/20 text-xl font-black">
-PRO
-</div>
-</div>
-
-<div class="flex-1 flex flex-col items-center text-center">
-
-<div class="card-icon-container mb-6">
-<div class="ue-icon-repro">
-<span>UE</span>
-</div>
-</div>
-
-<h3 class="text-4xl font-black syncopate italic">
-UE
-</h3>
-
-<p class="text-gray-500 text-sm mt-4">
-Lightweight ultra-fast system.
-</p>
-
-</div>
-
-<div class="pt-8 border-t border-white/5 mt-10">
-
-<div class="flex justify-between items-end mb-8">
-
-<div>
-<p class="text-gray-600 text-[10px] uppercase font-bold">
-Pricing From
-</p>
-
-<p class="text-4xl font-black">
-€9.97
-</p>
-</div>
-
-<div>
-<span class="status-dot bg-green-500"></span>
-<span class="text-green-500 text-xs uppercase font-black">
-Safe
-</span>
-</div>
-
-</div>
-
-<button class="btn-silver w-full py-5 rounded-xl">
-Buy License
-</button>
-
-</div>
-</div>
-
-<!-- KH -->
-<div onclick="showPage('khv2')" class="premium-card rounded-3xl p-10 flex flex-col cursor-pointer border-red-600/30 border-b-4">
-
-<div class="flex justify-between items-center mb-16">
-
-<div class="bg-red-600 text-white px-3 py-1 text-[10px] font-black skew-x-[-12deg]">
-<span class="inline-block skew-x-[12deg]">
-PREMIUM
-</span>
-</div>
-
-<div class="text-red-500 font-black">
-CLOUD
-</div>
-
-</div>
-
-<div class="flex-1 flex flex-col items-center text-center">
-
-<div class="card-icon-container mb-6">
-
-<div class="kh-icon-repro">
-<div class="flex flex-col items-center">
-<svg width="70" height="70" viewBox="0 0 24 24" fill="white">
-<path d="M4 6C4 6 2 2 4 1C6 0 8 4 8 4C8 4 10 3 12 3C14 3 16 4 16 4C16 4 18 0 20 1C22 2 20 6 20 6C21 8 22 10 22 13C22 18 18 21 12 21C6 21 2 18 2 13C2 10 3 8 4 6Z"/>
-</svg>
-
-<span class="kh-text-sub">
-KH
-</span>
-</div>
-</div>
-
-</div>
-
-<h3 class="text-4xl font-black syncopate italic">
-KH V2
-</h3>
-
-<p class="text-gray-500 text-sm mt-4">
-Trusted worldwide scripting system.
-</p>
-
-</div>
-
-<div class="pt-8 border-t border-white/5 mt-10">
-
-<div class="flex justify-between items-end mb-8">
-
-<div>
-<p class="text-gray-600 text-[10px] uppercase font-bold">
-Status
-</p>
-
-<p class="text-xl font-bold">
-View Details
-</p>
-</div>
-
-<div>
-<span class="status-dot bg-green-500"></span>
-<span class="text-green-500 text-xs uppercase font-black">
-Stable
-</span>
-</div>
-
-</div>
-
-<button class="btn-silver w-full py-5 rounded-xl">
-Access Script
-</button>
-
-</div>
-</div>
-
-<!-- YUB -->
-<div onclick="window.open('https://yub-x.net/','_blank')" class="premium-card yub-hover rounded-3xl p-10 flex flex-col cursor-pointer">
-
-<div class="flex justify-between items-center mb-16">
-
-<div class="bg-blue-600 text-white px-3 py-1 text-[10px] font-black skew-x-[-12deg]">
-<span class="inline-block skew-x-[12deg]">
-EXECUTOR
-</span>
-</div>
-
-<div class="text-blue-500 font-black">
-ENGINE
-</div>
-
-</div>
-
-<div class="flex-1 flex flex-col items-center text-center">
-
-<div class="card-icon-container mb-6">
-
-<div class="yub-icon-repro">
-<span>X</span>
-</div>
-
-</div>
-
-<h3 class="text-4xl font-black syncopate italic blue-glow">
-YUB-X
-</h3>
-
-<p class="text-gray-500 text-sm mt-4">
-High speed execution engine.
-</p>
-
-</div>
-
-<div class="pt-8 border-t border-white/5 mt-10">
-
-<div class="flex justify-between items-end mb-8">
-
-<div>
-<p class="text-gray-600 text-[10px] uppercase font-bold">
-Pricing
-</p>
-
-<p class="text-4xl font-black text-blue-500">
-FREE
-</p>
-</div>
-
-<div>
-<span class="status-dot bg-green-500"></span>
-<span class="text-green-500 text-xs uppercase font-black">
-Working
-</span>
-</div>
-
-</div>
-
-<button class="btn-silver w-full py-5 rounded-xl">
-Official Site
-</button>
-
-</div>
-</div>
-
-</div>
+<section class="hero">
+
+    <div class="hero-watermark">
+        LEFT
+    </div>
+
+    <div class="hero-status">
+        <div class="status-dot"></div>
+        SYSTEM V5.3 ONLINE
+    </div>
+
+    <h1>
+        EVOLVE YOUR <br>
+        <span>INSTINCTS.</span>
+    </h1>
+
+    <p>
+        Uncompromising performance. Detection evasion at the highest level.
+        Built for users who demand absolute superiority.
+    </p>
 </section>
 
-<!-- FIXED SHOWCASE -->
-<section id="showcase" class="max-w-7xl mx-auto px-10 py-40 border-t border-white/5">
+<section class="products" id="products">
 
-<div class="text-center mb-24">
+    <!-- UE -->
 
-<h2 class="text-5xl font-black syncopate italic mb-5">
-Visual Proof
-</h2>
+    <div class="card">
 
-<p class="text-gray-500 uppercase tracking-[0.4em] text-[10px] font-black">
-Intelligence in Motion
-</p>
+        <div class="tag">
+            INTERNAL
+        </div>
 
-</div>
+        <div class="card-icon">
+            <div class="ue-icon">
+                UE
+            </div>
+        </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <h2>UE</h2>
 
-<!-- VIDEO 1 -->
-<div class="video-card">
-<div class="video-label">
-LEFT
-</div>
+        <p>
+            Lightweight ultra-fast core system engineered for maximum efficiency and precision.
+        </p>
 
-<div class="video-wrapper">
-<iframe
-src="https://www.tiktok.com/embed/v2/7492319208753990928"
-allowfullscreen
-allow="encrypted-media;">
-</iframe>
-</div>
-</div>
+        <div class="price">
+            <div>
+                <span style="color:#666;font-size:12px;">STARTING FROM</span>
+                <h3>€9.97</h3>
+            </div>
 
-<!-- VIDEO 2 -->
-<div class="video-card">
-<div class="video-label">
-LEFT
-</div>
+            <div style="color:#00ff6a;font-size:12px;font-weight:900;">
+                SAFE
+            </div>
+        </div>
 
-<div class="video-wrapper">
-<iframe
-src="https://www.tiktok.com/embed/v2/7492318995511479568"
-allowfullscreen
-allow="encrypted-media;">
-</iframe>
-</div>
-</div>
+        <button class="btn">
+            BUY LICENSE
+        </button>
 
-<!-- VIDEO 3 -->
-<div class="video-card">
-<div class="video-label">
-LEFT
-</div>
+    </div>
 
-<div class="video-wrapper">
-<iframe
-src="https://www.tiktok.com/embed/v2/7492318712173661456"
-allowfullscreen
-allow="encrypted-media;">
-</iframe>
-</div>
-</div>
+    <!-- KH -->
 
-<!-- VIDEO 4 -->
-<div class="video-card">
-<div class="video-label">
-LEFT
-</div>
+    <div class="card">
 
-<div class="video-wrapper">
-<iframe
-src="https://www.tiktok.com/embed/v2/7492318021464018192"
-allowfullscreen
-allow="encrypted-media;">
-</iframe>
-</div>
-</div>
+        <div class="tag">
+            PREMIUM
+        </div>
 
-</div>
+        <div class="card-icon">
+            <div class="kh-icon">
+                KH
+            </div>
+        </div>
+
+        <h2>KH V2</h2>
+
+        <p>
+            Advanced multifunctional scripting platform trusted worldwide by elite users.
+        </p>
+
+        <div class="price">
+            <div>
+                <span style="color:#666;font-size:12px;">STATUS</span>
+                <h3 style="font-size:26px;">STABLE</h3>
+            </div>
+
+            <div style="color:#00ff6a;font-size:12px;font-weight:900;">
+                ONLINE
+            </div>
+        </div>
+
+        <button class="btn">
+            ACCESS SCRIPT
+        </button>
+
+    </div>
+
+    <!-- YUB-X -->
+
+    <div class="card card-blue"
+    onclick="window.open('https://yub-x.net/','_blank')"
+    style="cursor:pointer;">
+
+        <div class="tag" style="background:#0077ff;">
+            EXECUTOR
+        </div>
+
+        <div class="card-icon">
+            <div class="yub-icon">
+                X
+            </div>
+        </div>
+
+        <h2 style="color:#00a2ff;">
+            YUB-X
+        </h2>
+
+        <p>
+            High-speed community driven execution engine with optimized performance.
+        </p>
+
+        <div class="price">
+            <div>
+                <span style="color:#666;font-size:12px;">PRICING</span>
+                <h3 style="color:#00a2ff;">FREE</h3>
+            </div>
+
+            <div style="color:#00ff6a;font-size:12px;font-weight:900;">
+                WORKING
+            </div>
+        </div>
+
+        <button class="btn">
+            OFFICIAL SITE
+        </button>
+
+    </div>
+
 </section>
-</div>
 
-<!-- KH PAGE -->
-<div id="khv2-page" class="page-content pt-48 pb-48">
+<!-- SHOWCASE -->
 
-<div class="max-w-5xl mx-auto px-10 text-center">
+<section class="showcase" id="showcase">
 
-<h2 class="text-6xl font-black syncopate italic mb-10">
-KH <span class="text-red-600">VERSION 2</span>
-</h2>
+    <div class="showcase-title">
+        <h2>VISUAL PROOF</h2>
+        <p>INTELLIGENCE IN MOTION</p>
+    </div>
 
-<div class="max-w-3xl mx-auto">
+    <div class="video-grid">
 
-<div class="copy-box rounded-3xl p-10 relative flex flex-col md:flex-row gap-6 items-center justify-between">
+        <!-- VIDEO 1 -->
 
-<code id="scriptCode" class="text-xs text-white/80 break-all text-left">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()
-</code>
+        <div class="video-card">
+            <div class="video-wrap">
+                <iframe
+                src="https://www.tiktok.com/embed/v2/7634461082249219329"
+                allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-<button onclick="copyToClipboard()" class="btn-silver px-10 py-5 rounded-xl whitespace-nowrap">
-Copy Code
-</button>
+        <!-- VIDEO 2 -->
 
-<div id="copyAlert" class="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-600 px-6 py-2 rounded-full text-[10px] font-black opacity-0 transition-all duration-300">
-COPIED
-</div>
+        <div class="video-card">
+            <div class="video-wrap">
+                <iframe
+                src="https://www.tiktok.com/embed/v2/7627089280732597505"
+                allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-</div>
+        <!-- VIDEO 3 -->
 
-</div>
+        <div class="video-card">
+            <div class="video-wrap">
+                <iframe
+                src="https://www.tiktok.com/embed/v2/7626723329638026497"
+                allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-<button onclick="showPage('home')" class="mt-20 text-gray-500 hover:text-white uppercase tracking-[0.3em] text-[10px]">
-Return
-</button>
+        <!-- VIDEO 4 -->
 
-</div>
-</div>
+        <div class="video-card">
+            <div class="video-wrap">
+                <iframe
+                src="https://www.tiktok.com/embed/v2/7625962066465148161"
+                allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-<!-- TERMS -->
-<div id="terms-page" class="page-content pt-48 pb-48">
+    </div>
 
-<div class="max-w-4xl mx-auto px-10">
+</section>
 
-<div class="bg-zinc-950 border border-white/10 rounded-[40px] p-16">
-
-<h2 class="text-5xl font-black syncopate italic mb-10">
-Rules of Engagement
-</h2>
-
-<div class="space-y-10 text-gray-400">
-
-<div>
-<h3 class="text-white text-2xl font-bold mb-4">
-01. Acceptable Use
-</h3>
-
-<p>
-Products are for educational and entertainment purposes only.
-</p>
-</div>
-
-<div>
-<h3 class="text-white text-2xl font-bold mb-4">
-02. Digital Property
-</h3>
-
-<p>
-Unauthorized redistribution is prohibited.
-</p>
-</div>
-
-<div>
-<h3 class="text-white text-2xl font-bold mb-4">
-03. Support
-</h3>
-
-<p>
-Support is available via Discord only.
-</p>
-</div>
-
-</div>
-
-<button onclick="showPage('home')" class="mt-16 text-gray-500 hover:text-white uppercase tracking-[0.3em] text-[10px]">
-Return
-</button>
-
-</div>
-</div>
-</div>
-
-<footer class="border-t border-white/5 py-24 bg-[#010101]">
-
-<div class="max-w-7xl mx-auto px-10 text-center">
-
-<div class="bg-red-600 w-12 h-12 mx-auto flex items-center justify-center skew-x-[-10deg] rounded-sm mb-8">
-<span class="text-2xl font-black italic skew-x-[10deg]">
-L
-</span>
-</div>
-
-<p class="text-gray-700 text-[10px] uppercase tracking-[0.3em] font-black">
-© 2026 LEFT-CONFIGS
-</p>
-
-</div>
+<footer>
+    © 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
 </footer>
 
 <script>
-const canvas=document.getElementById('bg-canvas');
-const ctx=canvas.getContext('2d');
 
-let particles=[];
-let mouse={x:-999,y:-999};
+/* ===== PREMIUM REAL BACKGROUND ===== */
 
-function resize(){
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let mouse = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2
+};
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
-window.addEventListener('resize',resize);
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
-window.addEventListener('mousemove',e=>{
-    mouse.x=e.clientX;
-    mouse.y=e.clientY;
+window.addEventListener("mousemove", (e)=>{
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
 });
 
 class Particle{
+
     constructor(){
         this.reset();
     }
 
     reset(){
-        this.x=Math.random()*canvas.width;
-        this.y=Math.random()*canvas.height;
-        this.size=Math.random()*2;
-        this.vx=(Math.random()-.5)*0.3;
-        this.vy=(Math.random()-.5)*0.3;
-        this.alpha=Math.random();
+
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+
+        this.size = Math.random() * 2 + 1;
+
+        this.speedX = (Math.random() - .5) * .4;
+        this.speedY = (Math.random() - .5) * .4;
+
+        this.opacity = Math.random() * .5;
     }
 
     update(){
-        this.x+=this.vx;
-        this.y+=this.vy;
+
+        this.x += this.speedX;
+        this.y += this.speedY;
 
         if(
-            this.x<0||
-            this.x>canvas.width||
-            this.y<0||
-            this.y>canvas.height
+            this.x < 0 ||
+            this.x > canvas.width ||
+            this.y < 0 ||
+            this.y > canvas.height
         ){
             this.reset();
         }
     }
 
     draw(){
-        ctx.fillStyle=`rgba(255,255,255,${this.alpha*.18})`;
 
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
+
         ctx.fill();
     }
 }
 
-function initBackground(){
-    resize();
-
-    for(let i=0;i<80;i++){
-        particles.push(new Particle());
-    }
-
-    animate();
+for(let i = 0; i < 140; i++){
+    particles.push(new Particle());
 }
 
 function animate(){
 
-    ctx.fillStyle='#000';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    ctx.strokeStyle='rgba(255,255,255,.015)';
-
-    const step=90;
-
-    for(let x=0;x<canvas.width;x+=step){
-        ctx.beginPath();
-        ctx.moveTo(x,0);
-        ctx.lineTo(x,canvas.height);
-        ctx.stroke();
-    }
-
-    for(let y=0;y<canvas.height;y+=step){
-        ctx.beginPath();
-        ctx.moveTo(0,y);
-        ctx.lineTo(canvas.width,y);
-        ctx.stroke();
-    }
-
-    const glow=ctx.createRadialGradient(
+    const glow = ctx.createRadialGradient(
         mouse.x,
         mouse.y,
         0,
@@ -882,13 +762,13 @@ function animate(){
         500
     );
 
-    glow.addColorStop(0,'rgba(255,0,0,.08)');
-    glow.addColorStop(1,'transparent');
+    glow.addColorStop(0,"rgba(255,0,0,.15)");
+    glow.addColorStop(1,"transparent");
 
-    ctx.fillStyle=glow;
+    ctx.fillStyle = glow;
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    particles.forEach(p=>{
+    particles.forEach((p)=>{
         p.update();
         p.draw();
     });
@@ -896,56 +776,8 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
-function showPage(page){
-    document.querySelectorAll('.page-content')
-    .forEach(p=>p.classList.remove('active'));
+animate();
 
-    document.getElementById(page+'-page')
-    .classList.add('active');
-
-    window.scrollTo({
-        top:0,
-        behavior:'smooth'
-    });
-}
-
-function scrollToSection(id){
-    showPage('home');
-
-    setTimeout(()=>{
-        document.getElementById(id)
-        .scrollIntoView({
-            behavior:'smooth'
-        });
-    },100);
-}
-
-function scrollToProducts(){
-    scrollToSection('products-section');
-}
-
-function copyToClipboard(){
-
-    const text=document.getElementById('scriptCode').innerText;
-
-    navigator.clipboard.writeText(text);
-
-    const alert=document.getElementById('copyAlert');
-
-    alert.style.opacity='1';
-
-    setTimeout(()=>{
-        alert.style.opacity='0';
-    },2000);
-}
-
-function setLanguage(lang){
-    document.documentElement.lang=lang;
-}
-
-window.onload=()=>{
-    initBackground();
-};
 </script>
 
 </body>
