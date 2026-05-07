@@ -152,13 +152,14 @@ nav{
     padding:18px;
     border-radius:14px;
     border:none;
-    cursor:pointer;
+    cursor:not-allowed;
     font-weight:900;
     letter-spacing:.08em;
     text-transform:uppercase;
     background:linear-gradient(135deg,#fff,#9d9d9d);
     color:#000;
     transition:.4s;
+    opacity:.7;
 }
 
 .btn:hover{
@@ -274,7 +275,7 @@ nav{
     letter-spacing:-8px;
 }
 
-.yub{
+.matrix{
     width:100%;
     height:100%;
     background:#00a2ff;
@@ -284,16 +285,17 @@ nav{
     position:relative;
 }
 
-.yub::before{
+.matrix::before{
     content:'';
     position:absolute;
     inset:16px;
     border:6px solid #0059a8;
 }
 
-.yub span{
-    font-size:100px;
+.matrix span{
+    font-size:50px;
     font-weight:900;
+    letter-spacing:-2px;
 }
 
 .kh{
@@ -506,7 +508,7 @@ footer{
 
             <div class="card-top">
 
-                <div class="tag white">INTERNAL</div>
+                <div class="tag white">CONFIG</div>
 
                 <div class="text-white/20 font-black text-xl">
                     PRO
@@ -522,10 +524,10 @@ footer{
 
             </div>
 
-            <div class="card-title sync">UE</div>
+            <div class="card-title sync">UE CONFIG</div>
 
             <div class="card-desc">
-                Lightweight ultra-fast core system designed for maximum execution efficiency.
+                Lightweight ultra-fast config system designed for maximum execution efficiency.
             </div>
 
             <div class="card-bottom">
@@ -548,8 +550,8 @@ footer{
 
                 </div>
 
-                <button class="btn">
-                    Buy License
+                <button class="btn" disabled>
+                    Coming Soon
                 </button>
 
             </div>
@@ -562,7 +564,7 @@ footer{
 
             <div class="card-top">
 
-                <div class="tag red">PREMIUM</div>
+                <div class="tag red">CONFIG</div>
 
                 <div class="text-red-500 font-black">
                     CLOUD
@@ -579,11 +581,11 @@ footer{
             </div>
 
             <div class="card-title sync">
-                KH V2
+                KH CONFIG
             </div>
 
             <div class="card-desc">
-                Multifunctional scripting environment trusted by users worldwide.
+                Multifunctional config environment trusted by users worldwide.
             </div>
 
             <div class="card-bottom">
@@ -608,22 +610,22 @@ footer{
 
                 </div>
 
-                <button class="btn">
-                    Access Script
+                <button class="btn" disabled>
+                    Coming Soon
                 </button>
 
             </div>
 
         </div>
 
-        <!-- YUB -->
+        <!-- MATRIX -->
 
         <div class="card blue">
 
             <div class="card-top">
 
                 <div class="tag blue">
-                    EXECUTOR
+                    CONFIG
                 </div>
 
                 <div class="text-blue-400 font-black">
@@ -634,18 +636,18 @@ footer{
 
             <div class="icon-wrap">
 
-                <div class="yub">
-                    <span>X</span>
+                <div class="matrix">
+                    <span>M</span>
                 </div>
 
             </div>
 
             <div class="card-title sync text-blue-400">
-                YUB-X
+                MATRIX
             </div>
 
             <div class="card-desc">
-                Community-driven ultra fast execution engine.
+                Community-driven next generation config system with ultra-fast optimization.
             </div>
 
             <div class="card-bottom">
@@ -670,8 +672,8 @@ footer{
 
                 </div>
 
-                <button class="btn">
-                    Official Site
+                <button class="btn" disabled>
+                    Coming Soon
                 </button>
 
             </div>
@@ -818,8 +820,6 @@ function animate(){
     ctx.fillStyle = gradient;
     ctx.fillRect(0,0,w,h);
 
-    /* animated glow */
-
     const glow1 = ctx.createRadialGradient(
         w*0.3 + Math.sin(time)*200,
         h*0.4,
@@ -850,8 +850,6 @@ function animate(){
     ctx.fillStyle = glow2;
     ctx.fillRect(0,0,w,h);
 
-    /* grid */
-
     ctx.strokeStyle = 'rgba(255,255,255,.03)';
     ctx.lineWidth = 1;
 
@@ -868,8 +866,6 @@ function animate(){
         ctx.lineTo(w,y);
         ctx.stroke();
     }
-
-    /* particles */
 
     particles.forEach(p=>{
         p.update();
