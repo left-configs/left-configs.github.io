@@ -346,26 +346,37 @@
     const emailInput = document.getElementById('email-input');
     const usernameError = document.getElementById('username-error');
 
-    // Initialize Auth
+    // Authentication & Session Persistence logic
     const initAuth = async () => {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-            await signInAnonymously(auth);
+        try {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                // Anonymous auth works well for persistent sessions in this environment
+                await signInAnonymously(auth);
+            }
+        } catch (err) {
+            console.error("Auth init failed", err);
         }
     };
-    initAuth();
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // Check if user profile exists in public data
+            // Check public storage for this specific UID to see if profile was created
             const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
             const userSnap = await getDoc(userRef);
             
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 showLoggedIn(userData.username);
+            } else {
+                // If auth is active but no profile exists, ensure login button is visible
+                authBtn.classList.remove('hidden');
+                userDisplay.classList.add('hidden');
             }
+        } else {
+            authBtn.classList.remove('hidden');
+            userDisplay.classList.add('hidden');
         }
     });
 
@@ -397,11 +408,11 @@
         }
 
         submitBtn.disabled = true;
-        submitBtn.textContent = "Checking Availability...";
+        submitBtn.textContent = "Processing...";
         usernameError.classList.add('hidden');
 
         try {
-            // Check for duplicate username in public 'users' collection
+            // Check for duplicate username (Rule: Same name not allowed)
             const usersRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
             const querySnapshot = await getDocs(usersRef);
             let exists = false;
@@ -419,7 +430,7 @@
                 return;
             }
 
-            // Save user profile
+            // Persistence: Saving to public data so it's retrievable on reload via UID
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
                 username: username,
                 email: email,
@@ -429,13 +440,16 @@
             showLoggedIn(username);
         } catch (e) {
             console.error(e);
-            alert("Connection error. Please try again.");
+            alert("Error during session initialization.");
             submitBtn.disabled = false;
             submitBtn.textContent = "Initialize Session";
         }
     });
 
-    // Particle Background
+    // Start Auth
+    initAuth();
+
+    // Particle Background Animation
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
