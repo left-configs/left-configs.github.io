@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,6 +14,7 @@
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --border-color: rgba(255, 255, 255, 0.1);
+            --accent-blue: #00a2ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
@@ -33,7 +34,7 @@
             background: #000;
         }
 
-        /* Nav - 固定表示 */
+        /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0; width: 100%; z-index: 100;
@@ -53,6 +54,14 @@
 
         .logo { font-weight: 800; font-size: 1.1rem; color: #ffffff; text-transform: lowercase; letter-spacing: 0.05em; }
 
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
         .nav-link {
             color: var(--text-dim);
             font-size: 0.85rem;
@@ -62,14 +71,28 @@
             border: none;
             cursor: pointer !important;
             padding: 0.5rem 0;
+            text-transform: capitalize;
         }
         .nav-link:hover, .nav-link.active { color: #ffffff; }
 
-        /* Sections */
+        /* --- Sections --- */
         .view-section { padding-top: 140px; min-height: 100vh; width: 100%; }
         .hidden { display: none !important; }
 
-        /* Cards */
+        /* --- Stats Box --- */
+        .stats-box {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem 3rem;
+            display: inline-flex;
+            gap: 4rem;
+        }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 1.2rem; font-weight: 800; color: #ffffff; }
+        .stat-label { font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+        /* --- Cards --- */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -79,7 +102,7 @@
         }
         .card:hover { border-color: rgba(255, 255, 255, 0.4); transform: translateY(-4px); }
 
-        /* Modal - Access Terminal Design */
+        /* --- Auth Modal (Access Terminal) --- */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -140,6 +163,14 @@
         .btn-text:hover { color: #fff; }
 
         .error-msg { color: #ff3333; font-size: 11px; margin-bottom: 12px; display: none; font-weight: 600; }
+
+        /* --- Terms Design --- */
+        .terms-container { max-width: 800px; margin: 0 auto; text-align: center; color: #999; line-height: 1.8; }
+        .terms-title { font-size: 2.5rem; font-weight: 900; color: #fff; text-decoration: underline; text-underline-offset: 8px; margin-bottom: 3rem; }
+        .terms-section { margin-bottom: 3rem; }
+        .terms-section h3 { color: #fff; font-weight: 800; margin-bottom: 0.5rem; }
+
+        @media (max-width: 768px) { .nav-links { display: none; } .stats-box { gap: 1.5rem; padding: 1.5rem; } }
     </style>
 </head>
 <body>
@@ -149,14 +180,13 @@
 <!-- Navigation -->
 <nav>
     <div class="nav-container">
-        <div class="logo">left-configs</div>
+        <div class="logo cursor-pointer" onclick="showView('home')">left-configs</div>
         
-        <!-- 中央メニュー -->
-        <div class="hidden md:flex gap-10 absolute left-1/2 -translate-x-1/2">
-            <button class="nav-link active" onclick="showView('home')">Home</button>
-            <button class="nav-link" onclick="showView('products')">Products</button>
-            <button class="nav-link" onclick="showView('reviews')">Reviews</button>
-            <button class="nav-link" onclick="showView('blog')">Blog</button>
+        <div class="nav-links">
+            <button class="nav-link" id="nav-home" onclick="showView('home')">Home</button>
+            <button class="nav-link" id="nav-products" onclick="showView('home', 'products-anchor')">Products</button>
+            <button class="nav-link" id="nav-reviews" onclick="showView('reviews')">Reviews</button>
+            <button class="nav-link" id="nav-terms" onclick="showView('terms')">Terms</button>
         </div>
 
         <div class="flex items-center gap-4">
@@ -171,17 +201,27 @@
 
 <!-- Home View -->
 <div id="view-home" class="view-section">
-    <div class="max-w-[1000px] mx-auto text-center px-4">
+    <div class="max-w-[1000px] mx-auto text-center px-4 mb-20">
         <h1 class="text-6xl md:text-8xl font-black mb-10 leading-tight tracking-tight">Get Ready To<br>Become The Best</h1>
         <p class="text-zinc-500 text-xs font-bold uppercase tracking-[0.5em] mb-14">Powerful Rivals configs — Elite Solutions</p>
         
-        <button onclick="showView('products')" class="px-12 py-5 bg-white text-black text-[11px] font-black uppercase tracking-[0.4em] rounded-full hover:bg-zinc-200 transition">Explore Products</button>
+        <div class="stats-box mb-16">
+            <div class="stat-item">
+                <div class="stat-value">★ 4.99</div>
+                <div class="stat-label">Feedback Rating</div>
+            </div>
+            <div class="stat-item border-l border-white/10 pl-12">
+                <div class="stat-value">344</div>
+                <div class="stat-label">Products Sold</div>
+            </div>
+            <div class="stat-item border-l border-white/10 pl-12">
+                <div class="stat-value">230</div>
+                <div class="stat-label">Total Customers</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Products View -->
-<div id="view-products" class="view-section hidden">
-    <div class="max-w-[1200px] mx-auto px-8 pb-32">
+    <div id="products-anchor" class="max-w-[1200px] mx-auto px-8 pb-32">
         <h2 class="text-3xl font-black uppercase tracking-tighter mb-12 flex items-center gap-6">
             Available Products <span class="h-[1px] flex-grow bg-white/10"></span>
         </h2>
@@ -212,35 +252,43 @@
             </div>
         </div>
     </div>
+
+    <section class="py-24 border-t border-zinc-900 text-center">
+        <h2 class="text-3xl font-black mb-12">Follow our Socials!</h2>
+        <div class="flex justify-center gap-6">
+            <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="bg-zinc-900 border border-zinc-800 py-4 px-10 rounded-lg flex items-center gap-3 hover:bg-zinc-800 transition min-w-[200px] justify-center no-underline text-white">
+                <span class="text-xl">💬</span> <span class="text-sm font-bold">Discord</span>
+            </a>
+            <a href="https://www.tiktok.com/@scripts.left00" target="_blank" class="bg-zinc-900 border border-zinc-800 py-4 px-10 rounded-lg flex items-center gap-3 hover:bg-zinc-800 transition min-w-[200px] justify-center no-underline text-white">
+                <span class="text-xl">📱</span> <span class="text-sm font-bold">TikTok</span>
+            </a>
+        </div>
+    </section>
 </div>
 
 <!-- Reviews View -->
 <div id="view-reviews" class="view-section hidden">
     <div class="max-w-[1200px] mx-auto px-8 pb-32">
-        <h2 class="text-3xl font-black uppercase tracking-tighter mb-12 flex items-center gap-6">
-            Customer Feedback <span class="h-[1px] flex-grow bg-white/10"></span>
-        </h2>
-        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <h2 class="text-3xl font-black uppercase tracking-tighter mb-12">Customer Feedback</h2>
+        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
     </div>
 </div>
 
-<!-- Blog View -->
-<div id="view-blog" class="view-section hidden">
-    <div class="max-w-[900px] mx-auto px-8 pb-32">
-        <h2 class="text-3xl font-black uppercase tracking-tighter mb-12 flex items-center gap-6">
-            Latest Updates <span class="h-[1px] flex-grow bg-white/10"></span>
-        </h2>
-        <div class="space-y-8">
-            <div class="card border-l-8 border-l-white">
-                <div class="text-[10px] text-zinc-500 font-black mb-3 uppercase tracking-widest">MAY 07, 2026</div>
-                <h3 class="text-2xl font-black mb-4">Elite System V2 Live</h3>
-                <p class="text-sm text-zinc-400 leading-relaxed">Our infrastructure has been upgraded to support seamless account management. Authentication is now faster and more secure than ever before.</p>
-            </div>
-            <div class="card">
-                <div class="text-[10px] text-zinc-500 font-black mb-3 uppercase tracking-widest">MAY 01, 2026</div>
-                <h3 class="text-2xl font-black mb-4">Summer Optimization Pass</h3>
-                <p class="text-sm text-zinc-400 leading-relaxed">We've refined our internal scripts to provide better performance during high-intensity sessions. Check the product page for updated version tags.</p>
-            </div>
+<!-- Terms View -->
+<div id="view-terms" class="view-section hidden">
+    <div class="terms-container px-6 pb-32">
+        <h1 class="terms-title">Terms Of Service</h1>
+        <div class="terms-section">
+            <h3>1. Agreement to Terms:</h3>
+            <p>By purchasing or using our services, you agree to comply with these Terms of Service. If you do not agree to these terms, you must refrain from using our services.</p>
+        </div>
+        <div class="terms-section">
+            <h3>2. Product Sales:</h3>
+            <p>We are a retailer of digital products and sell only in accordance with these Terms. All sales are final.</p>
+        </div>
+        <div class="terms-section">
+            <h3>3. No Refunds:</h3>
+            <p>We operate under a strict no refund policy. If the product is found to be faulty, we may offer a replacement.</p>
         </div>
     </div>
 </div>
@@ -270,44 +318,47 @@
 
 <footer class="py-20 text-center border-t border-white/5 bg-black">
     <div class="text-[11px] text-zinc-700 font-black uppercase tracking-[0.6em]">
-        © 2026 LEFT-CONFIGS — ARCHIVED SYSTEM
+        © 2026 LEFT-CONFIGS — ELITE SYSTEM V2
     </div>
 </footer>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // --- Firebase Setup ---
-    const firebaseConfig = JSON.parse(__firebase_config);
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    // --- Firebase Guard & Init ---
+    let db, auth, appId;
+    try {
+        const firebaseConfig = (typeof __firebase_config !== 'undefined') ? JSON.parse(__firebase_config) : null;
+        if (firebaseConfig) {
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        }
+    } catch (e) { console.warn("Firebase restricted environment."); }
 
     let isSignUpMode = false;
 
-    // --- View Management ---
-    window.showView = (viewId) => {
-        ['home', 'products', 'reviews', 'blog'].forEach(id => {
+    // --- View Switcher ---
+    window.showView = (viewId, scrollId = null) => {
+        ['home', 'reviews', 'terms'].forEach(id => {
             const el = document.getElementById(`view-${id}`);
             if (el) el.classList.add('hidden');
+            const nav = document.getElementById(`nav-${id}`);
+            if (nav) nav.classList.remove('active');
         });
         const target = document.getElementById(`view-${viewId}`);
         if (target) target.classList.remove('hidden');
-        
-        window.scrollTo(0, 0);
-        if (viewId === 'reviews') renderReviews();
+        document.getElementById(`nav-${viewId}`)?.classList.add('active');
 
-        // Update Nav Active State
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.textContent.toLowerCase() === viewId) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
+        if (scrollId) {
+            document.getElementById(scrollId)?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            window.scrollTo(0, 0);
+        }
+        if (viewId === 'reviews') renderReviews();
     };
 
     // --- Auth UI ---
@@ -315,88 +366,82 @@
         document.getElementById('auth-modal').style.display = 'flex';
         setAuthMode(false);
     };
-
     window.closeAuthModal = () => {
         document.getElementById('auth-modal').style.display = 'none';
         document.getElementById('auth-error').style.display = 'none';
     };
-
-    window.toggleAuthMode = () => {
-        setAuthMode(!isSignUpMode);
-    };
+    window.toggleAuthMode = () => setAuthMode(!isSignUpMode);
 
     function setAuthMode(signUp) {
         isSignUpMode = signUp;
-        const title = document.getElementById('modal-title');
-        const userField = document.getElementById('auth-username');
-        const submitBtn = document.getElementById('auth-submit-btn');
-        const toggleBtn = document.getElementById('toggle-auth-mode');
+        const t = document.getElementById('modal-title');
+        const u = document.getElementById('auth-username');
+        const b = document.getElementById('auth-submit-btn');
+        const toggle = document.getElementById('toggle-auth-mode');
 
         if (signUp) {
-            title.textContent = "Create Identity";
-            userField.classList.remove('hidden');
-            submitBtn.textContent = "Register Identity";
-            toggleBtn.textContent = "Known Identity? Access Here";
+            t.textContent = "Create Identity";
+            u.classList.remove('hidden');
+            b.textContent = "Register Account";
+            toggle.textContent = "Known Identity? Access Here";
         } else {
-            title.textContent = "Access Terminal";
-            userField.classList.add('hidden');
-            submitBtn.textContent = "Initialize Session";
-            toggleBtn.textContent = "No Identity? Create one";
+            t.textContent = "Access Terminal";
+            u.classList.add('hidden');
+            b.textContent = "Initialize Session";
+            toggle.textContent = "No Identity? Create one";
         }
     }
 
     // --- Auth Logic ---
     window.handleAuth = async () => {
+        if (!auth) return;
         const email = document.getElementById('auth-email').value;
-        const password = document.getElementById('auth-password').value;
-        const username = document.getElementById('auth-username').value;
-        const errorEl = document.getElementById('auth-error');
-
-        errorEl.style.display = 'none';
+        const pass = document.getElementById('auth-password').value;
+        const user = document.getElementById('auth-username').value;
+        const errEl = document.getElementById('auth-error');
+        errEl.style.display = 'none';
 
         try {
             if (isSignUpMode) {
-                const cred = await createUserWithEmailAndPassword(auth, email, password);
+                const cred = await createUserWithEmailAndPassword(auth, email, pass);
                 await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'profiles', cred.user.uid), {
-                    username: username,
-                    email: email,
-                    createdAt: new Date().toISOString()
+                    username: user, email: email, createdAt: new Date().toISOString()
                 });
             } else {
-                await signInWithEmailAndPassword(auth, email, password);
+                await signInWithEmailAndPassword(auth, email, pass);
             }
             closeAuthModal();
-        } catch (error) {
-            errorEl.textContent = "AUTH ERROR: " + error.message.toUpperCase();
-            errorEl.style.display = 'block';
+        } catch (e) {
+            errEl.textContent = "AUTH ERROR: " + e.message.toUpperCase();
+            errEl.style.display = 'block';
         }
     };
 
-    window.handleLogout = async () => {
-        await signOut(auth);
-        window.location.reload();
-    };
+    window.handleLogout = async () => { if(auth) await signOut(auth); window.location.reload(); };
 
-    onAuthStateChanged(auth, async (user) => {
-        const loginBtn = document.getElementById('login-trigger');
-        const userInfo = document.getElementById('user-info');
-        const nameDisplay = document.getElementById('display-name');
+    if (auth) {
+        onAuthStateChanged(auth, async (user) => {
+            const loginBtn = document.getElementById('login-trigger');
+            const userInfo = document.getElementById('user-info');
+            const nameDisp = document.getElementById('display-name');
 
-        if (user) {
-            loginBtn.classList.add('hidden');
-            userInfo.classList.remove('hidden');
-            const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'profiles', user.uid));
-            nameDisplay.textContent = snap.exists() ? snap.data().username : user.email.split('@')[0];
-        } else {
-            loginBtn.classList.remove('hidden');
-            userInfo.classList.add('hidden');
-        }
-    });
+            if (user && !user.isAnonymous) {
+                loginBtn.classList.add('hidden');
+                userInfo.classList.remove('hidden');
+                const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'profiles', user.uid));
+                nameDisp.textContent = snap.exists() ? snap.data().username : user.email.split('@')[0];
+            } else {
+                loginBtn.classList.remove('hidden');
+                userInfo.classList.add('hidden');
+            }
+        });
+    }
 
+    // --- Reviews Renderer ---
     function renderReviews() {
         const grid = document.getElementById('reviews-grid');
         const data = [
-            { text: "Seamless performance. Highly recommended for elite play.", stars: 5, prod: "Matcha Configs", date: "MAY 07" },
+            { text: "Automatic feedback after 7 days.", stars: 5, prod: "Matcha Configs", date: "MAY 07" },
             { text: "The new V2 system is incredibly clean.", stars: 5, prod: "Matrix Configs", date: "MAY 06" },
             { text: "Reliable and powerful. No competition.", stars: 5, prod: "UE Bundle", date: "MAY 06" },
             { text: "Solid configs for the price point.", stars: 4, prod: "Kiciahook", date: "MAY 05" }
@@ -413,7 +458,7 @@
         `).join('');
     }
 
-    // Canvas Background
+    // --- Background Animation ---
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
