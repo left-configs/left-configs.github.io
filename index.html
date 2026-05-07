@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Animated Interactive Background */
+        /* 究極の動く背景: Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -31,7 +31,7 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: #030303;
+            background: #000;
         }
 
         .bg-overlay {
@@ -41,7 +41,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, transparent 0%, #030303 90%);
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.8) 100%);
             pointer-events: none;
         }
 
@@ -61,7 +61,7 @@
         }
 
         .glass-header {
-            background: rgba(3, 3, 3, 0.8);
+            background: rgba(3, 3, 3, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -83,17 +83,19 @@
             box-shadow: 0 50px 100px rgba(255, 0, 0, 0.15);
         }
 
-        .ue-icon-img {
-            width: 140px;
-            height: 140px;
+        /* アイコン画像の共通スタイル */
+        .card-icon-img {
+            width: 160px;
+            height: 160px;
             object-fit: cover;
-            border-radius: 20px;
-            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.3));
-            transition: 0.5s;
+            border-radius: 24px;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(0.2) contrast(1.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .premium-card:hover .ue-icon-img {
-            filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.6));
-            transform: scale(1.05);
+        .premium-card:hover .card-icon-img {
+            filter: grayscale(0) drop-shadow(0 0 30px rgba(255, 0, 0, 0.5));
+            transform: scale(1.08) rotate(2deg);
         }
 
         .btn-silver {
@@ -134,14 +136,14 @@
 
         .page-content {
             display: none;
-            animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .page-content.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -156,23 +158,42 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0;
+            right: 0;
             background: #0a0a0a;
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 0;
+            padding: 10px 0;
             min-width: 140px;
             z-index: 100;
             border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .lang-trigger:hover .lang-dropdown {
             display: block;
         }
         
-        .thumb-glitch {
-            background: #000;
+        /* Video Container */
+        .video-container {
             position: relative;
+            padding-bottom: 177.77%; /* 9:16 Ratio */
+            height: 0;
             overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
         }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030303; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff0000; }
     </style>
 </head>
 <body>
@@ -182,17 +203,21 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-header">
-        <div class="flex items-center justify-between px-10 py-6 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between px-8 py-5 max-w-7xl mx-auto">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
-                <div class="bg-red-600 w-10 h-10 flex items-center justify-center rounded-sm skew-x-[-10deg]">
-                    <span class="text-white font-black text-2xl italic skew-x-[10deg]">L</span>
+                <div class="bg-red-600 w-9 h-9 flex items-center justify-center rounded-sm skew-x-[-10deg]">
+                    <span class="text-white font-black text-xl italic skew-x-[10deg]">L</span>
                 </div>
-                <span class="text-xl font-black syncopate">left-<span class="text-red-600">configs</span></span>
+                <span class="text-lg font-black syncopate">left-<span class="text-red-600">configs</span></span>
             </div>
             
-            <div class="hidden lg:flex items-center space-x-12 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">
+            <div class="hidden lg:flex items-center space-x-10 text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400">
                 <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-white transition" data-i18n="nav-main">Main</a>
-                
+                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-white transition" data-i18n="nav-catalogue">Catalogue</a>
+                <a href="javascript:void(0)" onclick="scrollToSection('showcase')" class="hover:text-white transition" data-i18n="nav-showcase">Showcase</a>
+                <a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-white transition" data-i18n="nav-license">License</a>
+                <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-white transition">Discord</a>
+
                 <div class="relative lang-trigger cursor-pointer group py-2">
                     <span class="hover:text-white transition flex items-center" data-i18n="nav-lang">Language</span>
                     <div class="lang-dropdown">
@@ -200,14 +225,10 @@
                         <div onclick="setLanguage('ja')" class="px-6 py-2 hover:bg-white/5 hover:text-white transition">日本語</div>
                     </div>
                 </div>
-
-                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-white transition" data-i18n="nav-catalogue">Catalogue</a>
-                <a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-white transition" data-i18n="nav-license">License</a>
-                <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-white transition">Discord</a>
                 
-                <div class="h-6 w-px bg-white/10 mx-2"></div>
+                <div class="h-6 w-px bg-white/10 mx-1"></div>
                 
-                <a href="#" class="btn-silver px-8 py-2.5 rounded-sm group">
+                <a href="#" class="btn-silver px-7 py-2 rounded-sm group">
                     <span data-i18n="nav-dashboard">Dashboard</span>
                 </a>
             </div>
@@ -216,12 +237,12 @@
 
     <!-- Home Page -->
     <div id="home-page" class="page-content active pt-40">
-        <header class="relative text-center py-32 px-6 overflow-visible">
+        <header class="relative text-center py-32 px-6">
             <div class="hero-watermark">LEFT</div>
             
             <div class="inline-flex items-center bg-white/5 border border-white/10 rounded-full px-5 py-1.5 mb-10">
                 <span class="status-dot text-green-500 bg-green-500 animate-pulse"></span>
-                <span class="text-[9px] font-black uppercase tracking-widest text-gray-400" data-i18n="sys-status">System v4.2 Online</span>
+                <span class="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400" data-i18n="sys-status">System v4.2 Online</span>
             </div>
             
             <h1 class="text-7xl md:text-9xl font-black mb-10 italic syncopate leading-[0.85] tracking-tighter">
@@ -231,27 +252,11 @@
             <p class="max-w-xl mx-auto text-gray-400 font-medium mb-16 text-lg leading-relaxed" data-i18n="hero-desc">
                 Uncompromising performance. The forefront of detection evasion. Left-configs provides absolute superiority only granted to the chosen.
             </p>
-            
-            <div class="flex flex-wrap justify-center gap-12 opacity-40">
-                <div class="text-left border-l border-white/20 pl-6">
-                    <p class="text-3xl font-black text-white">5K+</p>
-                    <p class="text-[9px] font-bold uppercase tracking-widest" data-i18n="stat-clients">Global Clients</p>
-                </div>
-                <div class="text-left border-l border-white/20 pl-6">
-                    <p class="text-3xl font-black text-red-600">0%</p>
-                    <p class="text-[9px] font-bold uppercase tracking-widest" data-i18n="stat-detect">Detection Rate</p>
-                </div>
-                <div class="text-left border-l border-white/20 pl-6">
-                    <p class="text-3xl font-black text-white">24/7</p>
-                    <p class="text-[9px] font-bold uppercase tracking-widest" data-i18n="stat-support">Active Support</p>
-                </div>
-            </div>
         </header>
 
         <!-- Product Grid -->
-        <main id="products-section" class="max-w-7xl mx-auto px-10 py-32">
+        <main id="products-section" class="max-w-7xl mx-auto px-10 py-20">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                
                 <!-- UE Card -->
                 <div class="premium-card rounded-2xl p-10 group">
                     <div class="flex justify-between items-center mb-16">
@@ -259,51 +264,48 @@
                         <div class="text-white/20 group-hover:text-red-600 transition duration-500 font-black text-xl">PRO</div>
                     </div>
                     <div class="flex-grow flex flex-col items-center text-center mb-16">
-                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.5em] mb-8" data-i18n="card-ue-tag">Supreme Performance</p>
-                        <img src="https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/assets/ue_icon.jpg" alt="UE Icon" class="ue-icon-img mb-6 rounded-2xl" onerror="this.src='https://images.unsplash.com/photo-1614011016016-9bafd573a4b6?q=80&w=200&auto=format&fit=crop'">
+                        <img src="https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/assets/ue_icon.jpg" alt="UE Icon" class="card-icon-img mb-6">
                         <h3 class="text-4xl font-black syncopate italic">UE</h3>
                         <p class="text-xs text-gray-500 mt-4 max-w-[200px] mx-auto" data-i18n="card-ue-desc">Lightweight, ultra-fast core system for extreme efficiency.</p>
                     </div>
                     <div class="pt-8 border-t border-white/5">
                         <div class="flex justify-between items-end mb-8">
                             <div>
-                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1" data-i18n="pricing-tag">Pricing From</p>
+                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1">Pricing From</p>
                                 <p class="text-4xl font-black">€9.97</p>
                             </div>
                             <div class="text-right">
                                 <span class="status-dot text-green-500 bg-green-500"></span>
-                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest" data-i18n="status-safe">Safe</span>
+                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Safe</span>
                             </div>
                         </div>
-                        <button class="btn-silver w-full py-5 rounded-lg text-xs" data-i18n="btn-buy">Buy License</button>
+                        <button class="btn-silver w-full py-5 rounded-lg text-xs">Buy License</button>
                     </div>
                 </div>
 
                 <!-- KH V2 Card -->
-                <div class="premium-card rounded-2xl p-10 border-red-600/40 border-b-4 group shadow-2xl shadow-red-900/5 cursor-pointer" onclick="showPage('khv2')">
+                <div class="premium-card rounded-2xl p-10 border-red-600/40 border-b-4 group cursor-pointer" onclick="showPage('khv2')">
                     <div class="flex justify-between items-center mb-16">
                         <div class="text-[10px] font-black bg-red-600 text-white px-3 py-1 skew-x-[-15deg]"><span class="inline-block skew-x-[15deg]">PREMIUM</span></div>
-                        <div class="text-red-600 animate-pulse font-black">CLOUD</div>
+                        <div class="text-red-600 font-black">CLOUD</div>
                     </div>
-                    <div class="flex-grow flex flex-col items-center mb-16">
-                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.5em] mb-10" data-i18n="card-kh-tag">Cloud Integrated</p>
-                        <div class="w-36 h-36 border border-white/10 rounded-3xl flex items-center justify-center bg-white/5 group-hover:border-red-600/30 transition duration-500">
-                             <span class="text-6xl font-black syncopate">KH</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-10 text-center max-w-[220px]" data-i18n="card-kh-desc">The pinnacle of multifunctional scripting, trusted worldwide.</p>
+                    <div class="flex-grow flex flex-col items-center mb-16 text-center">
+                        <img src="https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/assets/kh_icon.jpg" alt="KH Icon" class="card-icon-img mb-6">
+                        <h3 class="text-4xl font-black syncopate italic">KH V2</h3>
+                        <p class="text-xs text-gray-500 mt-4 max-w-[220px]" data-i18n="card-kh-desc">The pinnacle of multifunctional scripting, trusted worldwide.</p>
                     </div>
                     <div class="pt-8 border-t border-white/5">
                         <div class="flex justify-between items-end mb-8">
                             <div>
-                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1" data-i18n="status-tag">Status</p>
-                                <p class="text-xl font-bold text-white uppercase" data-i18n="btn-details">View Details</p>
+                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1">Status</p>
+                                <p class="text-xl font-bold text-white uppercase">View Details</p>
                             </div>
                             <div class="text-right">
                                 <span class="status-dot text-green-500 bg-green-500"></span>
-                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest italic" data-i18n="status-stable">Stable</span>
+                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest italic">Stable</span>
                             </div>
                         </div>
-                        <button class="btn-silver w-full py-5 rounded-lg text-xs" data-i18n="btn-access">Access Script</button>
+                        <button class="btn-silver w-full py-5 rounded-lg text-xs">Access Script</button>
                     </div>
                 </div>
 
@@ -313,59 +315,54 @@
                         <div class="text-[10px] font-black bg-white/10 text-white px-3 py-1 skew-x-[-15deg]"><span class="inline-block skew-x-[15deg]">EXECUTOR</span></div>
                         <div class="text-white/20 group-hover:text-blue-500 transition duration-500 font-black">ENGINE</div>
                     </div>
-                    <div class="flex-grow flex flex-col items-center mb-16">
-                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.5em] mb-10" data-i18n="card-yub-tag">Open Source</p>
-                        <div class="w-36 h-36 border border-white/10 rounded-3xl flex items-center justify-center bg-white/5">
-                            <span class="text-6xl font-black syncopate italic">YUB</span>
-                        </div>
-                        <h3 class="text-2xl font-black italic tracking-widest mt-10">YUB-X</h3>
-                        <p class="text-xs text-gray-500 mt-2" data-i18n="card-yub-desc">Community-driven high speed execution engine.</p>
+                    <div class="flex-grow flex flex-col items-center mb-16 text-center">
+                        <img src="https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/assets/yub_icon.jpg" alt="YUB Icon" class="card-icon-img mb-6">
+                        <h3 class="text-4xl font-black syncopate italic">YUB-X</h3>
+                        <p class="text-xs text-gray-500 mt-4 max-w-[200px]" data-i18n="card-yub-desc">Community-driven high speed execution engine.</p>
                     </div>
                     <div class="pt-8 border-t border-white/5">
                         <div class="flex justify-between items-end mb-8">
                             <div>
-                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1" data-i18n="pricing-tag">Pricing From</p>
+                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1">Pricing From</p>
                                 <p class="text-4xl font-black text-green-500 italic">FREE</p>
                             </div>
                             <div class="text-right">
                                 <span class="status-dot text-green-500 bg-green-500"></span>
-                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest" data-i18n="status-working">Working</span>
+                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Working</span>
                             </div>
                         </div>
-                        <button class="btn-silver w-full py-5 rounded-lg text-xs" data-i18n="btn-site">Official Site</button>
+                        <button class="btn-silver w-full py-5 rounded-lg text-xs">Official Site</button>
                     </div>
                 </div>
             </div>
+        </main>
 
-            <!-- Video Section -->
-            <div class="mt-56">
-                <div class="flex flex-col items-center text-center mb-24">
-                    <span class="text-red-600 font-black text-[10px] tracking-[0.6em] uppercase mb-4">Showcase</span>
-                    <h2 class="text-5xl font-black syncopate italic leading-tight" data-i18n="showcase-title">DOMINANCE <br>IN ACTION</h2>
+        <!-- Video Showcase Section -->
+        <section id="showcase" class="max-w-7xl mx-auto px-10 py-40 border-t border-white/5">
+            <div class="text-center mb-24">
+                <h2 class="text-5xl font-black syncopate italic mb-6" data-i18n="showcase-title">Visual Proof</h2>
+                <p class="text-gray-500 uppercase tracking-[0.4em] text-[10px] font-bold" data-i18n="showcase-subtitle">Intelligence in Motion</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Video 1 -->
+                <div class="video-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7429994038891400466?music_info=1&description=1" allow="fullscreen" frameborder="0"></iframe>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <a href="https://vt.tiktok.com/ZS9pRx8pK/" target="_blank" class="thumb-glitch group rounded-3xl overflow-hidden aspect-video border border-white/10 block relative">
-                        <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110 opacity-50" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800');"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                             <div class="px-8 py-3 bg-red-600 text-white font-black skew-x-[-15deg]"><span class="inline-block skew-x-[15deg]">PLAY CLIP</span></div>
-                        </div>
-                        <div class="absolute bottom-10 left-10">
-                            <p class="text-red-600 font-black text-[9px] uppercase tracking-widest mb-2" data-i18n="v1-tag">Combat Module</p>
-                            <h4 class="text-2xl font-black italic">UE Performance</h4>
-                        </div>
-                    </a>
-                    <a href="https://vt.tiktok.com/ZS9pRbETM/" target="_blank" class="thumb-glitch group rounded-3xl overflow-hidden aspect-video border border-white/10 block relative">
-                        <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110 opacity-50" style="background-image: url('https://images.unsplash.com/photo-1614011016016-9bafd573a4b6?auto=format&fit=crop&q=80&w=800');"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                        <div class="absolute bottom-10 left-10">
-                            <p class="text-red-600 font-black text-[9px] uppercase tracking-widest mb-2" data-i18n="v2-tag">Cloud Module</p>
-                            <h4 class="text-2xl font-black italic">KH V2 Showcase</h4>
-                        </div>
-                    </a>
+                <!-- Video 2 -->
+                <div class="video-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7430006236317519122?music_info=1&description=1" allow="fullscreen" frameborder="0"></iframe>
+                </div>
+                <!-- Video 3 -->
+                <div class="video-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7430006509656001810?music_info=1&description=1" allow="fullscreen" frameborder="0"></iframe>
+                </div>
+                <!-- Video 4 -->
+                <div class="video-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7430010996160417042?music_info=1&description=1" allow="fullscreen" frameborder="0"></iframe>
                 </div>
             </div>
-        </main>
+        </section>
     </div>
 
     <!-- KH V2 Detail Page -->
@@ -373,48 +370,25 @@
         <div class="max-w-5xl mx-auto px-10 text-center">
             <div class="hero-watermark">KICIA</div>
             <div class="mb-20 flex flex-col items-center">
-                <div class="w-48 h-32 border border-red-600/30 rounded-3xl flex items-center justify-center bg-red-600/5 mb-8">
-                     <span class="text-6xl font-black syncopate tracking-tighter">KH</span>
-                </div>
+                <img src="https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/assets/kh_icon.jpg" class="w-48 h-48 rounded-3xl mb-8 border border-red-600/30">
                 <h2 class="text-6xl font-black syncopate italic mb-4">KH <span class="text-red-600">VERSION 2</span></h2>
                 <div class="flex items-center space-x-4">
                     <span class="status-dot text-green-500 bg-green-500"></span>
-                    <span class="text-xs font-black uppercase tracking-widest text-gray-500" data-i18n="kh-status-txt">Undetected & Functional</span>
+                    <span class="text-xs font-black uppercase tracking-widest text-gray-500">Undetected & Functional</span>
                 </div>
             </div>
 
             <div class="max-w-3xl mx-auto mb-24">
-                <p class="text-left text-gray-500 text-[10px] font-black uppercase tracking-widest mb-4 ml-2" data-i18n="kh-loader-txt">Loader Script</p>
                 <div class="copy-box p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 border-white/10 shadow-2xl relative">
                     <div class="text-left overflow-x-auto w-full">
                         <code id="scriptCode" class="text-xs text-white/80 whitespace-nowrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()</code>
                     </div>
-                    <button onclick="copyToClipboard()" class="btn-silver px-12 py-4 rounded-xl text-xs whitespace-nowrap" data-i18n="btn-copy">Copy</button>
+                    <button onclick="copyToClipboard()" class="btn-silver px-12 py-4 rounded-xl text-xs whitespace-nowrap">Copy</button>
                     <div id="copyAlert" class="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-6 py-2 rounded-full opacity-0 transition-all duration-300 pointer-events-none uppercase">COPIED</div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                    <p class="text-red-600 font-black mb-4 uppercase text-xs" data-i18n="f1-tag">Speed</p>
-                    <h4 class="font-bold mb-2 uppercase text-white" data-i18n="f1-title">Instant Load</h4>
-                    <p class="text-xs text-gray-500" data-i18n="f1-desc">Deploy all functions within seconds with fast server response.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                    <p class="text-red-600 font-black mb-4 uppercase text-xs" data-i18n="f2-tag">Safety</p>
-                    <h4 class="font-bold mb-2 uppercase text-white" data-i18n="f2-title">Silent Mode</h4>
-                    <p class="text-xs text-gray-500" data-i18n="f2-desc">Equipped with advanced anti-detection algorithms, prioritizing safety.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl">
-                    <p class="text-red-600 font-black mb-4 uppercase text-xs" data-i18n="f3-tag">Utility</p>
-                    <h4 class="font-bold mb-2 uppercase text-white" data-i18n="f3-title">Customizable</h4>
-                    <p class="text-xs text-gray-500" data-i18n="f3-desc">Tune over 100 settings freely to build your own environment.</p>
-                </div>
-            </div>
-
-            <button onclick="showPage('home')" class="mt-20 text-[10px] font-black text-gray-600 hover:text-white uppercase tracking-[0.4em] transition">
-                <span data-i18n="btn-return">Return to Catalogue</span>
-            </button>
+            <button onclick="showPage('home')" class="mt-20 text-[10px] font-black text-gray-600 hover:text-white uppercase tracking-[0.4em] transition">Return to Catalogue</button>
         </div>
     </div>
 
@@ -422,44 +396,40 @@
     <div id="terms-page" class="page-content pt-48 pb-48">
         <div class="max-w-4xl mx-auto px-10">
             <div class="bg-zinc-950 border border-white/10 rounded-[40px] p-16 shadow-2xl">
-                <div class="flex items-center space-x-6 mb-20">
-                    <div class="w-1.5 h-12 bg-red-600"></div>
-                    <h2 class="text-5xl font-black syncopate italic" data-i18n="terms-title">Rules of Engagement</h2>
-                </div>
-                <div class="grid grid-cols-1 gap-16 text-gray-500">
+                <h2 class="text-5xl font-black syncopate italic mb-10" data-i18n="terms-title">Rules of Engagement</h2>
+                <div class="grid grid-cols-1 gap-12 text-gray-500 text-sm">
                     <section>
-                        <h3 class="text-white font-bold text-xl mb-4 uppercase"><span class="text-red-600 mr-4">01</span> <span data-i18n="t1-title">Acceptable Use</span></h3>
-                        <p data-i18n="t1-desc">All products provided by left-configs are designed for entertainment purposes only.</p>
+                        <h3 class="text-white font-bold text-xl mb-4 uppercase">01. Acceptable Use</h3>
+                        <p>All products provided by left-configs are designed for entertainment purposes only. Users are responsible for their own actions.</p>
                     </section>
                     <section>
-                        <h3 class="text-white font-bold text-xl mb-4 uppercase"><span class="text-red-600 mr-4">02</span> <span data-i18n="t2-title">Final Sale</span></h3>
-                        <p data-i18n="t2-desc">Due to the nature of digital licenses, no refunds or exchanges are provided.</p>
+                        <h3 class="text-white font-bold text-xl mb-4 uppercase">02. Final Sale</h3>
+                        <p>Due to the nature of digital licenses, no refunds or exchanges are provided. Support is available via Discord.</p>
                     </section>
                 </div>
-                <button onclick="showPage('home')" class="mt-16 text-[10px] font-black text-gray-600 hover:text-white uppercase tracking-[0.4em] transition">
-                    <span data-i18n="btn-back">Back Home</span>
-                </button>
+                <button onclick="showPage('home')" class="mt-16 text-[10px] font-black text-gray-600 hover:text-white uppercase tracking-[0.4em] transition">Back Home</button>
             </div>
         </div>
     </div>
 
-    <footer class="border-t border-white/5 py-24 bg-[#020202]">
+    <footer class="border-t border-white/5 py-24 bg-[#020202] relative">
         <div class="max-w-7xl mx-auto px-10 text-center">
             <p class="text-gray-700 text-[9px] font-black uppercase tracking-[0.4em]">© 2026 left-configs. Developed for the Elite.</p>
         </div>
     </footer>
 
     <script>
-        // High Quality Background Animation
+        // --- Background Engine ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        let mouse = { x: 0, y: 0 };
+        let mouse = { x: -1000, y: -1000 };
         let particles = [];
 
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
+
         window.addEventListener('resize', resize);
         window.addEventListener('mousemove', e => {
             mouse.x = e.clientX;
@@ -468,24 +438,23 @@
 
         class Particle {
             constructor() {
+                this.reset();
+            }
+            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = Math.random() > 0.9 ? '#ff0000' : '#ffffff';
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.life = Math.random();
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
             }
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = 0.2;
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.life * 0.2})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -494,151 +463,74 @@
 
         function initBackground() {
             resize();
-            for (let i = 0; i < 80; i++) particles.push(new Particle());
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
             animate();
         }
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             // Grid
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
-            ctx.lineWidth = 1;
-            const step = 60;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            const step = 80;
             for(let x=0; x<canvas.width; x+=step) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
             }
             for(let y=0; y<canvas.height; y+=step) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Interactive Light
-            const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 500);
-            gradient.addColorStop(0, 'rgba(255, 0, 0, 0.08)');
-            gradient.addColorStop(1, 'transparent');
-            ctx.fillStyle = gradient;
+            // Glow
+            const glow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 600);
+            glow.addColorStop(0, 'rgba(255, 0, 0, 0.08)');
+            glow.addColorStop(1, 'transparent');
+            ctx.fillStyle = glow;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Particles
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
 
-        // Translation Logic
+        // --- Logic ---
         const translations = {
             en: {
                 "nav-main": "Main",
-                "nav-lang": "Language",
                 "nav-catalogue": "Catalogue",
+                "nav-showcase": "Showcase",
                 "nav-license": "License",
                 "nav-dashboard": "Dashboard",
+                "nav-lang": "Language",
                 "sys-status": "System v4.2 Online",
                 "hero-title-1": "EVOLVE YOUR",
                 "hero-title-2": "INSTINCTS.",
                 "hero-desc": "Uncompromising performance. The forefront of detection evasion. Left-configs provides absolute superiority only granted to the chosen.",
-                "stat-clients": "Global Clients",
-                "stat-detect": "Detection Rate",
-                "stat-support": "Active Support",
-                "card-ue-tag": "Supreme Performance",
                 "card-ue-desc": "Lightweight, ultra-fast core system for extreme efficiency.",
-                "pricing-tag": "Pricing From",
-                "status-safe": "Safe",
-                "btn-buy": "Buy License",
-                "card-kh-tag": "Cloud Integrated",
                 "card-kh-desc": "The pinnacle of multifunctional scripting, trusted worldwide.",
-                "status-tag": "Status",
-                "status-stable": "Stable",
-                "btn-details": "View Details",
-                "btn-access": "Access Script",
-                "card-yub-tag": "Open Source",
                 "card-yub-desc": "Community-driven high speed execution engine.",
-                "status-working": "Working",
-                "btn-site": "Official Site",
-                "showcase-title": "DOMINANCE IN ACTION",
-                "v1-tag": "Combat Module",
-                "v2-tag": "Cloud Module",
-                "kh-status-txt": "Undetected & Functional",
-                "kh-loader-txt": "Loader Script",
-                "btn-copy": "Copy",
-                "copy-alert": "COPIED TO CLIPBOARD",
-                "f1-tag": "Speed",
-                "f1-title": "Instant Load",
-                "f1-desc": "Deploy all functions within seconds with fast server response.",
-                "f2-tag": "Safety",
-                "f2-title": "Silent Mode",
-                "f2-desc": "Equipped with advanced anti-detection algorithms, prioritizing safety.",
-                "f3-tag": "Utility",
-                "f3-title": "Customizable",
-                "f3-desc": "Tune over 100 settings freely to build your own environment.",
-                "btn-return": "Return to Catalogue",
+                "showcase-title": "Visual Proof",
+                "showcase-subtitle": "Intelligence in Motion",
                 "terms-title": "Rules of Engagement",
-                "t1-title": "Acceptable Use",
-                "t1-desc": "All products provided by left-configs are designed for entertainment purposes only.",
-                "t2-title": "Final Sale",
-                "t2-desc": "Due to the nature of digital licenses, no refunds or exchanges are provided.",
-                "btn-back": "Back Home"
+                "copy-alert": "COPIED TO CLIPBOARD"
             },
             ja: {
                 "nav-main": "メイン",
-                "nav-lang": "言語設定",
-                "nav-catalogue": "カタログ",
+                "nav-catalogue": "製品一覧",
+                "nav-showcase": "実機デモ",
                 "nav-license": "規約",
                 "nav-dashboard": "ダッシュボード",
-                "sys-status": "システム v4.2 オンライン",
+                "nav-lang": "言語",
+                "sys-status": "システム v4.2 稼働中",
                 "hero-title-1": "本能を、",
                 "hero-title-2": "進化させろ。",
-                "hero-desc": "妥協なき性能。検知回避の最前線。left-configsは、選ばれしプレイヤーにのみ許される絶対的な優位性を提供します。",
-                "stat-clients": "全世界クライアント",
-                "stat-detect": "検知率",
-                "stat-support": "24時間サポート",
-                "card-ue-tag": "至高のパフォーマンス",
+                "hero-desc": "妥協なき性能。検知回避の最前線。left-configsは、選ばれし者にのみ許される絶対的な優位性を提供します。",
                 "card-ue-desc": "軽量・高速。極限まで最適化されたコアシステム。",
-                "pricing-tag": "販売価格",
-                "status-safe": "安全",
-                "btn-buy": "ライセンス購入",
-                "card-kh-tag": "クラウド統合型",
                 "card-kh-desc": "世界で最も信頼される多機能スクリプトの頂点。",
-                "status-tag": "ステータス",
-                "status-stable": "安定",
-                "btn-details": "詳細を見る",
-                "btn-access": "スクリプトを利用",
-                "card-yub-tag": "オープンソース",
                 "card-yub-desc": "コミュニティ主導の最速実行エンジン。",
-                "status-working": "稼働中",
-                "btn-site": "公式サイトへ",
-                "showcase-title": "圧倒的な実力",
-                "v1-tag": "戦闘モジュール",
-                "v2-tag": "クラウドモジュール",
-                "kh-status-txt": "未検知 & 正常稼働中",
-                "kh-loader-txt": "ローダースクリプト",
-                "btn-copy": "コピーする",
-                "copy-alert": "クリップボードにコピーしました",
-                "f1-tag": "スピード",
-                "f1-title": "即時ロード",
-                "f1-desc": "高速サーバーにより数秒で全機能を展開可能。",
-                "f2-tag": "安全性",
-                "f2-title": "サイレントモード",
-                "f2-desc": "高度な回避アルゴリズムにより安全性を最優先。",
-                "f3-tag": "利便性",
-                "f3-title": "カスタマイズ可能",
-                "f3-desc": "100以上の設定を自由に調整可能。",
-                "btn-return": "カタログに戻る",
+                "showcase-title": "動作デモ",
+                "showcase-subtitle": "圧倒的な実力",
                 "terms-title": "利用規約",
-                "t1-title": "許可される利用方法",
-                "t1-desc": "提供される全ての製品は娯楽目的でのみ設計されています。",
-                "t2-title": "返品・交換",
-                "t2-desc": "デジタル製品の性質上、返金や交換は一切行いません。",
-                "btn-back": "ホームに戻る"
+                "copy-alert": "コピーしました"
             }
         };
 
@@ -653,17 +545,19 @@
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(pageId + '-page');
-            if(target) {
-                target.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            if(target) target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToSection(id) {
+            showPage('home');
+            setTimeout(() => {
+                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
 
         function scrollToProducts() {
-            showPage('home');
-            setTimeout(() => {
-                document.getElementById('products-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            scrollToSection('products-section');
         }
 
         function copyToClipboard() {
@@ -676,19 +570,13 @@
             document.body.removeChild(el);
 
             const alertBox = document.getElementById('copyAlert');
-            const currentLang = document.documentElement.lang || 'en';
-            alertBox.innerText = translations[currentLang]["copy-alert"];
             alertBox.style.opacity = '1';
-            alertBox.style.top = '-16px';
-            setTimeout(() => {
-                alertBox.style.opacity = '0';
-                alertBox.style.top = '-12px';
-            }, 2000);
+            setTimeout(() => alertBox.style.opacity = '0', 2000);
         }
 
         window.onload = () => {
             initBackground();
-            setLanguage('en');
+            setLanguage('ja');
         }
     </script>
 </body>
