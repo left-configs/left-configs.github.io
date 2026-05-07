@@ -35,7 +35,7 @@ body{
     font-family:'Inter',sans-serif;
 }
 
-/* ========================= BACKGROUND ========================= */
+/* ========================= REAL BACKGROUND ========================= */
 
 #bg-canvas{
     position:fixed;
@@ -53,9 +53,10 @@ body{
     opacity:.08;
     pointer-events:none;
     background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 1px, transparent 1px),
-    radial-gradient(circle at 80% 80%, rgba(255,255,255,.06) 1px, transparent 1px);
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.06) 1px, transparent 1px);
     background-size:4px 4px;
+    mix-blend-mode:overlay;
 }
 
 .bg-vignette{
@@ -64,10 +65,10 @@ body{
     z-index:-1;
     pointer-events:none;
     background:
-    radial-gradient(circle at center,
-    transparent 0%,
-    rgba(0,0,0,.45) 55%,
-    rgba(0,0,0,.95) 100%);
+        radial-gradient(circle at center,
+        transparent 0%,
+        rgba(0,0,0,.45) 55%,
+        rgba(0,0,0,.95) 100%);
 }
 
 /* ========================= NAVBAR ========================= */
@@ -132,8 +133,8 @@ nav{
 .red-glow{
     color:var(--red);
     text-shadow:
-    0 0 20px rgba(255,0,0,.8),
-    0 0 60px rgba(255,0,0,.35);
+        0 0 20px rgba(255,0,0,.8),
+        0 0 60px rgba(255,0,0,.35);
 }
 
 .hero-desc{
@@ -158,17 +159,11 @@ nav{
     background:linear-gradient(135deg,#fff,#9d9d9d);
     color:#000;
     transition:.4s;
-    margin-top:10px;
 }
 
 .btn:hover{
     transform:translateY(-3px);
     box-shadow:0 0 35px rgba(255,255,255,.18);
-}
-
-.red-btn{
-    background:linear-gradient(135deg,#ff0000,#790000);
-    color:#fff;
 }
 
 /* ========================= PRODUCT CARDS ========================= */
@@ -201,8 +196,8 @@ nav{
     transform:translateY(-14px) scale(1.02);
     border-color:rgba(255,0,0,.35);
     box-shadow:
-    0 25px 80px rgba(255,0,0,.15),
-    inset 0 0 0 1px rgba(255,255,255,.03);
+        0 25px 80px rgba(255,0,0,.15),
+        inset 0 0 0 1px rgba(255,255,255,.03);
 }
 
 .card.blue:hover{
@@ -257,9 +252,7 @@ nav{
     transform:scale(1.08) rotate(3deg);
 }
 
-.ue,
-.yub,
-.kh{
+.ue{
     width:100%;
     height:100%;
     display:flex;
@@ -282,7 +275,13 @@ nav{
 }
 
 .yub{
+    width:100%;
+    height:100%;
     background:#00a2ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
 }
 
 .yub::before{
@@ -297,6 +296,16 @@ nav{
     font-weight:900;
 }
 
+.kh{
+    width:100%;
+    height:100%;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
 .kh::before{
     content:'';
     position:absolute;
@@ -307,6 +316,7 @@ nav{
 .kh span{
     font-size:65px;
     font-weight:900;
+    color:#fff;
 }
 
 .card-title{
@@ -335,69 +345,59 @@ nav{
     font-weight:900;
 }
 
-/* ========================= MODAL ========================= */
+/* ========================= SHOWCASE ========================= */
 
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.7);
-    backdrop-filter:blur(12px);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-    padding:20px;
+.showcase{
+    max-width:1500px;
+    margin:auto;
+    padding:140px 30px;
+    border-top:1px solid rgba(255,255,255,.06);
 }
 
-.modal-box{
-    width:100%;
-    max-width:520px;
-    background:#0a0a0a;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:30px;
-    padding:40px;
-}
-
-.modal-title{
-    font-size:38px;
-    font-weight:900;
-    margin-bottom:12px;
-}
-
-.modal-desc{
-    color:#6d6d6d;
-    margin-bottom:30px;
-}
-
-.input{
-    width:100%;
-    background:#050505;
-    border:1px solid rgba(255,255,255,.08);
-    padding:16px;
-    border-radius:12px;
-    color:#fff;
-    margin-bottom:18px;
-}
-
-.select{
-    width:100%;
-    background:#050505;
-    border:1px solid rgba(255,255,255,.08);
-    padding:16px;
-    border-radius:12px;
-    color:#fff;
-    margin-bottom:22px;
-}
-
-.close-btn{
-    margin-top:15px;
-    color:#888;
-    cursor:pointer;
+.section-title{
     text-align:center;
+    margin-bottom:90px;
 }
 
-.close-btn:hover{
-    color:#fff;
+.section-title h2{
+    font-size:60px;
+    font-weight:900;
+    font-style:italic;
+}
+
+.section-title p{
+    margin-top:14px;
+    color:#6f6f6f;
+    letter-spacing:.35em;
+    font-size:11px;
+    font-weight:900;
+}
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+    gap:30px;
+}
+
+.video-box{
+    position:relative;
+    border-radius:28px;
+    overflow:hidden;
+    background:#000;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.45s;
+}
+
+.video-box:hover{
+    transform:translateY(-10px) scale(1.02);
+    border-color:rgba(255,0,0,.3);
+    box-shadow:0 20px 60px rgba(255,0,0,.14);
+}
+
+.video-box iframe{
+    width:100%;
+    aspect-ratio:9/16;
+    display:block;
 }
 
 /* ========================= FOOTER ========================= */
@@ -425,44 +425,72 @@ footer{
 <!-- NAV -->
 
 <nav>
-<div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
 
-<div onclick="reloadHome()" class="flex items-center gap-3 cursor-pointer">
+        <div onclick="reloadHome()" class="flex items-center gap-3 cursor-pointer">
 
-<div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center skew-x-[-12deg]">
-<span class="text-white text-xl font-black skew-x-[12deg] italic">L</span>
-</div>
+            <div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center skew-x-[-12deg]">
+                <span class="text-white text-xl font-black skew-x-[12deg] italic">L</span>
+            </div>
 
-<div class="sync text-lg font-black">
-LEFT-<span class="text-red-600">CONFIGS</span>
-</div>
+            <div class="sync text-lg font-black">
+                LEFT-<span class="text-red-600">CONFIGS</span>
+            </div>
 
-</div>
+        </div>
 
-<div class="hidden lg:flex items-center gap-10">
+        <div class="hidden lg:flex items-center gap-10">
 
-<a href="#products" class="nav-link">CATALOGUE</a>
-<a href="#footer" class="nav-link">LICENSE</a>
+            <a href="javascript:void(0)" onclick="reloadHome()" class="nav-link">
+                HOME
+            </a>
 
-</div>
+            <a href="#products" class="nav-link">
+                CATALOGUE
+            </a>
 
-</div>
+            <a href="#showcase" class="nav-link">
+                SHOWCASE
+            </a>
+
+            <a href="#footer" class="nav-link">
+                LICENSE
+            </a>
+
+            <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="nav-link">
+                DISCORD
+            </a>
+
+        </div>
+
+    </div>
 </nav>
 
 <!-- HERO -->
 
-<section class="hero">
+<section class="hero" id="home">
 
-<div class="watermark sync">LEFT</div>
+    <div class="watermark sync">LEFT</div>
 
-<h1 class="hero-title sync">
-EVOLVE YOUR <br>
-<span class="red-glow">INSTINCTS.</span>
-</h1>
+    <div class="inline-flex items-center px-5 py-2 rounded-full border border-white/10 bg-white/5 mb-10">
 
-<p class="hero-desc">
-Elite configuration system with secure purchase access.
-</p>
+        <div class="w-2 h-2 rounded-full bg-green-500 mr-3 animate-pulse"></div>
+
+        <span class="text-[10px] tracking-[0.3em] font-black uppercase text-gray-400">
+            SYSTEM V5.3 ONLINE
+        </span>
+
+    </div>
+
+    <h1 class="hero-title sync">
+        EVOLVE YOUR <br>
+        <span class="red-glow">INSTINCTS.</span>
+    </h1>
+
+    <p class="hero-desc">
+        Uncompromising performance. Detection evasion at the highest level.
+        LEFT-CONFIGS delivers elite execution power only granted to the chosen.
+    </p>
 
 </section>
 
@@ -470,180 +498,262 @@ Elite configuration system with secure purchase access.
 
 <section class="products" id="products">
 
-<div class="grid">
+    <div class="grid">
 
-<!-- KH -->
+        <!-- UE -->
 
-<div class="card">
+        <div class="card">
 
-<div class="card-top">
-<div class="tag red">PREMIUM</div>
-<div class="text-red-500 font-black">CLOUD</div>
-</div>
+            <div class="card-top">
 
-<div class="icon-wrap">
-<div class="kh">
-<span>KH</span>
-</div>
-</div>
+                <div class="tag white">INTERNAL</div>
 
-<div class="card-title sync">
-KH V2
-</div>
+                <div class="text-white/20 font-black text-xl">
+                    PRO
+                </div>
 
-<div class="card-desc">
-Multifunctional scripting environment trusted worldwide.
-</div>
+            </div>
 
-<div class="card-bottom">
+            <div class="icon-wrap">
 
-<div class="flex justify-between items-end mb-8">
+                <div class="ue">
+                    <span>UE</span>
+                </div>
 
-<div>
-<div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
-STATUS
-</div>
+            </div>
 
-<div class="text-2xl font-black">
-STABLE
-</div>
-</div>
+            <div class="card-title sync">UE</div>
 
-<div class="text-green-500 font-black uppercase text-xs">
-WORKING
-</div>
+            <div class="card-desc">
+                Lightweight ultra-fast core system designed for maximum execution efficiency.
+            </div>
 
-</div>
+            <div class="card-bottom">
 
-<button class="btn">
-Access Script
-</button>
+                <div class="flex justify-between items-end mb-8">
 
-<!-- CONFIG BUTTON -->
+                    <div>
+                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+                            Pricing From
+                        </div>
 
-<button class="btn red-btn" onclick="openModal()">
-Buy Config
-</button>
+                        <div class="price">
+                            €9.97
+                        </div>
+                    </div>
 
-</div>
+                    <div class="text-green-500 font-black uppercase text-xs">
+                        SAFE
+                    </div>
 
-</div>
+                </div>
 
-</div>
+                <button class="btn">
+                    Buy License
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- KH -->
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <div class="tag red">PREMIUM</div>
+
+                <div class="text-red-500 font-black">
+                    CLOUD
+                </div>
+
+            </div>
+
+            <div class="icon-wrap">
+
+                <div class="kh">
+                    <span>KH</span>
+                </div>
+
+            </div>
+
+            <div class="card-title sync">
+                KH V2
+            </div>
+
+            <div class="card-desc">
+                Multifunctional scripting environment trusted by users worldwide.
+            </div>
+
+            <div class="card-bottom">
+
+                <div class="flex justify-between items-end mb-8">
+
+                    <div>
+
+                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+                            STATUS
+                        </div>
+
+                        <div class="text-2xl font-black">
+                            STABLE
+                        </div>
+
+                    </div>
+
+                    <div class="text-green-500 font-black uppercase text-xs">
+                        WORKING
+                    </div>
+
+                </div>
+
+                <button class="btn">
+                    Access Script
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- YUB -->
+
+        <div class="card blue">
+
+            <div class="card-top">
+
+                <div class="tag blue">
+                    EXECUTOR
+                </div>
+
+                <div class="text-blue-400 font-black">
+                    ENGINE
+                </div>
+
+            </div>
+
+            <div class="icon-wrap">
+
+                <div class="yub">
+                    <span>X</span>
+                </div>
+
+            </div>
+
+            <div class="card-title sync text-blue-400">
+                YUB-X
+            </div>
+
+            <div class="card-desc">
+                Community-driven ultra fast execution engine.
+            </div>
+
+            <div class="card-bottom">
+
+                <div class="flex justify-between items-end mb-8">
+
+                    <div>
+
+                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+                            PRICE
+                        </div>
+
+                        <div class="price text-blue-400">
+                            FREE
+                        </div>
+
+                    </div>
+
+                    <div class="text-green-500 font-black uppercase text-xs">
+                        ONLINE
+                    </div>
+
+                </div>
+
+                <button class="btn">
+                    Official Site
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- MODAL -->
+<!-- SHOWCASE -->
 
-<div class="modal" id="buyModal">
+<section class="showcase" id="showcase">
 
-<div class="modal-box">
+    <div class="section-title">
+        <h2 class="sync">VISUAL PROOF</h2>
+        <p>INTELLIGENCE IN MOTION</p>
+    </div>
 
-<div class="modal-title sync">
-CONFIG PURCHASE
-</div>
+    <div class="video-grid">
 
-<div class="modal-desc">
-Select payment method and continue.
-</div>
+        <div class="video-box">
+            <iframe
+                src="https://www.tiktok.com/embed/v2/7634461082249219329"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
 
-<input
-type="text"
-class="input"
-placeholder="Discord Username"
-/>
+        <div class="video-box">
+            <iframe
+                src="https://www.tiktok.com/embed/v2/7627089280732597505"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
 
-<input
-type="email"
-class="input"
-placeholder="Your Email"
-/>
+        <div class="video-box">
+            <iframe
+                src="https://www.tiktok.com/embed/v2/7626723329638026497"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
 
-<select class="select" id="paymentMethod">
-<option value="PayPay">PayPay</option>
-<option value="Credit Card">Credit Card</option>
-</select>
+        <div class="video-box">
+            <iframe
+                src="https://www.tiktok.com/embed/v2/7625962066465148161"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
 
-<button class="btn red-btn" onclick="buyNow()">
-Buy Now
-</button>
+    </div>
 
-<div class="close-btn" onclick="closeModal()">
-Close
-</div>
-
-</div>
-
-</div>
+</section>
 
 <!-- FOOTER -->
 
 <footer id="footer">
-© 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
+    © 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
 </footer>
 
 <script>
 
-/* ========================= HOME ========================= */
+/* ========================= HOME BUTTON RELOAD ========================= */
 
 function reloadHome(){
     window.scrollTo({
         top:0,
         behavior:'smooth'
     });
+
+    setTimeout(()=>{
+        location.reload();
+    },300);
 }
 
-/* ========================= MODAL ========================= */
+/* ========================= REAL BACKGROUND ========================= */
 
-const modal = document.getElementById('buyModal');
-
-function openModal(){
-    modal.style.display = 'flex';
-}
-
-function closeModal(){
-    modal.style.display = 'none';
-}
-
-/* ========================= BUY ========================= */
-
-function buyNow(){
-
-    const payment =
-    document.getElementById('paymentMethod').value;
-
-    const email =
-    "th.s10190629@icloud.com";
-
-    const subject =
-    encodeURIComponent("LEFT CONFIG PURCHASE");
-
-    const body =
-    encodeURIComponent(
-`Hello LEFT-CONFIGS,
-
-I want to purchase the KH Config.
-
-Payment Method:
-${payment}
-
-Please send payment instructions.
-
-Thank you.`
-    );
-
-    window.location.href =
-`mailto:${email}?subject=${subject}&body=${body}`;
-
-}
-
-/* ========================= BACKGROUND ========================= */
-
-const canvas =
-document.getElementById('bg-canvas');
-
-const ctx =
-canvas.getContext('2d');
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
 
 let w,h;
 let particles=[];
@@ -673,38 +783,20 @@ class Particle{
     }
 
     update(){
-
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if(
-            this.x<0 ||
-            this.x>w ||
-            this.y<0 ||
-            this.y>h
-        ){
+        if(this.x<0 || this.x>w || this.y<0 || this.y>h){
             this.reset();
         }
     }
 
     draw(){
-
         ctx.beginPath();
-
-        ctx.fillStyle =
-        `rgba(255,255,255,${this.alpha})`;
-
-        ctx.arc(
-            this.x,
-            this.y,
-            this.size,
-            0,
-            Math.PI*2
-        );
-
+        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
         ctx.fill();
     }
-
 }
 
 for(let i=0;i<140;i++){
@@ -717,8 +809,7 @@ function animate(){
 
     time += 0.002;
 
-    const gradient =
-    ctx.createLinearGradient(0,0,w,h);
+    const gradient = ctx.createLinearGradient(0,0,w,h);
 
     gradient.addColorStop(0,'#020202');
     gradient.addColorStop(.5,'#080808');
@@ -726,6 +817,59 @@ function animate(){
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0,0,w,h);
+
+    /* animated glow */
+
+    const glow1 = ctx.createRadialGradient(
+        w*0.3 + Math.sin(time)*200,
+        h*0.4,
+        0,
+        w*0.3,
+        h*0.4,
+        500
+    );
+
+    glow1.addColorStop(0,'rgba(255,0,0,.12)');
+    glow1.addColorStop(1,'transparent');
+
+    ctx.fillStyle = glow1;
+    ctx.fillRect(0,0,w,h);
+
+    const glow2 = ctx.createRadialGradient(
+        w*0.8,
+        h*0.2 + Math.cos(time)*150,
+        0,
+        w*0.8,
+        h*0.2,
+        400
+    );
+
+    glow2.addColorStop(0,'rgba(255,255,255,.05)');
+    glow2.addColorStop(1,'transparent');
+
+    ctx.fillStyle = glow2;
+    ctx.fillRect(0,0,w,h);
+
+    /* grid */
+
+    ctx.strokeStyle = 'rgba(255,255,255,.03)';
+    ctx.lineWidth = 1;
+
+    for(let x=0;x<w;x+=70){
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,h);
+        ctx.stroke();
+    }
+
+    for(let y=0;y<h;y+=70){
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(w,y);
+        ctx.stroke();
+    }
+
+    /* particles */
 
     particles.forEach(p=>{
         p.update();
