@@ -1,549 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEFT-CONFIGS | Elite Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        :root {
-            --bg: #000000;
-            --card-bg: #0b0b0b;
-            --text-main: #ffffff;
-            --accent-red: #ff0000;
-            --border-red: rgba(255, 0, 0, 0.6);
-        }
+<title>LEFT-CONFIGS | Elite Solutions</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: default;
-            scroll-behavior: smooth;
-        }
+<script src="https://cdn.tailwindcss.com"></script>
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-        /* 文字の周りを赤く（光彩） */
-        .red-glow-text {
-            color: #ffffff;
-            text-shadow: 0 0 8px var(--accent-red), 0 0 15px var(--accent-red);
-        }
+:root{
+    --bg:#000;
+    --red:#ff0000;
+}
 
-        /* ボタンは白、周りは赤 */
-        .red-btn-white {
-            background: #ffffff !important;
-            color: #000000 !important;
-            border: 2px solid var(--accent-red) !important;
-            box-shadow: 0 0 10px var(--accent-red);
-            font-weight: 900;
-            transition: 0.3s;
-            text-transform: uppercase;
-            cursor: pointer !important; /* Clickable */
-        }
-        .red-btn-white:hover {
-            box-shadow: 0 0 20px var(--accent-red), 0 0 40px var(--accent-red);
-            transform: scale(1.02);
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
 
-        .outline-btn {
-            background: transparent;
-            border: 2px solid var(--accent-red);
-            color: #ffffff;
-            text-shadow: 0 0 5px var(--accent-red);
-            box-shadow: 0 0 5px var(--accent-red);
-            transition: 0.3s;
-            cursor: pointer !important;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        /* 背景パーティクル */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: #000;
-        }
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+}
 
-        /* ナビゲーション */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.95);
-            border-bottom: 2px solid var(--accent-red);
-        }
+canvas{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:black;
+}
 
-        .nav-container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.red-glow{
+    text-shadow:
+    0 0 10px red,
+    0 0 20px red;
+}
 
-        .logo {
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-            color: #ffffff;
-            text-shadow: 0 0 10px var(--accent-red);
-        }
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:rgba(0,0,0,.95);
+    border-bottom:2px solid red;
+    z-index:999;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+.nav-container{
+    max-width:1300px;
+    margin:auto;
+    padding:1rem 2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
 
-        .nav-link {
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: 0.2s;
-            cursor: pointer !important;
-            text-decoration: none;
-            text-transform: uppercase;
-            text-shadow: 0 0 5px var(--accent-red);
-            pointer-events: auto; /* Ensure clickable */
-        }
+.logo{
+    font-weight:900;
+    font-size:1.2rem;
+    text-shadow:0 0 10px red;
+}
 
-        .nav-link:hover, .nav-link.active { 
-            color: #ffffff; 
-            text-shadow: 0 0 15px var(--accent-red), 0 0 25px var(--accent-red);
-        }
+.nav-links{
+    display:flex;
+    gap:2rem;
+}
 
-        /* ビュー設定 */
-        .view-section {
-            padding-top: 120px;
-            min-height: 100vh;
-            width: 100%;
-        }
+.nav-btn{
+    background:none;
+    border:none;
+    color:white;
+    font-weight:800;
+    font-size:.85rem;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:.25s;
+}
 
-        .hidden { display: none !important; }
+.nav-btn:hover{
+    text-shadow:
+    0 0 10px red,
+    0 0 20px red;
+}
 
-        /* 商品カード */
-        .product-card {
-            background: #050000;
-            border: 2px solid var(--accent-red);
-            padding: 0;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: 0.3s;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
-        }
-        .product-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
-        }
-        .product-image {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #100000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 0 0 15px var(--accent-red);
-            border-bottom: 2px solid var(--accent-red);
-        }
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:0 1rem;
+}
 
-        /* レビューカード */
-        .review-card {
-            background: #080000;
-            border: 2px solid var(--accent-red);
-            padding: 2rem;
-            border-radius: 12px;
-            position: relative;
-        }
-        .quote-icon { font-size: 2.5rem; color: var(--accent-red); font-family: serif; line-height: 1; margin-bottom: -0.5rem; text-shadow: 0 0 10px var(--accent-red); }
-        .star-rating { color: #ffffff; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 1rem; text-shadow: 0 0 10px var(--accent-red); }
-        .review-text { font-size: 0.9rem; color: #ffffff; margin-bottom: 2rem; text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); }
+.hero h1{
+    font-size:5rem;
+    font-weight:900;
+    line-height:1;
+    margin-bottom:1rem;
+}
 
-        /* Terms 画面 */
-        .terms-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            color: #ffffff;
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-        .terms-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 0 0 20px var(--accent-red), 0 0 40px var(--accent-red);
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-        }
-        .terms-section { 
-            margin-bottom: 3rem; 
-            padding: 2.5rem;
-            border: 2px solid var(--accent-red);
-            border-radius: 15px;
-            background: rgba(255, 0, 0, 0.05);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-        }
-        .terms-section h3 { color: #ffffff; margin-bottom: 1rem; font-weight: 900; text-shadow: 0 0 10px var(--accent-red); text-transform: uppercase; }
-        .terms-section p { text-shadow: 0 0 2px var(--accent-red); }
+.hero p{
+    font-weight:800;
+    letter-spacing:5px;
+}
 
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+.stats{
+    display:flex;
+    gap:3rem;
+    margin-top:3rem;
+    padding:2rem 3rem;
+    border:2px solid red;
+    border-radius:20px;
+    background:rgba(255,0,0,.05);
+    box-shadow:0 0 25px rgba(255,0,0,.25);
+}
 
-        .modal-content {
-            background: #000000;
-            border: 3px solid var(--accent-red);
-            width: 90%;
-            max-width: 400px;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 0 60px rgba(255, 0, 0, 0.5);
-            text-align: center;
-        }
+.stat h2{
+    font-size:2rem;
+    font-weight:900;
+}
 
-        input {
-            background: #000000 !important;
-            border: 2px solid var(--accent-red) !important;
-            color: #ffffff !important;
-            outline: none !important;
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 800;
-            text-shadow: 0 0 5px var(--accent-red);
-            margin-bottom: 1rem;
-        }
+.products{
+    max-width:1300px;
+    margin:auto;
+    padding:4rem 2rem 8rem;
+}
 
-        input::placeholder { color: rgba(255, 255, 255, 0.3); }
+.section-title{
+    font-size:3rem;
+    font-weight:900;
+    margin-bottom:3rem;
+}
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .text-7xl { font-size: 3rem; }
-        }
-    </style>
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:2rem;
+}
+
+.card{
+    border:2px solid red;
+    border-radius:12px;
+    overflow:hidden;
+    background:#070000;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 25px rgba(255,0,0,.4);
+}
+
+.card-image{
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:4rem;
+    font-weight:900;
+    border-bottom:2px solid red;
+    text-shadow:0 0 15px red;
+}
+
+.card-content{
+    padding:1.5rem;
+}
+
+.card-content h3{
+    font-size:1rem;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.reviews-page,
+.terms-page{
+    display:none;
+    max-width:1300px;
+    margin:auto;
+    padding:8rem 2rem;
+}
+
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:2rem;
+}
+
+.review{
+    border:2px solid red;
+    border-radius:15px;
+    padding:2rem;
+    background:#090000;
+}
+
+.review p{
+    margin:1rem 0;
+    opacity:.9;
+}
+
+.terms-box{
+    border:2px solid red;
+    border-radius:15px;
+    padding:2rem;
+    margin-bottom:2rem;
+    background:rgba(255,0,0,.05);
+}
+
+footer{
+    border-top:2px solid red;
+    padding:3rem;
+    text-align:center;
+    font-weight:900;
+    letter-spacing:5px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:3rem;
+}
+
+.stats{
+    flex-direction:column;
+    gap:1.5rem;
+}
+
+.nav-links{
+    gap:1rem;
+}
+
+}
+</style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
+<canvas id="bg"></canvas>
 
 <nav>
-    <div class="nav-container">
-        <div class="logo">LEFT-CONFIGS</div>
-        <div class="nav-links">
-            <span class="nav-link" id="nav-home" data-view="home">Home</span>
-            <span class="nav-link" id="nav-products" data-view="home" data-scroll="products-anchor">Products</span>
-            <span class="nav-link" id="nav-reviews" data-view="reviews">Reviews</span>
-            <span class="nav-link" id="nav-terms" data-view="terms">Terms</span>
-        </div>
-        <div class="flex items-center gap-4">
-            <button id="auth-btn" class="red-btn-white px-4 py-1.5 rounded text-[10px]">Login</button>
-            <div id="user-display" class="hidden text-[10px] font-black text-white bg-black px-3 py-1.5 rounded border-2 border-red-600 shadow-[0_0_10px_rgba(255,0,0,0.5)]"></div>
-        </div>
-    </div>
+<div class="nav-container">
+
+<div class="logo">LEFT-CONFIGS</div>
+
+<div class="nav-links">
+<button class="nav-btn" onclick="showHome()">HOME</button>
+<button class="nav-btn" onclick="scrollProducts()">PRODUCTS</button>
+<button class="nav-btn" onclick="showReviews()">REVIEWS</button>
+<button class="nav-btn" onclick="showTerms()">TERMS</button>
+</div>
+
+</div>
 </nav>
 
-<!-- HOME VIEW -->
-<div id="view-home" class="view-section">
-    <div class="text-center px-4 mb-20 py-20">
-        <h1 class="text-7xl font-black mb-6 tracking-tighter red-glow-text">GET READY TO BECOME THE BEST</h1>
-        <p class="text-white text-xl font-black uppercase tracking-[0.2em]" style="text-shadow: 0 0 10px red;">Powerful Rivals configs</p>
-        
-        <div class="mt-12 inline-flex bg-black border-2 border-red-600 rounded-xl px-10 py-6 gap-12 shadow-[0_0_20px_rgba(255,0,0,0.3)]">
-            <div class="text-center"><div class="text-2xl font-black text-white red-glow-text">★ 4.99</div><div class="text-[10px] text-white uppercase font-black tracking-widest mt-1 opacity-70">Feedback Rating</div></div>
-            <div class="text-center"><div class="text-2xl font-black text-white red-glow-text">344</div><div class="text-[10px] text-white uppercase font-black tracking-widest mt-1 opacity-70">Products Sold</div></div>
-            <div class="text-center"><div class="text-2xl font-black text-white red-glow-text">230</div><div class="text-[10px] text-white uppercase font-black tracking-widest mt-1 opacity-70">Total Customers</div></div>
-        </div>
-    </div>
+<!-- HOME -->
+<div id="home-page">
 
-    <div id="products-anchor" class="max-w-[1300px] mx-auto px-8 pb-32">
-        <h2 class="text-4xl font-black mb-12 red-glow-text">Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="product-card">
-                <div class="product-image">LE</div>
-                <div class="p-6">
-                    <div class="flex justify-between text-[11px] text-white mb-2 font-black opacity-60"><span>$4.71 - $8.23</span><span>2766 In Stock</span></div>
-                    <h3 class="font-black text-sm uppercase text-white tracking-wide">Unnamed Enhancements Config</h3>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image italic">KH</div>
-                <div class="p-6">
-                    <div class="flex justify-between text-[11px] text-white mb-2 font-black opacity-60"><span>$5.30</span><span>90 In Stock</span></div>
-                    <h3 class="font-black text-sm uppercase text-white tracking-wide">Kiciahook Configs</h3>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">M</div>
-                <div class="p-6">
-                    <div class="flex justify-between text-[11px] text-white mb-2 font-black opacity-60"><span>$3.53 - $4.71</span><span>203 In Stock</span></div>
-                    <h3 class="font-black text-sm uppercase text-white tracking-wide">Matrix Configs</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="hero">
+<h1 class="red-glow">GET READY TO<br>BECOME THE BEST</h1>
 
-    <section class="socials py-24 border-t-2 border-red-600 text-center">
-        <h2 class="text-4xl font-black mb-12 red-glow-text">Follow our Socials!</h2>
-        <div class="flex justify-center gap-8">
-            <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="red-btn-white py-5 px-12 rounded-lg flex items-center gap-3 no-underline">
-                <span class="text-xl">💬</span> <span class="text-sm">Discord</span>
-            </a>
-            <a href="https://www.tiktok.com/@scripts.left00" target="_blank" class="red-btn-white py-5 px-12 rounded-lg flex items-center gap-3 no-underline">
-                <span class="text-xl">📱</span> <span class="text-sm">TikTok</span>
-            </a>
-        </div>
-    </section>
+<p class="red-glow">
+POWERFUL RIVALS CONFIGS
+</p>
+
+<div class="stats">
+
+<div class="stat">
+<h2 class="red-glow">★ 4.99</h2>
+<span>Feedback Rating</span>
 </div>
 
-<!-- REVIEWS VIEW -->
-<div id="view-reviews" class="view-section hidden">
-    <div class="max-w-[1300px] mx-auto px-8 pb-32">
-        <h1 class="text-4xl font-black mb-12 red-glow-text">Customer Reviews</h1>
-        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Dynamic -->
-        </div>
-        <div class="text-center mt-20">
-            <button class="red-btn-white px-12 py-4 text-xs rounded-lg">Load More</button>
-        </div>
-    </div>
+<div class="stat">
+<h2 class="red-glow">344</h2>
+<span>Products Sold</span>
 </div>
 
-<!-- TERMS VIEW -->
-<div id="view-terms" class="view-section hidden">
-    <div class="terms-container px-6 pb-32">
-        <h1 class="terms-title">Terms Of Service</h1>
-        
-        <div class="terms-section">
-            <h3>1. Agreement to Terms:</h3>
-            <p>By purchasing or using our services, you agree to comply with these Terms of Service. If you do not agree to these terms, you must refrain from using our services. We reserve the right to update or modify these terms at any time.</p>
-        </div>
-
-        <div class="terms-section">
-            <h3>2. Product Sales:</h3>
-            <p>We are a retailer of digital products and sell only in accordance with these Terms. All sales are final. Violating any terms may result in a permanent ban.</p>
-        </div>
-
-        <div class="terms-section">
-            <h3>3. No Refunds:</h3>
-            <p>We operate under a strict no refund policy. If the product is found to be faulty, we may offer a replacement within 1 day of purchase.</p>
-        </div>
-
-        <div class="terms-section">
-            <h3>4. Zero Tolerance:</h3>
-            <p>We have a zero-tolerance policy towards spam and malicious activity. Any attempt to misuse the products will result in immediate termination of access.</p>
-        </div>
-    </div>
+<div class="stat">
+<h2 class="red-glow">230</h2>
+<span>Total Customers</span>
 </div>
 
-<!-- Login Modal -->
-<div id="login-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h2 class="text-2xl font-black mb-1 text-white red-glow-text">ACCESS TERMINAL</h2>
-        <p class="text-[10px] text-white uppercase font-black tracking-widest mb-8 opacity-60">Verify Identity</p>
-        <div class="space-y-4">
-            <input type="text" id="username-input" placeholder="DISPLAY NAME">
-            <input type="email" id="email-input" placeholder="GMAIL ADDRESS">
-            <button id="submit-login" class="w-full py-4 red-btn-white text-sm">Initialize Session</button>
-            <button id="close-modal" class="w-full py-2 text-white text-[10px] uppercase font-black hover:text-red-500 transition mt-2 cursor-pointer">Abort Access</button>
-        </div>
-    </div>
+</div>
+</section>
+
+<section class="products" id="products">
+
+<h2 class="section-title red-glow">Products</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="card-image">LE</div>
+<div class="card-content">
+<h3>Unnamed Enhancements Config</h3>
+</div>
 </div>
 
-<footer class="py-16 text-center text-[11px] text-white font-black uppercase tracking-[0.5em] border-t-2 border-red-600 bg-black">
-    <span class="red-glow-text">© 2026 LEFT-CONFIGS — ELITE CONFIGURATION SOLUTIONS</span>
+<div class="card">
+<div class="card-image">KH</div>
+<div class="card-content">
+<h3>Kiciahook Configs</h3>
+</div>
+</div>
+
+<div class="card">
+<div class="card-image">M</div>
+<div class="card-content">
+<h3>Matrix Configs</h3>
+</div>
+</div>
+
+</div>
+</section>
+
+</div>
+
+<!-- REVIEWS -->
+<div id="reviews-page" class="reviews-page">
+
+<h1 class="section-title red-glow">
+Customer Reviews
+</h1>
+
+<div class="review-grid">
+
+<div class="review">
+<h2>★★★★★</h2>
+<p>W silly</p>
+</div>
+
+<div class="review">
+<h2>★★★★★</h2>
+<p>Good Config</p>
+</div>
+
+<div class="review">
+<h2>★★★★★</h2>
+<p>Best config fr</p>
+</div>
+
+<div class="review">
+<h2>★★★★☆</h2>
+<p>Good</p>
+</div>
+
+</div>
+</div>
+
+<!-- TERMS -->
+<div id="terms-page" class="terms-page">
+
+<h1 class="section-title red-glow">
+Terms Of Service
+</h1>
+
+<div class="terms-box">
+<h2>Agreement</h2>
+<p>
+By purchasing our services you agree to our terms.
+</p>
+</div>
+
+<div class="terms-box">
+<h2>No Refunds</h2>
+<p>
+All purchases are final.
+</p>
+</div>
+
+<div class="terms-box">
+<h2>Zero Tolerance</h2>
+<p>
+Malicious activity results in termination.
+</p>
+</div>
+
+</div>
+
+<footer class="red-glow">
+© 2026 LEFT-CONFIGS
 </footer>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+<script>
 
-    const firebaseConfig = JSON.parse(__firebase_config);
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+const home = document.getElementById("home-page");
+const reviews = document.getElementById("reviews-page");
+const terms = document.getElementById("terms-page");
 
-    // Logic to switch between views
-    window.switchView = function(view, scrollTarget = null) {
-        // Hide all views
-        ['home', 'reviews', 'terms'].forEach(v => {
-            const el = document.getElementById('view-' + v);
-            if (el) el.classList.add('hidden');
-            const nav = document.getElementById('nav-' + v);
-            if (nav) nav.classList.remove('active');
+function hideAll(){
+    home.style.display="none";
+    reviews.style.display="none";
+    terms.style.display="none";
+}
+
+function showHome(){
+    hideAll();
+    home.style.display="block";
+    window.scrollTo(0,0);
+}
+
+function showReviews(){
+    hideAll();
+    reviews.style.display="block";
+    window.scrollTo(0,0);
+}
+
+function showTerms(){
+    hideAll();
+    terms.style.display="block";
+    window.scrollTo(0,0);
+}
+
+function scrollProducts(){
+    showHome();
+
+    setTimeout(()=>{
+        document.getElementById("products")
+        .scrollIntoView({
+            behavior:"smooth"
         });
+    },50);
+}
 
-        // Show target view
-        const targetView = document.getElementById('view-' + view);
-        if (targetView) {
-            targetView.classList.remove('hidden');
-            const nav = document.getElementById('nav-' + view);
-            if (nav) nav.classList.add('active');
-            
-            if (scrollTarget) {
-                const anchor = document.getElementById(scrollTarget);
-                if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                window.scrollTo(0, 0);
-            }
-        }
+showHome();
 
-        if (view === 'reviews') renderReviews();
+
+// PARTICLES
+
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+let w,h,particles=[];
+
+function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=window.innerHeight;
+}
+
+window.addEventListener("resize",resize);
+resize();
+
+class Particle{
+
+    constructor(){
+        this.reset();
     }
 
-    // Attach listeners to nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const view = link.getAttribute('data-view');
-            const scroll = link.getAttribute('data-scroll');
-            window.switchView(view, scroll);
-        });
+    reset(){
+        this.x=Math.random()*w;
+        this.y=Math.random()*h;
+        this.size=Math.random()*2;
+        this.speedX=(Math.random()-.5)*.3;
+        this.speedY=(Math.random()-.5)*.3;
+        this.alpha=Math.random()*.5;
+    }
+
+    update(){
+        this.x+=this.speedX;
+        this.y+=this.speedY;
+
+        if(
+            this.x<0||
+            this.x>w||
+            this.y<0||
+            this.y>h
+        ){
+            this.reset();
+        }
+    }
+
+    draw(){
+        ctx.fillStyle=`rgba(255,0,0,${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
+
+}
+
+for(let i=0;i<120;i++){
+    particles.push(new Particle());
+}
+
+function animate(){
+
+    ctx.fillStyle="black";
+    ctx.fillRect(0,0,w,h);
+
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
     });
 
-    const reviews = [
-        { text: "Automatic feedback after 7 days.", stars: 5, product: "Matcha Configs", date: "May 07, 2026" },
-        { text: "Automatic feedback after 7 days.", stars: 5, product: "Unnamed Enhancement...", date: "May 06, 2026" },
-        { text: "Automatic feedback after 7 days.", stars: 5, product: "Unnamed Enhancement...", date: "May 06, 2026" },
-        { text: "W silly", stars: 5, product: "UE Bundle (Default)", date: "May 06, 2026" },
-        { text: "Automatic feedback after 7 days.", stars: 5, product: "Unnamed Enhancement...", date: "May 06, 2026" },
-        { text: "Automatic feedback after 7 days.", stars: 5, product: "Unnamed Enhancement...", date: "May 06, 2026" },
-        { text: "Automatic feedback after 7 days.", stars: 5, product: "Unnamed Enhancement...", date: "May 05, 2026" },
-        { text: "Good", stars: 4, product: "UE Bundle (Default)", date: "May 04, 2026" }
-    ];
+    requestAnimationFrame(animate);
+}
 
-    function renderReviews() {
-        const grid = document.getElementById('reviews-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        reviews.forEach(r => {
-            const div = document.createElement('div');
-            div.className = 'review-card';
-            div.innerHTML = `
-                <div class="quote-icon">“</div>
-                <div class="star-rating">${'★'.repeat(r.stars)}</div>
-                <p class="review-text">${r.text}</p>
-                <div class="flex justify-between text-[10px] font-black uppercase text-white opacity-50">
-                    <span>${r.product}</span>
-                    <span>${r.date}</span>
-                </div>
-            `;
-            grid.appendChild(div);
-        });
-    }
+animate();
 
-    // Auth & Modal UI logic
-    const authBtn = document.getElementById('auth-btn');
-    const modal = document.getElementById('login-modal');
-    const closeBtn = document.getElementById('close-modal');
-    const userDisplay = document.getElementById('user-display');
-    const submitLogin = document.getElementById('submit-login');
-    const usernameInput = document.getElementById('username-input');
-
-    if (authBtn) authBtn.addEventListener('click', () => modal.style.display = 'flex');
-    if (closeBtn) closeBtn.addEventListener('click', () => modal.style.display = 'none');
-
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                if (authBtn) authBtn.classList.add('hidden');
-                if (userDisplay) {
-                    userDisplay.textContent = snap.data().username.toUpperCase();
-                    userDisplay.classList.remove('hidden');
-                }
-                modal.style.display = 'none';
-            }
-        }
-    });
-
-    if (submitLogin) {
-        submitLogin.onclick = async () => {
-            const username = usernameInput.value.trim();
-            if (!username) return;
-            const user = auth.currentUser;
-            if (user) {
-                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
-                    username: username,
-                    updatedAt: new Date().toISOString()
-                });
-                window.location.reload();
-            }
-        };
-    }
-
-    const initAuth = async () => {
-        try {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        } catch (e) { console.error("Auth error", e); }
-    };
-    initAuth();
-
-    // Background particles
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles = [];
-    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
-    class Particle {
-        constructor() { this.reset(); }
-        reset() {
-            this.x = Math.random() * w; this.y = Math.random() * h;
-            this.size = Math.random() * 2;
-            this.speedX = (Math.random() - 0.5) * 0.4;
-            this.speedY = (Math.random() - 0.5) * 0.4;
-            this.alpha = Math.random() * 0.5;
-        }
-        update() {
-            this.x += this.speedX; this.y += this.speedY;
-            if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
-        }
-        draw() {
-            ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-        }
-    }
-    for (let i = 0; i < 120; i++) particles.push(new Particle());
-    function animate() {
-        ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-    animate();
 </script>
 
 </body>
