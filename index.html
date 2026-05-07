@@ -98,6 +98,52 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Yub-X アイコンのスタイル */
+        .yub-x-logo {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .yub-x-triangle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+        }
+
+        /* ビデオプレイスホルダーのデザイン */
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: linear-gradient(45deg, #111, #222);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+        .video-card:hover .play-btn {
+            transform: scale(1.2);
+            background: rgba(255, 255, 255, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -147,7 +193,7 @@
 
         <!-- プロダクトグリッド -->
         <main id="products-section" class="max-w-7xl mx-auto px-6 pb-24">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
                 
                 <!-- カード 1 -->
                 <div class="glass-card rounded-xl p-6 flex flex-col items-center text-center">
@@ -187,13 +233,27 @@
                     </div>
                 </div>
 
-                <!-- カード 3 -->
+                <!-- カード 3: Yub-X Executor -->
                 <div class="glass-card rounded-xl p-6 flex flex-col items-center text-center">
-                    <div class="mb-2"><span class="text-xs font-semibold text-gray-300">Isaeva Executor</span></div>
+                    <div class="mb-2"><span class="text-xs font-semibold text-gray-300">yub-x Executor</span></div>
                     <div class="badge mb-6"><i class="fa-solid fa-circle-check text-xs mr-1"></i> Best Executor</div>
+                    
                     <div class="h-40 w-full flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-dove text-6xl text-red-800 opacity-60"></i>
+                        <div class="yub-x-logo">
+                            <svg viewBox="0 0 100 100" class="yub-x-triangle">
+                                <defs>
+                                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#d946ef;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 50,10 L 90,80 L 10,80 Z" stroke="url(#grad)" />
+                                <text x="50" y="65" text-anchor="middle" font-family="Inter" font-weight="900" font-size="35" fill="white">Y</text>
+                            </svg>
+                        </div>
                     </div>
+
                     <div class="w-full flex flex-col space-y-4 mt-auto">
                         <div class="flex justify-between items-end">
                             <div class="text-left">
@@ -204,10 +264,74 @@
                                 <div class="text-[10px] text-gray-500 uppercase">12 In Stock</div>
                             </div>
                         </div>
-                        <button class="btn-primary w-full py-3 rounded text-sm font-bold">Purchase Now</button>
+                        <a href="https://yub-x.net/" target="_blank" class="btn-primary w-full py-3 rounded text-sm font-bold block text-center">Purchase Now</a>
                     </div>
                 </div>
+            </div>
 
+            <!-- TikTok ギャラリーセクション -->
+            <div class="mt-20">
+                <h2 class="text-2xl font-bold mb-8 text-center">Showcase Videos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- 動画 1 -->
+                    <a href="https://vt.tiktok.com/ZS9pRx8pK/" target="_blank" class="video-card glass-card rounded-xl p-4 block">
+                        <div class="video-placeholder">
+                            <!-- アイコン/サムネイル風 -->
+                            <div class="absolute inset-0 opacity-20 bg-[url('https://www.tiktok.com/favicon.ico')] bg-center bg-no-repeat grayscale"></div>
+                            <div class="play-btn">
+                                <i class="fa-solid fa-play text-white text-xl ml-1"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 flex items-center space-x-2">
+                                <i class="fa-brands fa-tiktok text-white"></i>
+                                <span class="text-xs font-bold">Showcase #1</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 動画 2 -->
+                    <a href="https://vt.tiktok.com/ZS9pRbETM/" target="_blank" class="video-card glass-card rounded-xl p-4 block">
+                        <div class="video-placeholder">
+                            <div class="absolute inset-0 opacity-20 bg-[url('https://www.tiktok.com/favicon.ico')] bg-center bg-no-repeat grayscale"></div>
+                            <div class="play-btn">
+                                <i class="fa-solid fa-play text-white text-xl ml-1"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 flex items-center space-x-2">
+                                <i class="fa-brands fa-tiktok text-white"></i>
+                                <span class="text-xs font-bold">Showcase #2</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 動画 3 -->
+                    <a href="https://vt.tiktok.com/ZS9pRQEoA/" target="_blank" class="video-card glass-card rounded-xl p-4 block">
+                        <div class="video-placeholder">
+                            <div class="absolute inset-0 opacity-20 bg-[url('https://www.tiktok.com/favicon.ico')] bg-center bg-no-repeat grayscale"></div>
+                            <div class="play-btn">
+                                <i class="fa-solid fa-play text-white text-xl ml-1"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 flex items-center space-x-2">
+                                <i class="fa-brands fa-tiktok text-white"></i>
+                                <span class="text-xs font-bold">Showcase #3</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 動画 4 -->
+                    <a href="https://vt.tiktok.com/ZS9pRvNy7/" target="_blank" class="video-card glass-card rounded-xl p-4 block">
+                        <div class="video-placeholder">
+                            <div class="absolute inset-0 opacity-20 bg-[url('https://www.tiktok.com/favicon.ico')] bg-center bg-no-repeat grayscale"></div>
+                            <div class="play-btn">
+                                <i class="fa-solid fa-play text-white text-xl ml-1"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 flex items-center space-x-2">
+                                <i class="fa-brands fa-tiktok text-white"></i>
+                                <span class="text-xs font-bold">Showcase #4</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
             </div>
         </main>
     </div>
@@ -217,42 +341,34 @@
         <div class="max-w-4xl mx-auto px-8">
             <h1 class="text-4xl font-bold text-center mb-4 underline decoration-white/20 underline-offset-8">Terms Of Service</h1>
             <div class="space-y-12 text-center text-gray-400 leading-relaxed mt-16">
-                
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">1. Agreement to Terms:</h2>
                     <p class="text-sm">By purchasing or using our services, you agree to comply with these Terms of Service. If you do not agree to these terms, you must refrain from using our services. We reserve the right to update or modify these terms at any time, and any changes will be effective immediately upon posting.</p>
                 </section>
-
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">2. Product Sales:</h2>
                     <p class="text-sm">We are a retailer of digital products and sell only in accordance with these Terms. All sales are final, and by making a purchase, you acknowledge and accept these terms. Violating any terms may result in a permanent ban from the store and denial of future services.</p>
                 </section>
-
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">3. No Refunds:</h2>
                     <p class="text-sm">We operate under a strict no refund policy. If the product is found to be faulty, we may offer a replacement. You must report any issues related to non-working tokens or products within 1 day of purchase for a possible replacement.</p>
                 </section>
-
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">4. Unauthorized Use:</h2>
                     <p class="text-sm">You agree not to use our services for any illegal, malicious, or harmful purpose. Any misuse of our products may lead to suspension or termination of your account.</p>
                 </section>
-
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">5. Product Integrity:</h2>
                     <p class="text-sm">All of our digital products are created with random, non-personal data and do not contain any Personally Identifiable Information (PII). They are not linked to any real individual.</p>
                 </section>
-
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">6. Zero Tolerance for Malicious Activity:</h2>
                     <p class="text-sm">We have a zero-tolerance policy towards spam and malicious activity. You are solely responsible for how you use our products after purchase. Any attempt to misuse or exploit the products will result in immediate action, including potential bans from the service.</p>
                 </section>
-
                 <section>
                     <h2 class="text-white text-lg font-bold mb-2">7. Compliance with Laws:</h2>
                     <p class="text-sm">You agree to comply with all applicable local, national, and international laws while using our services. Any unlawful activity will result in immediate suspension of your access.</p>
                 </section>
-
             </div>
         </div>
     </div>
@@ -269,7 +385,6 @@
 
         // Productsへのスクロール関数
         function scrollToProducts() {
-            // Homeページに強制的に戻してからスクロール
             showPage('home');
             setTimeout(() => {
                 const section = document.getElementById('products-section');
