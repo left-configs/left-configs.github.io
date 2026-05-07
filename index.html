@@ -11,7 +11,7 @@
         :root {
             --bg: #000000;
             --card-bg: #0b0b0b;
-            --text-main: #ffffff; /* 文字は白 */
+            --text-main: #ffffff;
             --accent-red: #ff0000;
             --border-red: rgba(255, 0, 0, 0.6);
         }
@@ -47,6 +47,7 @@
             font-weight: 900;
             transition: 0.3s;
             text-transform: uppercase;
+            cursor: pointer !important; /* Clickable */
         }
         .red-btn-white:hover {
             box-shadow: 0 0 20px var(--accent-red), 0 0 40px var(--accent-red);
@@ -60,10 +61,7 @@
             text-shadow: 0 0 5px var(--accent-red);
             box-shadow: 0 0 5px var(--accent-red);
             transition: 0.3s;
-        }
-        .outline-btn:hover {
-            background: rgba(255, 0, 0, 0.1);
-            box-shadow: 0 0 15px var(--accent-red);
+            cursor: pointer !important;
         }
 
         /* 背景パーティクル */
@@ -83,7 +81,7 @@
             top: 0;
             width: 100%;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             border-bottom: 2px solid var(--accent-red);
         }
 
@@ -118,10 +116,11 @@
             font-size: 0.85rem;
             font-weight: 700;
             transition: 0.2s;
-            cursor: pointer;
+            cursor: pointer !important;
             text-decoration: none;
             text-transform: uppercase;
             text-shadow: 0 0 5px var(--accent-red);
+            pointer-events: auto; /* Ensure clickable */
         }
 
         .nav-link:hover, .nav-link.active { 
@@ -133,9 +132,10 @@
         .view-section {
             padding-top: 120px;
             min-height: 100vh;
+            width: 100%;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
         /* 商品カード */
         .product-card {
@@ -243,6 +243,11 @@
         }
 
         input::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .text-7xl { font-size: 3rem; }
+        }
     </style>
 </head>
 <body>
@@ -253,10 +258,10 @@
     <div class="nav-container">
         <div class="logo">LEFT-CONFIGS</div>
         <div class="nav-links">
-            <span onclick="switchView('home')" class="nav-link" id="nav-home">Home</span>
-            <span onclick="switchView('home'); document.getElementById('products-anchor').scrollIntoView();" class="nav-link">Products</span>
-            <span onclick="switchView('reviews')" class="nav-link" id="nav-reviews">Reviews</span>
-            <span onclick="switchView('terms')" class="nav-link" id="nav-terms">Terms</span>
+            <span class="nav-link" id="nav-home" data-view="home">Home</span>
+            <span class="nav-link" id="nav-products" data-view="home" data-scroll="products-anchor">Products</span>
+            <span class="nav-link" id="nav-reviews" data-view="reviews">Reviews</span>
+            <span class="nav-link" id="nav-terms" data-view="terms">Terms</span>
         </div>
         <div class="flex items-center gap-4">
             <button id="auth-btn" class="red-btn-white px-4 py-1.5 rounded text-[10px]">Login</button>
@@ -269,7 +274,7 @@
 <div id="view-home" class="view-section">
     <div class="text-center px-4 mb-20 py-20">
         <h1 class="text-7xl font-black mb-6 tracking-tighter red-glow-text">GET READY TO BECOME THE BEST</h1>
-        <p class="text-white text-xl font-black uppercase tracking-[0.2em] shadow-red-500" style="text-shadow: 0 0 10px red;">Powerful Rivals configs</p>
+        <p class="text-white text-xl font-black uppercase tracking-[0.2em]" style="text-shadow: 0 0 10px red;">Powerful Rivals configs</p>
         
         <div class="mt-12 inline-flex bg-black border-2 border-red-600 rounded-xl px-10 py-6 gap-12 shadow-[0_0_20px_rgba(255,0,0,0.3)]">
             <div class="text-center"><div class="text-2xl font-black text-white red-glow-text">★ 4.99</div><div class="text-[10px] text-white uppercase font-black tracking-widest mt-1 opacity-70">Feedback Rating</div></div>
@@ -367,7 +372,7 @@
             <input type="text" id="username-input" placeholder="DISPLAY NAME">
             <input type="email" id="email-input" placeholder="GMAIL ADDRESS">
             <button id="submit-login" class="w-full py-4 red-btn-white text-sm">Initialize Session</button>
-            <button id="close-modal" class="w-full py-2 text-white text-[10px] uppercase font-black hover:text-red-500 transition mt-2">Abort Access</button>
+            <button id="close-modal" class="w-full py-2 text-white text-[10px] uppercase font-black hover:text-red-500 transition mt-2 cursor-pointer">Abort Access</button>
         </div>
     </div>
 </div>
@@ -387,19 +392,42 @@
     const db = getFirestore(app);
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-    window.switchView = function(view) {
-        document.getElementById('view-home').classList.add('hidden');
-        document.getElementById('view-reviews').classList.add('hidden');
-        document.getElementById('view-terms').classList.add('hidden');
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    // Logic to switch between views
+    window.switchView = function(view, scrollTarget = null) {
+        // Hide all views
+        ['home', 'reviews', 'terms'].forEach(v => {
+            const el = document.getElementById('view-' + v);
+            if (el) el.classList.add('hidden');
+            const nav = document.getElementById('nav-' + v);
+            if (nav) nav.classList.remove('active');
+        });
+
+        // Show target view
         const targetView = document.getElementById('view-' + view);
         if (targetView) {
             targetView.classList.remove('hidden');
-            document.getElementById('nav-' + view)?.classList.add('active');
-            window.scrollTo(0,0);
+            const nav = document.getElementById('nav-' + view);
+            if (nav) nav.classList.add('active');
+            
+            if (scrollTarget) {
+                const anchor = document.getElementById(scrollTarget);
+                if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.scrollTo(0, 0);
+            }
         }
+
         if (view === 'reviews') renderReviews();
     }
+
+    // Attach listeners to nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const view = link.getAttribute('data-view');
+            const scroll = link.getAttribute('data-scroll');
+            window.switchView(view, scroll);
+        });
+    });
 
     const reviews = [
         { text: "Automatic feedback after 7 days.", stars: 5, product: "Matcha Configs", date: "May 07, 2026" },
@@ -432,6 +460,7 @@
         });
     }
 
+    // Auth & Modal UI logic
     const authBtn = document.getElementById('auth-btn');
     const modal = document.getElementById('login-modal');
     const closeBtn = document.getElementById('close-modal');
@@ -439,44 +468,51 @@
     const submitLogin = document.getElementById('submit-login');
     const usernameInput = document.getElementById('username-input');
 
-    authBtn.onclick = () => modal.style.display = 'flex';
-    closeBtn.onclick = () => modal.style.display = 'none';
+    if (authBtn) authBtn.addEventListener('click', () => modal.style.display = 'flex');
+    if (closeBtn) closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
             const snap = await getDoc(userRef);
             if (snap.exists()) {
-                authBtn.classList.add('hidden');
-                userDisplay.textContent = snap.data().username.toUpperCase();
-                userDisplay.classList.remove('hidden');
+                if (authBtn) authBtn.classList.add('hidden');
+                if (userDisplay) {
+                    userDisplay.textContent = snap.data().username.toUpperCase();
+                    userDisplay.classList.remove('hidden');
+                }
                 modal.style.display = 'none';
             }
         }
     });
 
-    submitLogin.onclick = async () => {
-        const username = usernameInput.value.trim();
-        if (!username) return;
-        const user = auth.currentUser;
-        if (user) {
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
-                username: username,
-                updatedAt: new Date().toISOString()
-            });
-            window.location.reload();
-        }
-    };
+    if (submitLogin) {
+        submitLogin.onclick = async () => {
+            const username = usernameInput.value.trim();
+            if (!username) return;
+            const user = auth.currentUser;
+            if (user) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
+                    username: username,
+                    updatedAt: new Date().toISOString()
+                });
+                window.location.reload();
+            }
+        };
+    }
 
     const initAuth = async () => {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-            await signInAnonymously(auth);
-        }
+        try {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
+            }
+        } catch (e) { console.error("Auth error", e); }
     };
     initAuth();
 
+    // Background particles
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
