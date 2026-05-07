@@ -9,10 +9,11 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
 
 :root{
+    --bg:#020202;
+    --card:#0b0b0b;
     --red:#ff0000;
     --blue:#00a2ff;
 }
@@ -34,7 +35,7 @@ body{
     font-family:'Inter',sans-serif;
 }
 
-/* BACKGROUND */
+/* ========================= BACKGROUND ========================= */
 
 #bg-canvas{
     position:fixed;
@@ -42,29 +43,44 @@ body{
     width:100%;
     height:100%;
     z-index:-3;
+    background:#000;
+}
+
+.bg-noise{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    opacity:.08;
+    pointer-events:none;
+    background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size:4px 4px;
 }
 
 .bg-vignette{
     position:fixed;
     inset:0;
     z-index:-1;
+    pointer-events:none;
     background:
     radial-gradient(circle at center,
     transparent 0%,
-    rgba(0,0,0,.55) 55%,
+    rgba(0,0,0,.45) 55%,
     rgba(0,0,0,.95) 100%);
 }
 
-/* NAV */
+/* ========================= NAVBAR ========================= */
 
 nav{
     position:fixed;
     top:0;
+    left:0;
     width:100%;
-    z-index:999;
+    z-index:100;
     background:rgba(0,0,0,.55);
     backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .sync{
@@ -72,25 +88,25 @@ nav{
 }
 
 .nav-link{
-    color:#888;
-    font-size:11px;
-    letter-spacing:.2em;
+    color:#8f8f8f;
+    font-size:10px;
     font-weight:800;
-    text-transform:uppercase;
+    letter-spacing:.22em;
     transition:.3s;
+    text-transform:uppercase;
 }
 
 .nav-link:hover{
     color:#fff;
 }
 
-/* HERO */
+/* ========================= HERO ========================= */
 
 .hero{
     position:relative;
-    text-align:center;
     padding-top:180px;
     padding-bottom:140px;
+    text-align:center;
 }
 
 .watermark{
@@ -101,35 +117,66 @@ nav{
     font-size:24vw;
     font-weight:900;
     opacity:.03;
+    pointer-events:none;
+    user-select:none;
 }
 
 .hero-title{
-    font-size:clamp(60px,9vw,140px);
-    line-height:.9;
+    font-size:clamp(60px,9vw,150px);
+    line-height:.88;
     font-weight:900;
+    letter-spacing:-.06em;
     font-style:italic;
 }
 
 .red-glow{
-    color:#ff0000;
+    color:var(--red);
     text-shadow:
     0 0 20px rgba(255,0,0,.8),
     0 0 60px rgba(255,0,0,.35);
 }
 
 .hero-desc{
-    max-width:760px;
+    max-width:700px;
     margin:35px auto 0;
-    color:#888;
+    color:#8a8a8a;
     line-height:1.8;
+    font-size:17px;
 }
 
-/* PRODUCTS */
+/* ========================= BUTTONS ========================= */
+
+.btn{
+    width:100%;
+    padding:18px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:linear-gradient(135deg,#fff,#9d9d9d);
+    color:#000;
+    transition:.4s;
+    margin-top:10px;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 35px rgba(255,255,255,.18);
+}
+
+.red-btn{
+    background:linear-gradient(135deg,#ff0000,#790000);
+    color:#fff;
+}
+
+/* ========================= PRODUCT CARDS ========================= */
 
 .products{
     max-width:1450px;
     margin:auto;
-    padding:60px 30px 130px;
+    padding:50px 30px 130px;
 }
 
 .grid{
@@ -139,50 +186,57 @@ nav{
 }
 
 .card{
-    background:rgba(8,8,8,.88);
-    border:1px solid rgba(255,255,255,.06);
+    background:rgba(10,10,10,.88);
+    border:1px solid rgba(255,255,255,.05);
     border-radius:34px;
+    overflow:hidden;
+    position:relative;
+    min-height:620px;
     padding:40px;
+    transition:.6s cubic-bezier(.16,1,.3,1);
     backdrop-filter:blur(18px);
-    transition:.5s;
 }
 
 .card:hover{
-    transform:translateY(-12px);
-    border-color:rgba(255,0,0,.3);
-    box-shadow:0 25px 80px rgba(255,0,0,.15);
+    transform:translateY(-14px) scale(1.02);
+    border-color:rgba(255,0,0,.35);
+    box-shadow:
+    0 25px 80px rgba(255,0,0,.15),
+    inset 0 0 0 1px rgba(255,255,255,.03);
 }
 
 .card.blue:hover{
-    border-color:rgba(0,162,255,.3);
+    border-color:rgba(0,162,255,.4);
     box-shadow:0 25px 80px rgba(0,162,255,.15);
 }
 
 .card-top{
     display:flex;
     justify-content:space-between;
-    margin-bottom:50px;
+    align-items:center;
+    margin-bottom:60px;
 }
 
 .tag{
     padding:7px 14px;
-    border-radius:8px;
     font-size:10px;
     font-weight:900;
-    letter-spacing:.12em;
+    border-radius:8px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
 }
 
 .tag.red{
     background:#ff0000;
 }
 
+.tag.blue{
+    background:#0066ff;
+}
+
 .tag.white{
     background:#fff;
     color:#000;
-}
-
-.tag.blue{
-    background:#0066ff;
 }
 
 .icon-wrap{
@@ -192,37 +246,80 @@ nav{
     border-radius:28px;
     overflow:hidden;
     border:1px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#000;
+    transition:.5s;
 }
 
-.ue,.kh,.yub{
+.card:hover .icon-wrap{
+    transform:scale(1.08) rotate(3deg);
+}
+
+.ue,
+.yub,
+.kh{
     width:100%;
     height:100%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:70px;
-    font-weight:900;
+    position:relative;
 }
 
-.kh{
-    border:5px solid red;
+.ue::before{
+    content:'';
+    position:absolute;
+    inset:16px;
+    border:8px solid #fff;
+}
+
+.ue span{
+    font-size:70px;
+    font-weight:900;
+    letter-spacing:-8px;
 }
 
 .yub{
     background:#00a2ff;
 }
 
+.yub::before{
+    content:'';
+    position:absolute;
+    inset:16px;
+    border:6px solid #0059a8;
+}
+
+.yub span{
+    font-size:100px;
+    font-weight:900;
+}
+
+.kh::before{
+    content:'';
+    position:absolute;
+    inset:14px;
+    border:5px solid red;
+}
+
+.kh span{
+    font-size:65px;
+    font-weight:900;
+}
+
 .card-title{
     text-align:center;
+    font-size:44px;
     margin-top:30px;
-    font-size:42px;
     font-weight:900;
     font-style:italic;
 }
 
 .card-desc{
     text-align:center;
-    color:#777;
+    color:#6f6f6f;
     margin-top:18px;
     line-height:1.7;
 }
@@ -233,79 +330,77 @@ nav{
     border-top:1px solid rgba(255,255,255,.05);
 }
 
-.btn{
-    width:100%;
-    padding:18px;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
+.price{
+    font-size:44px;
     font-weight:900;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    transition:.3s;
-    margin-top:12px;
 }
 
-.btn-white{
-    background:#fff;
-    color:#000;
+/* ========================= MODAL ========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    backdrop-filter:blur(12px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:20px;
 }
 
-.btn-white:hover{
-    transform:translateY(-3px);
+.modal-box{
+    width:100%;
+    max-width:520px;
+    background:#0a0a0a;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:30px;
+    padding:40px;
 }
 
-.btn-red{
-    background:linear-gradient(135deg,#ff0000,#830000);
+.modal-title{
+    font-size:38px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.modal-desc{
+    color:#6d6d6d;
+    margin-bottom:30px;
+}
+
+.input{
+    width:100%;
+    background:#050505;
+    border:1px solid rgba(255,255,255,.08);
+    padding:16px;
+    border-radius:12px;
+    color:#fff;
+    margin-bottom:18px;
+}
+
+.select{
+    width:100%;
+    background:#050505;
+    border:1px solid rgba(255,255,255,.08);
+    padding:16px;
+    border-radius:12px;
+    color:#fff;
+    margin-bottom:22px;
+}
+
+.close-btn{
+    margin-top:15px;
+    color:#888;
+    cursor:pointer;
+    text-align:center;
+}
+
+.close-btn:hover{
     color:#fff;
 }
 
-.btn-red:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 30px rgba(255,0,0,.35);
-}
-
-/* SHOWCASE */
-
-.showcase{
-    max-width:1500px;
-    margin:auto;
-    padding:130px 30px;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:90px;
-}
-
-.section-title h2{
-    font-size:60px;
-    font-weight:900;
-}
-
-.video-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:30px;
-}
-
-.video-box{
-    border-radius:28px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.08);
-    transition:.4s;
-}
-
-.video-box:hover{
-    transform:translateY(-10px);
-}
-
-.video-box iframe{
-    width:100%;
-    aspect-ratio:9/16;
-}
-
-/* FOOTER */
+/* ========================= FOOTER ========================= */
 
 footer{
     border-top:1px solid rgba(255,255,255,.05);
@@ -314,75 +409,17 @@ footer{
     color:#555;
     font-size:11px;
     letter-spacing:.25em;
+    text-transform:uppercase;
+    font-weight:800;
 }
-
-/* MODAL */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.8);
-    backdrop-filter:blur(10px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:5000;
-}
-
-.modal-box{
-    width:95%;
-    max-width:500px;
-    background:#0a0a0a;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:28px;
-    padding:35px;
-}
-
-.payment-option{
-    width:100%;
-    padding:18px;
-    border-radius:14px;
-    border:1px solid rgba(255,255,255,.08);
-    background:#111;
-    margin-top:15px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.payment-option.active{
-    border-color:red;
-    background:#1a0000;
-}
-
-.buy-btn{
-    width:100%;
-    margin-top:25px;
-    padding:18px;
-    border:none;
-    border-radius:14px;
-    background:linear-gradient(135deg,#ff0000,#8b0000);
-    color:#fff;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.close-btn{
-    margin-top:15px;
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:14px;
-    background:#151515;
-    color:#fff;
-    cursor:pointer;
-}
-
 </style>
 </head>
 
 <body>
 
 <canvas id="bg-canvas"></canvas>
+
+<div class="bg-noise"></div>
 <div class="bg-vignette"></div>
 
 <!-- NAV -->
@@ -392,8 +429,8 @@ footer{
 
 <div onclick="reloadHome()" class="flex items-center gap-3 cursor-pointer">
 
-<div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center">
-<span class="text-white font-black italic">L</span>
+<div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center skew-x-[-12deg]">
+<span class="text-white text-xl font-black skew-x-[12deg] italic">L</span>
 </div>
 
 <div class="sync text-lg font-black">
@@ -404,25 +441,8 @@ LEFT-<span class="text-red-600">CONFIGS</span>
 
 <div class="hidden lg:flex items-center gap-10">
 
-<a href="javascript:void(0)" onclick="reloadHome()" class="nav-link">
-HOME
-</a>
-
-<a href="#products" class="nav-link">
-CATALOGUE
-</a>
-
-<a href="#showcase" class="nav-link">
-SHOWCASE
-</a>
-
-<a href="#footer" class="nav-link">
-LICENSE
-</a>
-
-<a href="https://discord.gg/jjefQyP2fU" target="_blank" class="nav-link">
-DISCORD
-</a>
+<a href="#products" class="nav-link">CATALOGUE</a>
+<a href="#footer" class="nav-link">LICENSE</a>
 
 </div>
 
@@ -441,8 +461,7 @@ EVOLVE YOUR <br>
 </h1>
 
 <p class="hero-desc">
-Uncompromising performance. Detection evasion at the highest level.
-LEFT-CONFIGS delivers elite execution power only granted to the chosen.
+Elite configuration system with secure purchase access.
 </p>
 
 </section>
@@ -452,37 +471,6 @@ LEFT-CONFIGS delivers elite execution power only granted to the chosen.
 <section class="products" id="products">
 
 <div class="grid">
-
-<!-- UE -->
-
-<div class="card">
-
-<div class="card-top">
-<div class="tag white">INTERNAL</div>
-<div class="text-white/20 font-black">PRO</div>
-</div>
-
-<div class="icon-wrap">
-<div class="ue">UE</div>
-</div>
-
-<div class="card-title sync">
-UE
-</div>
-
-<div class="card-desc">
-Lightweight ultra-fast core system designed for maximum execution efficiency.
-</div>
-
-<div class="card-bottom">
-
-<button class="btn btn-white">
-Buy License
-</button>
-
-</div>
-
-</div>
 
 <!-- KH -->
 
@@ -494,7 +482,9 @@ Buy License
 </div>
 
 <div class="icon-wrap">
-<div class="kh">KH</div>
+<div class="kh">
+<span>KH</span>
+</div>
 </div>
 
 <div class="card-title sync">
@@ -502,18 +492,36 @@ KH V2
 </div>
 
 <div class="card-desc">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()
+Multifunctional scripting environment trusted worldwide.
 </div>
 
 <div class="card-bottom">
 
-<button class="btn btn-white">
+<div class="flex justify-between items-end mb-8">
+
+<div>
+<div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+STATUS
+</div>
+
+<div class="text-2xl font-black">
+STABLE
+</div>
+</div>
+
+<div class="text-green-500 font-black uppercase text-xs">
+WORKING
+</div>
+
+</div>
+
+<button class="btn">
 Access Script
 </button>
 
 <!-- CONFIG BUTTON -->
 
-<button class="btn btn-red" onclick="openModal()">
+<button class="btn red-btn" onclick="openModal()">
 Buy Config
 </button>
 
@@ -521,72 +529,52 @@ Buy Config
 
 </div>
 
-<!-- YUB -->
-
-<div class="card blue">
-
-<div class="card-top">
-<div class="tag blue">EXECUTOR</div>
-<div class="text-blue-400 font-black">ENGINE</div>
 </div>
 
-<div class="icon-wrap">
-<div class="yub">X</div>
+</section>
+
+<!-- MODAL -->
+
+<div class="modal" id="buyModal">
+
+<div class="modal-box">
+
+<div class="modal-title sync">
+CONFIG PURCHASE
 </div>
 
-<div class="card-title sync text-blue-400">
-YUB-X
+<div class="modal-desc">
+Select payment method and continue.
 </div>
 
-<div class="card-desc">
-Community-driven ultra fast execution engine.
-</div>
+<input
+type="text"
+class="input"
+placeholder="Discord Username"
+/>
 
-<div class="card-bottom">
+<input
+type="email"
+class="input"
+placeholder="Your Email"
+/>
 
-<button class="btn btn-white">
-Official Site
+<select class="select" id="paymentMethod">
+<option value="PayPay">PayPay</option>
+<option value="Credit Card">Credit Card</option>
+</select>
+
+<button class="btn red-btn" onclick="buyNow()">
+Buy Now
 </button>
 
+<div class="close-btn" onclick="closeModal()">
+Close
 </div>
 
 </div>
 
 </div>
-
-</section>
-
-<!-- SHOWCASE -->
-
-<section class="showcase" id="showcase">
-
-<div class="section-title">
-<h2 class="sync">
-VISUAL PROOF
-</h2>
-</div>
-
-<div class="video-grid">
-
-<div class="video-box">
-<iframe src="https://www.tiktok.com/embed/v2/7634461082249219329" allowfullscreen loading="lazy"></iframe>
-</div>
-
-<div class="video-box">
-<iframe src="https://www.tiktok.com/embed/v2/7627089280732597505" allowfullscreen loading="lazy"></iframe>
-</div>
-
-<div class="video-box">
-<iframe src="https://www.tiktok.com/embed/v2/7626723329638026497" allowfullscreen loading="lazy"></iframe>
-</div>
-
-<div class="video-box">
-<iframe src="https://www.tiktok.com/embed/v2/7625962066465148161" allowfullscreen loading="lazy"></iframe>
-</div>
-
-</div>
-
-</section>
 
 <!-- FOOTER -->
 
@@ -594,103 +582,68 @@ VISUAL PROOF
 © 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
 </footer>
 
-<!-- PAYMENT MODAL -->
-
-<div class="modal" id="paymentModal">
-
-<div class="modal-box">
-
-<h2 class="text-3xl font-black mb-2">
-CONFIG PURCHASE
-</h2>
-
-<p class="text-gray-400 mb-6">
-Select your payment method.
-</p>
-
-<div class="payment-option" onclick="selectPayment('credit')" id="creditOption">
-💳 Credit Card
-</div>
-
-<div class="payment-option" onclick="selectPayment('paypay')" id="paypayOption">
-🅿️ PayPay
-</div>
-
-<button class="buy-btn" onclick="buyNow()">
-Buy Now
-</button>
-
-<button class="close-btn" onclick="closeModal()">
-Close
-</button>
-
-</div>
-
-</div>
-
 <script>
 
-/* HOME */
+/* ========================= HOME ========================= */
 
 function reloadHome(){
     window.scrollTo({
         top:0,
         behavior:'smooth'
     });
-
-    setTimeout(()=>{
-        location.reload();
-    },300);
 }
 
-/* PAYMENT */
+/* ========================= MODAL ========================= */
 
-let selectedPayment = "";
+const modal = document.getElementById('buyModal');
 
 function openModal(){
-    document.getElementById("paymentModal").style.display = "flex";
+    modal.style.display = 'flex';
 }
 
 function closeModal(){
-    document.getElementById("paymentModal").style.display = "none";
+    modal.style.display = 'none';
 }
 
-function selectPayment(method){
-
-    selectedPayment = method;
-
-    document.getElementById("creditOption").classList.remove("active");
-    document.getElementById("paypayOption").classList.remove("active");
-
-    if(method === "credit"){
-        document.getElementById("creditOption").classList.add("active");
-    }
-
-    if(method === "paypay"){
-        document.getElementById("paypayOption").classList.add("active");
-    }
-}
+/* ========================= BUY ========================= */
 
 function buyNow(){
 
-    if(selectedPayment === ""){
-        alert("Select payment method.");
-        return;
-    }
+    const payment =
+    document.getElementById('paymentMethod').value;
 
-    if(selectedPayment === "credit"){
-        window.location.href = "shop/checkout-credit.html";
-    }
+    const email =
+    "th.s10190629@icloud.com";
 
-    if(selectedPayment === "paypay"){
-        window.location.href = "shop/checkout-paypay.html";
-    }
+    const subject =
+    encodeURIComponent("LEFT CONFIG PURCHASE");
+
+    const body =
+    encodeURIComponent(
+`Hello LEFT-CONFIGS,
+
+I want to purchase the KH Config.
+
+Payment Method:
+${payment}
+
+Please send payment instructions.
+
+Thank you.`
+    );
+
+    window.location.href =
+`mailto:${email}?subject=${subject}&body=${body}`;
+
 }
 
-/* BACKGROUND */
+/* ========================= BACKGROUND ========================= */
 
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
+const canvas =
+document.getElementById('bg-canvas');
+
+const ctx =
+canvas.getContext('2d');
 
 let w,h;
 let particles=[];
@@ -701,6 +654,7 @@ function resize(){
 }
 
 window.addEventListener('resize',resize);
+
 resize();
 
 class Particle{
@@ -713,8 +667,9 @@ class Particle{
         this.x = Math.random()*w;
         this.y = Math.random()*h;
         this.size = Math.random()*2+1;
-        this.speedX = (Math.random()-.5)*0.3;
-        this.speedY = (Math.random()-.5)*0.3;
+        this.speedX = (Math.random()-.5)*0.25;
+        this.speedY = (Math.random()-.5)*0.25;
+        this.alpha = Math.random()*0.5;
     }
 
     update(){
@@ -722,7 +677,12 @@ class Particle{
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if(this.x < 0 || this.x > w || this.y < 0 || this.y > h){
+        if(
+            this.x<0 ||
+            this.x>w ||
+            this.y<0 ||
+            this.y>h
+        ){
             this.reset();
         }
     }
@@ -730,13 +690,24 @@ class Particle{
     draw(){
 
         ctx.beginPath();
-        ctx.fillStyle = 'rgba(255,255,255,.35)';
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+
+        ctx.fillStyle =
+        `rgba(255,255,255,${this.alpha})`;
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI*2
+        );
+
         ctx.fill();
     }
+
 }
 
-for(let i=0;i<160;i++){
+for(let i=0;i<140;i++){
     particles.push(new Particle());
 }
 
@@ -746,28 +717,14 @@ function animate(){
 
     time += 0.002;
 
-    const gradient = ctx.createLinearGradient(0,0,w,h);
+    const gradient =
+    ctx.createLinearGradient(0,0,w,h);
 
     gradient.addColorStop(0,'#020202');
-    gradient.addColorStop(.5,'#090909');
-    gradient.addColorStop(1,'#000');
+    gradient.addColorStop(.5,'#080808');
+    gradient.addColorStop(1,'#000000');
 
     ctx.fillStyle = gradient;
-    ctx.fillRect(0,0,w,h);
-
-    const glow1 = ctx.createRadialGradient(
-        w*0.3 + Math.sin(time)*220,
-        h*0.4,
-        0,
-        w*0.3,
-        h*0.4,
-        550
-    );
-
-    glow1.addColorStop(0,'rgba(255,0,0,.12)');
-    glow1.addColorStop(1,'transparent');
-
-    ctx.fillStyle = glow1;
     ctx.fillRect(0,0,w,h);
 
     particles.forEach(p=>{
