@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>LEFT-CONFIGS | Elite Solutions</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
 
 :root{
@@ -34,9 +36,7 @@ body{
     font-family:'Inter',sans-serif;
 }
 
-/* =========================
-   REAL BACKGROUND
-========================= */
+/* BACKGROUND */
 
 #bg-canvas{
     position:fixed;
@@ -57,7 +57,6 @@ body{
         radial-gradient(circle at 20% 20%, rgba(255,255,255,.08) 1px, transparent 1px),
         radial-gradient(circle at 80% 80%, rgba(255,255,255,.06) 1px, transparent 1px);
     background-size:4px 4px;
-    mix-blend-mode:overlay;
 }
 
 .bg-vignette{
@@ -69,9 +68,7 @@ body{
     radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.95) 100%);
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* NAV */
 
 nav{
     position:fixed;
@@ -101,9 +98,7 @@ nav{
     color:#fff;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
     position:relative;
@@ -121,7 +116,6 @@ nav{
     font-weight:900;
     opacity:.03;
     pointer-events:none;
-    user-select:none;
 }
 
 .hero-title{
@@ -147,9 +141,7 @@ nav{
     font-size:17px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTON */
 
 .btn{
     width:100%;
@@ -170,9 +162,7 @@ nav{
     box-shadow:0 0 35px rgba(255,255,255,.18);
 }
 
-/* =========================
-   PRODUCT CARDS
-========================= */
+/* PRODUCTS */
 
 .products{
     max-width:1450px;
@@ -192,7 +182,7 @@ nav{
     border-radius:34px;
     overflow:hidden;
     position:relative;
-    min-height:620px;
+    min-height:650px;
     padding:40px;
     transition:.6s cubic-bezier(.16,1,.3,1);
     backdrop-filter:blur(18px);
@@ -202,8 +192,7 @@ nav{
     transform:translateY(-14px) scale(1.02);
     border-color:rgba(255,0,0,.35);
     box-shadow:
-    0 25px 80px rgba(255,0,0,.15),
-    inset 0 0 0 1px rgba(255,255,255,.03);
+    0 25px 80px rgba(255,0,0,.15);
 }
 
 .card.blue:hover{
@@ -323,7 +312,6 @@ nav{
 .kh span{
     font-size:65px;
     font-weight:900;
-    color:#fff;
 }
 
 .card-title{
@@ -352,9 +340,7 @@ nav{
     font-weight:900;
 }
 
-/* =========================
-   SHOWCASE
-========================= */
+/* SHOWCASE */
 
 .showcase{
     max-width:1500px;
@@ -409,9 +395,80 @@ nav{
     display:block;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* CHECKOUT */
+
+.checkout-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(20px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    padding:20px;
+}
+
+.checkout-box{
+    width:100%;
+    max-width:620px;
+    background:#0b0b0b;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:35px;
+    padding:45px;
+    position:relative;
+}
+
+.payment-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:35px;
+}
+
+.payment-option{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:30px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.payment-option:hover{
+    border-color:red;
+    background:rgba(255,255,255,.02);
+}
+
+.payment-option.active{
+    border-color:red;
+    background:rgba(255,0,0,.08);
+}
+
+.input{
+    width:100%;
+    background:#000;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:18px;
+    margin-top:20px;
+    color:#fff;
+    outline:none;
+}
+
+.input:focus{
+    border-color:red;
+}
+
+.close-btn{
+    position:absolute;
+    right:22px;
+    top:18px;
+    font-size:30px;
+    color:#777;
+    cursor:pointer;
+}
+
+/* FOOTER */
 
 footer{
     border-top:1px solid rgba(255,255,255,.05);
@@ -423,6 +480,7 @@ footer{
     text-transform:uppercase;
     font-weight:800;
 }
+
 </style>
 </head>
 
@@ -435,67 +493,70 @@ footer{
 <!-- NAV -->
 
 <nav>
-    <div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+<div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
 
-        <div onclick="reloadHome()" class="flex items-center gap-3 cursor-pointer">
-            <div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center skew-x-[-12deg]">
-                <span class="text-white text-xl font-black skew-x-[12deg] italic">L</span>
-            </div>
+<div onclick="reloadHome()" class="flex items-center gap-3 cursor-pointer">
 
-            <div class="sync text-lg font-black">
-                LEFT-<span class="text-red-600">CONFIGS</span>
-            </div>
-        </div>
+<div class="w-10 h-10 bg-red-600 rounded-md flex items-center justify-center skew-x-[-12deg]">
+<span class="text-white text-xl font-black skew-x-[12deg] italic">L</span>
+</div>
 
-        <div class="hidden lg:flex items-center gap-10">
+<div class="sync text-lg font-black">
+LEFT-<span class="text-red-600">CONFIGS</span>
+</div>
 
-            <a href="javascript:void(0)" onclick="reloadHome()" class="nav-link">
-                HOME
-            </a>
+</div>
 
-            <a href="#products" class="nav-link">
-                CATALOGUE
-            </a>
+<div class="hidden lg:flex items-center gap-10">
 
-            <a href="#showcase" class="nav-link">
-                SHOWCASE
-            </a>
+<a href="javascript:void(0)" onclick="reloadHome()" class="nav-link">
+HOME
+</a>
 
-            <a href="#footer" class="nav-link">
-                LICENSE
-            </a>
+<a href="#products" class="nav-link">
+CATALOGUE
+</a>
 
-            <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="nav-link">
-                DISCORD
-            </a>
+<a href="#showcase" class="nav-link">
+SHOWCASE
+</a>
 
-        </div>
+<a href="#footer" class="nav-link">
+LICENSE
+</a>
 
-    </div>
+<a href="https://discord.gg/jjefQyP2fU" target="_blank" class="nav-link">
+DISCORD
+</a>
+
+</div>
+
+</div>
 </nav>
 
 <!-- HERO -->
 
-<section class="hero" id="home">
+<section class="hero">
 
-    <div class="watermark sync">LEFT</div>
+<div class="watermark sync">LEFT</div>
 
-    <div class="inline-flex items-center px-5 py-2 rounded-full border border-white/10 bg-white/5 mb-10">
-        <div class="w-2 h-2 rounded-full bg-green-500 mr-3 animate-pulse"></div>
-        <span class="text-[10px] tracking-[0.3em] font-black uppercase text-gray-400">
-            SYSTEM V5.3 ONLINE
-        </span>
-    </div>
+<div class="inline-flex items-center px-5 py-2 rounded-full border border-white/10 bg-white/5 mb-10">
+<div class="w-2 h-2 rounded-full bg-green-500 mr-3 animate-pulse"></div>
 
-    <h1 class="hero-title sync">
-        EVOLVE YOUR <br>
-        <span class="red-glow">INSTINCTS.</span>
-    </h1>
+<span class="text-[10px] tracking-[0.3em] font-black uppercase text-gray-400">
+SYSTEM V5.3 ONLINE
+</span>
+</div>
 
-    <p class="hero-desc">
-        Uncompromising performance. Detection evasion at the highest level.
-        LEFT-CONFIGS delivers elite execution power only granted to the chosen.
-    </p>
+<h1 class="hero-title sync">
+EVOLVE YOUR <br>
+<span class="red-glow">INSTINCTS.</span>
+</h1>
+
+<p class="hero-desc">
+Uncompromising performance. Detection evasion at the highest level.
+LEFT-CONFIGS delivers elite execution power only granted to the chosen.
+</p>
 
 </section>
 
@@ -503,156 +564,162 @@ footer{
 
 <section class="products" id="products">
 
-    <div class="grid">
+<div class="grid">
 
-        <!-- UE -->
+<!-- UE -->
 
-        <div class="card">
+<div class="card">
 
-            <div class="card-top">
-                <div class="tag white">INTERNAL</div>
-                <div class="text-white/20 font-black text-xl">PRO</div>
-            </div>
+<div class="card-top">
+<div class="tag white">INTERNAL</div>
+<div class="text-white/20 font-black text-xl">PRO</div>
+</div>
 
-            <div class="icon-wrap">
-                <div class="ue">
-                    <span>UE</span>
-                </div>
-            </div>
+<div class="icon-wrap">
+<div class="ue">
+<span>UE</span>
+</div>
+</div>
 
-            <div class="card-title sync">UE</div>
+<div class="card-title sync">UE</div>
 
-            <div class="card-desc">
-                Lightweight ultra-fast core system designed
-                for maximum execution efficiency.
-            </div>
+<div class="card-desc">
+Lightweight ultra-fast core system designed
+for maximum execution efficiency.
+</div>
 
-            <div class="card-bottom">
+<div class="card-bottom">
 
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
-                            Pricing From
-                        </div>
+<div class="flex justify-between items-end mb-8">
 
-                        <div class="price">
-                            €9.97
-                        </div>
-                    </div>
+<div>
+<div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+Pricing From
+</div>
 
-                    <div class="text-green-500 font-black uppercase text-xs">
-                        SAFE
-                    </div>
-                </div>
+<div class="price">
+€9.97
+</div>
+</div>
 
-                <button class="btn">
-                    Buy License
-                </button>
+<div class="text-green-500 font-black uppercase text-xs">
+SAFE
+</div>
 
-            </div>
+</div>
 
-        </div>
+<button class="btn" onclick="openCheckout()">
+CONFIG PURCHASE
+</button>
 
-        <!-- KH -->
+</div>
 
-        <div class="card">
+</div>
 
-            <div class="card-top">
-                <div class="tag red">PREMIUM</div>
-                <div class="text-red-500 font-black">CLOUD</div>
-            </div>
+<!-- KH -->
 
-            <div class="icon-wrap">
-                <div class="kh">
-                    <span>KH</span>
-                </div>
-            </div>
+<div class="card">
 
-            <div class="card-title sync">
-                KH V2
-            </div>
+<div class="card-top">
+<div class="tag red">PREMIUM</div>
+<div class="text-red-500 font-black">CLOUD</div>
+</div>
 
-            <div class="card-desc">
-                Multifunctional scripting environment trusted
-                by users worldwide.
-            </div>
+<div class="icon-wrap">
+<div class="kh">
+<span>KH</span>
+</div>
+</div>
 
-            <div class="card-bottom">
+<div class="card-title sync">
+KH V2
+</div>
 
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
-                            STATUS
-                        </div>
+<div class="card-desc">
+Multifunctional scripting environment trusted
+by users worldwide.
+</div>
 
-                        <div class="text-2xl font-black">
-                            STABLE
-                        </div>
-                    </div>
+<div class="card-bottom">
 
-                    <div class="text-green-500 font-black uppercase text-xs">
-                        WORKING
-                    </div>
-                </div>
+<div class="flex justify-between items-end mb-8">
 
-                <button class="btn">
-                    Access Script
-                </button>
+<div>
+<div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+STATUS
+</div>
 
-            </div>
+<div class="text-2xl font-black">
+STABLE
+</div>
+</div>
 
-        </div>
+<div class="text-green-500 font-black uppercase text-xs">
+WORKING
+</div>
 
-        <!-- YUB -->
+</div>
 
-        <div class="card blue">
+<button class="btn" onclick="openCheckout()">
+CONFIG PURCHASE
+</button>
 
-            <div class="card-top">
-                <div class="tag blue">EXECUTOR</div>
-                <div class="text-blue-400 font-black">ENGINE</div>
-            </div>
+</div>
 
-            <div class="icon-wrap">
-                <div class="yub">
-                    <span>X</span>
-                </div>
-            </div>
+</div>
 
-            <div class="card-title sync text-blue-400">
-                YUB-X
-            </div>
+<!-- YUB -->
 
-            <div class="card-desc">
-                Community-driven ultra fast execution engine.
-            </div>
+<div class="card blue">
 
-            <div class="card-bottom">
+<div class="card-top">
+<div class="tag blue">EXECUTOR</div>
+<div class="text-blue-400 font-black">ENGINE</div>
+</div>
 
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
-                            PRICE
-                        </div>
+<div class="icon-wrap">
+<div class="yub">
+<span>X</span>
+</div>
+</div>
 
-                        <div class="price text-blue-400">
-                            FREE
-                        </div>
-                    </div>
+<div class="card-title sync text-blue-400">
+YUB-X
+</div>
 
-                    <div class="text-green-500 font-black uppercase text-xs">
-                        ONLINE
-                    </div>
-                </div>
+<div class="card-desc">
+Community-driven ultra fast execution engine.
+</div>
 
-                <button class="btn">
-                    Official Site
-                </button>
+<div class="card-bottom">
 
-            </div>
+<div class="flex justify-between items-end mb-8">
 
-        </div>
+<div>
+<div class="text-[10px] uppercase text-gray-500 font-bold mb-1">
+PRICE
+</div>
 
-    </div>
+<div class="price text-blue-400">
+FREE
+</div>
+</div>
+
+<div class="text-green-500 font-black uppercase text-xs">
+ONLINE
+</div>
+
+</div>
+
+<button class="btn" onclick="window.open('https://yub-x.net/')">
+OFFICIAL SITE
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
@@ -660,199 +727,389 @@ footer{
 
 <section class="showcase" id="showcase">
 
-    <div class="section-title">
-        <h2 class="sync">VISUAL PROOF</h2>
-        <p>INTELLIGENCE IN MOTION</p>
-    </div>
+<div class="section-title">
+<h2 class="sync">VISUAL PROOF</h2>
+<p>INTELLIGENCE IN MOTION</p>
+</div>
 
-    <div class="video-grid">
+<div class="video-grid">
 
-        <div class="video-box">
-            <iframe
-                src="https://www.tiktok.com/embed/v2/7634461082249219329"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
-        </div>
+<div class="video-box">
+<iframe
+src="https://www.tiktok.com/embed/v2/7634461082249219329"
+allowfullscreen
+loading="lazy">
+</iframe>
+</div>
 
-        <div class="video-box">
-            <iframe
-                src="https://www.tiktok.com/embed/v2/7627089280732597505"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
-        </div>
+<div class="video-box">
+<iframe
+src="https://www.tiktok.com/embed/v2/7627089280732597505"
+allowfullscreen
+loading="lazy">
+</iframe>
+</div>
 
-        <div class="video-box">
-            <iframe
-                src="https://www.tiktok.com/embed/v2/7626723329638026497"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
-        </div>
+<div class="video-box">
+<iframe
+src="https://www.tiktok.com/embed/v2/7626723329638026497"
+allowfullscreen
+loading="lazy">
+</iframe>
+</div>
 
-        <div class="video-box">
-            <iframe
-                src="https://www.tiktok.com/embed/v2/7625962066465148161"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
-        </div>
+<div class="video-box">
+<iframe
+src="https://www.tiktok.com/embed/v2/7625962066465148161"
+allowfullscreen
+loading="lazy">
+</iframe>
+</div>
 
-    </div>
+</div>
 
 </section>
+
+<!-- CHECKOUT -->
+
+<div class="checkout-modal" id="checkoutModal">
+
+<div class="checkout-box">
+
+<div class="close-btn" onclick="closeCheckout()">
+×
+</div>
+
+<div class="text-center">
+
+<div class="text-red-500 uppercase tracking-[0.35em] text-[11px] font-black mb-4">
+Secure Checkout
+</div>
+
+<h2 class="text-5xl font-black italic sync">
+CONFIG PURCHASE
+</h2>
+
+<p class="text-gray-500 mt-5 leading-7">
+Select payment method and continue checkout.
+</p>
+
+</div>
+
+<div class="payment-grid">
+
+<div class="payment-option" onclick="selectPayment('credit', this)">
+<div class="text-3xl mb-4">💳</div>
+<div class="text-2xl font-black uppercase">
+Credit Card
+</div>
+<div class="text-sm text-gray-500 mt-3">
+Visa / Mastercard supported
+</div>
+</div>
+
+<div class="payment-option" onclick="selectPayment('paypay', this)">
+<div class="text-3xl mb-4">📱</div>
+<div class="text-2xl font-black uppercase">
+PayPay
+</div>
+<div class="text-sm text-gray-500 mt-3">
+Japanese mobile payment
+</div>
+</div>
+
+</div>
+
+<input
+type="email"
+id="buyerEmail"
+class="input"
+placeholder="Enter your Gmail..." />
+
+<div class="mt-8">
+<button class="btn" onclick="buyNow()">
+BUY NOW
+</button>
+</div>
+
+</div>
+
+</div>
 
 <!-- FOOTER -->
 
 <footer id="footer">
-    © 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
+© 2026 LEFT-CONFIGS — DEVELOPED FOR THE ELITE
 </footer>
 
 <script>
 
-/* =========================
-   HOME BUTTON RELOAD
-========================= */
+/* HOME */
 
 function reloadHome(){
-    window.scrollTo({
-        top:0,
-        behavior:'smooth'
-    });
 
-    setTimeout(()=>{
-        location.reload();
-    },300);
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+setTimeout(()=>{
+location.reload();
+},300);
+
 }
 
-/* =========================
-   REAL BACKGROUND
-========================= */
+/* CHECKOUT */
 
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
+let selectedPayment = '';
+
+function openCheckout(){
+document.getElementById('checkoutModal').style.display='flex';
+}
+
+function closeCheckout(){
+document.getElementById('checkoutModal').style.display='none';
+}
+
+function selectPayment(method, element){
+
+selectedPayment = method;
+
+document.querySelectorAll('.payment-option').forEach(el=>{
+el.classList.remove('active');
+});
+
+element.classList.add('active');
+
+}
+
+function buyNow(){
+
+const email =
+document.getElementById('buyerEmail').value;
+
+if(!selectedPayment){
+alert('Select payment method.');
+return;
+}
+
+if(!email){
+alert('Enter your Gmail.');
+return;
+}
+
+/* MAIL */
+
+const subject =
+encodeURIComponent('NEW CONFIG PURCHASE');
+
+const body =
+encodeURIComponent(
+`New Purchase
+
+Payment:
+${selectedPayment}
+
+Buyer Gmail:
+${email}
+
+Send product manually.`
+);
+
+window.open(
+`mailto:th.s10190629@icloud.com?subject=${subject}&body=${body}`
+);
+
+/* REDIRECT */
+
+if(selectedPayment === 'credit'){
+
+window.location.href =
+'https://shop.checkout.com/';
+
+}
+
+if(selectedPayment === 'paypay'){
+
+window.location.href =
+'https://paypay.ne.jp/';
+
+}
+
+}
+
+/* BACKGROUND */
+
+const canvas =
+document.getElementById('bg-canvas');
+
+const ctx =
+canvas.getContext('2d');
 
 let w,h;
 let particles=[];
 
 function resize(){
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+
+w = canvas.width = window.innerWidth;
+h = canvas.height = window.innerHeight;
+
 }
 
 window.addEventListener('resize',resize);
+
 resize();
 
 class Particle{
-    constructor(){
-        this.reset();
-    }
 
-    reset(){
-        this.x = Math.random()*w;
-        this.y = Math.random()*h;
-        this.size = Math.random()*2+1;
-        this.speedX = (Math.random()-.5)*0.25;
-        this.speedY = (Math.random()-.5)*0.25;
-        this.alpha = Math.random()*0.5;
-    }
+constructor(){
+this.reset();
+}
 
-    update(){
-        this.x += this.speedX;
-        this.y += this.speedY;
+reset(){
 
-        if(this.x<0 || this.x>w || this.y<0 || this.y>h){
-            this.reset();
-        }
-    }
+this.x = Math.random()*w;
+this.y = Math.random()*h;
 
-    draw(){
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-        ctx.fill();
-    }
+this.size =
+Math.random()*2+1;
+
+this.speedX =
+(Math.random()-.5)*0.25;
+
+this.speedY =
+(Math.random()-.5)*0.25;
+
+this.alpha =
+Math.random()*0.5;
+
+}
+
+update(){
+
+this.x += this.speedX;
+this.y += this.speedY;
+
+if(
+this.x<0 ||
+this.x>w ||
+this.y<0 ||
+this.y>h
+){
+this.reset();
+}
+
+}
+
+draw(){
+
+ctx.beginPath();
+
+ctx.fillStyle =
+`rgba(255,255,255,${this.alpha})`;
+
+ctx.arc(
+this.x,
+this.y,
+this.size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+}
+
 }
 
 for(let i=0;i<140;i++){
-    particles.push(new Particle());
+particles.push(new Particle());
 }
 
 let time = 0;
 
 function animate(){
 
-    time += 0.002;
+time += 0.002;
 
-    const gradient = ctx.createLinearGradient(0,0,w,h);
+const gradient =
+ctx.createLinearGradient(0,0,w,h);
 
-    gradient.addColorStop(0,'#020202');
-    gradient.addColorStop(.5,'#080808');
-    gradient.addColorStop(1,'#000000');
+gradient.addColorStop(0,'#020202');
+gradient.addColorStop(.5,'#080808');
+gradient.addColorStop(1,'#000');
 
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0,0,w,h);
+ctx.fillStyle = gradient;
+ctx.fillRect(0,0,w,h);
 
-    /* animated glow */
+/* RED GLOW */
 
-    const glow1 = ctx.createRadialGradient(
-        w*0.3 + Math.sin(time)*200,
-        h*0.4,
-        0,
-        w*0.3,
-        h*0.4,
-        500
-    );
+const glow1 =
+ctx.createRadialGradient(
+w*0.3 + Math.sin(time)*200,
+h*0.4,
+0,
+w*0.3,
+h*0.4,
+500
+);
 
-    glow1.addColorStop(0,'rgba(255,0,0,.12)');
-    glow1.addColorStop(1,'transparent');
+glow1.addColorStop(0,'rgba(255,0,0,.12)');
+glow1.addColorStop(1,'transparent');
 
-    ctx.fillStyle = glow1;
-    ctx.fillRect(0,0,w,h);
+ctx.fillStyle = glow1;
+ctx.fillRect(0,0,w,h);
 
-    const glow2 = ctx.createRadialGradient(
-        w*0.8,
-        h*0.2 + Math.cos(time)*150,
-        0,
-        w*0.8,
-        h*0.2,
-        400
-    );
+/* WHITE GLOW */
 
-    glow2.addColorStop(0,'rgba(255,255,255,.05)');
-    glow2.addColorStop(1,'transparent');
+const glow2 =
+ctx.createRadialGradient(
+w*0.8,
+h*0.2 + Math.cos(time)*150,
+0,
+w*0.8,
+h*0.2,
+400
+);
 
-    ctx.fillStyle = glow2;
-    ctx.fillRect(0,0,w,h);
+glow2.addColorStop(0,'rgba(255,255,255,.05)');
+glow2.addColorStop(1,'transparent');
 
-    /* grid */
+ctx.fillStyle = glow2;
+ctx.fillRect(0,0,w,h);
 
-    ctx.strokeStyle = 'rgba(255,255,255,.03)';
-    ctx.lineWidth = 1;
+/* GRID */
 
-    for(let x=0;x<w;x+=70){
-        ctx.beginPath();
-        ctx.moveTo(x,0);
-        ctx.lineTo(x,h);
-        ctx.stroke();
-    }
+ctx.strokeStyle =
+'rgba(255,255,255,.03)';
 
-    for(let y=0;y<h;y+=70){
-        ctx.beginPath();
-        ctx.moveTo(0,y);
-        ctx.lineTo(w,y);
-        ctx.stroke();
-    }
+for(let x=0;x<w;x+=70){
 
-    /* particles */
+ctx.beginPath();
+ctx.moveTo(x,0);
+ctx.lineTo(x,h);
+ctx.stroke();
 
-    particles.forEach(p=>{
-        p.update();
-        p.draw();
-    });
+}
 
-    requestAnimationFrame(animate);
+for(let y=0;y<h;y+=70){
+
+ctx.beginPath();
+ctx.moveTo(0,y);
+ctx.lineTo(w,y);
+ctx.stroke();
+
+}
+
+/* PARTICLES */
+
+particles.forEach(p=>{
+p.update();
+p.draw();
+});
+
+requestAnimationFrame(animate);
+
 }
 
 animate();
