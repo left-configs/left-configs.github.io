@@ -6,14 +6,14 @@
     <title>LEFT-CONFIGS | Elite Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
         :root {
             --bg: #000000;
             --card-bg: #0b0b0b;
             --text-main: #ffffff;
             --text-dim: #888888;
-            --accent-blue: #00a2ff;
+            --accent-red: #ff0000;
         }
 
         * {
@@ -32,9 +32,24 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .sync { font-family: 'Syncopate', sans-serif; }
+        /* 文字の赤い縁取り・光彩 */
+        .red-outline {
+            color: #fff;
+            text-shadow: 0 0 5px var(--accent-red), 0 0 10px var(--accent-red);
+        }
 
-        /* --- Background Particles --- */
+        /* ボタンの赤い縁取り */
+        .red-btn-border {
+            border: 1px solid var(--accent-red) !important;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+            transition: 0.3s;
+        }
+        .red-btn-border:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        /* Background Particles */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -45,36 +60,37 @@
             background: #000;
         }
 
-        /* --- Navigation --- */
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-weight: 900;
-            font-size: 1.2rem;
+            font-weight: 800;
+            font-size: 1.1rem;
             letter-spacing: -0.02em;
             text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 8px var(--accent-red);
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
         .nav-link {
@@ -86,133 +102,168 @@
             text-decoration: none;
         }
 
-        .nav-link:hover {
-            color: #fff;
+        .nav-link:hover { 
+            color: #fff; 
+            text-shadow: 0 0 5px var(--accent-red);
         }
 
-        /* --- Modal Styling --- */
+        .btn-login {
+            background: #000;
+            border: 1px solid var(--accent-red);
+            color: #fff;
+            padding: 0.4rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-shadow: 0 0 5px var(--accent-red);
+            box-shadow: 0 0 5px var(--accent-red);
+        }
+
+        /* Modal Styling */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
         }
 
         .modal-content {
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            width: 100%;
+            background: #0a0a0a;
+            border: 1px solid var(--accent-red);
+            width: 90%;
             max-width: 400px;
             padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
         }
 
         input {
-            background: #151515 !important;
-            border: 1px solid #222 !important;
+            background: #000 !important;
+            border: 1px solid #333 !important;
             color: white !important;
             outline: none !important;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
 
-        input:focus {
-            border-color: var(--accent-blue) !important;
-        }
+        input:focus { border-color: var(--accent-red) !important; box-shadow: 0 0 5px var(--accent-red); }
 
-        /* --- Reviews Styling --- */
-        .review-grid {
+        /* Hero Section */
+        .hero {
+            padding: 160px 20px 80px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 0 0 15px var(--accent-red);
+        }
+        .hero p { color: #fff; font-size: 1.1rem; text-shadow: 0 0 5px var(--accent-red); }
+
+        /* Stats Box */
+        .stats-container {
+            margin-top: 3rem;
+            background: #000;
+            border: 1px solid var(--accent-red);
+            display: inline-flex;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            gap: 3rem;
+            box-shadow: 0 0 10px rgba(255,0,0,0.2);
+        }
+        .stat-item { text-align: center; }
+        .stat-val { font-size: 1.2rem; font-weight: 700; color: #fff; text-shadow: 0 0 5px var(--accent-red); }
+        .stat-label { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Product Grid */
+        .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
         }
-
-        .review-card {
-            background: #0d0d0d;
-            border: 1px solid #1a1a1a;
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 180px;
-        }
-
-        .quote-icon {
-            font-size: 2.5rem;
-            color: #222;
-            line-height: 1;
-            margin-bottom: -0.5rem;
-            font-family: serif;
-        }
-
-        .review-stars {
-            color: #ffb400;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.75rem;
-        }
-
-        .review-text {
-            font-size: 0.85rem;
-            color: #efefef;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-        }
-
-        .review-footer {
-            background: #151515;
-            margin: 0 -1.5rem -1.5rem -1.5rem;
-            padding: 0.6rem 1.2rem;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.65rem;
-            color: #666;
-            font-family: monospace;
-        }
-
-        /* Product Cards */
         .product-card {
-            background: #050505;
-            border-radius: 16px;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 8px;
             padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
         }
-        .image-box {
+        .product-card:hover { 
+            border-color: var(--accent-red); 
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .img-placeholder {
             width: 100%;
             aspect-ratio: 1.6;
-            background: #0a0a0a;
-            border-radius: 12px;
+            background: #050505;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1rem;
+            border: 1px solid #111;
         }
-        .logo-ue { color: #fff; font-size: 64px; font-weight: 900; letter-spacing: -6px; }
-        .logo-kh { color: #fff; font-size: 80px; font-family: 'Times New Roman', serif; font-style: italic; }
-        .logo-matrix { color: #00a2ff; font-size: 100px; font-weight: 900; transform: scaleX(1.3); }
+        
+        .logo-text { font-weight: 900; font-size: 2.5rem; color: #fff; text-shadow: 0 0 10px var(--accent-red); }
+
+        .prod-info { display: flex; flex-direction: column; gap: 4px; }
+        .prod-meta { display: flex; justify-content: space-between; font-size: 0.65rem; color: #666; font-family: monospace; }
+        .prod-title { font-size: 0.9rem; font-weight: 600; color: #fff; text-shadow: 0 0 3px var(--accent-red); }
+
+        /* Socials Section */
+        .socials {
+            background: #050505;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--accent-red);
+            border-bottom: 1px solid var(--accent-red);
+        }
+        .social-link {
+            text-decoration: none;
+            display: inline-block;
+        }
+        .social-btn {
+            background: #000;
+            border: 1px solid var(--accent-red);
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 0 5px var(--accent-red);
+            box-shadow: 0 0 5px rgba(255,0,0,0.3);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .social-btn:hover {
+            box-shadow: 0 0 12px rgba(255,0,0,0.6);
+            transform: scale(1.05);
+        }
 
         .loading-spinner {
-            border: 2px solid rgba(255,255,255,0.1);
-            border-left-color: #fff;
+            border: 2px solid rgba(255,0,0,0.1);
+            border-left-color: var(--accent-red);
             border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
+            width: 14px;
+            height: 14px;
+            animation: spin 0.8s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
     </style>
 </head>
@@ -222,15 +273,17 @@
 
 <nav>
     <div class="nav-container">
-        <div class="logo cursor-pointer">Left-Configs</div>
+        <div class="logo">LEFT-CONFIGS</div>
         <div class="nav-links">
             <a href="#" class="nav-link">Home</a>
             <a href="#products" class="nav-link">Products</a>
             <a href="#reviews" class="nav-link">Reviews</a>
+            <a href="#" class="nav-link">Status</a>
+            <a href="#" class="nav-link">Blog</a>
         </div>
         <div class="flex items-center gap-4">
-            <div id="auth-btn" class="px-5 py-2 bg-white text-black rounded-full text-xs font-black uppercase cursor-pointer hover:bg-gray-200 transition">Login</div>
-            <div id="user-display" class="hidden text-xs font-bold text-blue-400"></div>
+            <button id="auth-btn" class="btn-login">Login</button>
+            <div id="user-display" class="hidden text-[10px] font-bold text-white bg-red-600/20 px-3 py-1 rounded border border-red-600/50 shadow-[0_0_5px_rgba(255,0,0,0.5)]"></div>
         </div>
     </div>
 </nav>
@@ -238,110 +291,90 @@
 <!-- Login Modal -->
 <div id="login-modal" class="modal-overlay">
     <div class="modal-content">
-        <h2 class="sync text-xl font-bold mb-6 text-center">ACCESS TERMINAL</h2>
+        <h2 class="text-xl font-black mb-1 text-center tracking-tighter red-outline">ACCESS TERMINAL</h2>
+        <p class="text-[10px] text-center text-white uppercase tracking-widest mb-6" style="text-shadow: 0 0 3px red;">Verify Identity</p>
+        
         <div class="space-y-4">
             <div>
-                <label class="text-[10px] uppercase text-dim block mb-1 tracking-widest">Username</label>
-                <input type="text" id="username-input" class="w-full p-3 rounded-lg text-sm" placeholder="Unique user ID">
-                <p id="username-error" class="text-red-500 text-[10px] mt-1 hidden">Name already taken or invalid.</p>
+                <label class="text-[9px] uppercase text-dim block mb-1 font-bold">Display Name</label>
+                <input type="text" id="username-input" placeholder="User123">
+                <p id="username-error" class="text-red-500 text-[10px] mt-1 hidden">Name is already taken.</p>
             </div>
             <div>
-                <label class="text-[10px] uppercase text-dim block mb-1 tracking-widest">Gmail Address</label>
-                <input type="email" id="email-input" class="w-full p-3 rounded-lg text-sm" placeholder="example@gmail.com">
-                <p id="email-error" class="text-red-500 text-[10px] mt-1 hidden">Invalid or non-existent Gmail address.</p>
+                <label class="text-[9px] uppercase text-dim block mb-1 font-bold">Gmail Address</label>
+                <input type="email" id="email-input" placeholder="example@gmail.com">
+                <p id="email-error" class="text-red-500 text-[10px] mt-1 hidden">Gmail not found or invalid.</p>
             </div>
-            <button id="submit-login" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-xs uppercase tracking-widest transition mt-4">Initialize Session</button>
-            <button id="close-modal" class="w-full py-2 text-dim text-[10px] uppercase tracking-widest hover:text-white transition">Cancel</button>
+            
+            <button id="submit-login" class="w-full py-3 bg-white text-black hover:bg-gray-200 rounded-md font-bold text-xs uppercase transition mt-4 red-btn-border">Initialize Session</button>
+            <button id="close-modal" class="w-full py-2 text-white text-[9px] uppercase font-bold hover:text-red-500 transition" style="text-shadow: 0 0 3px red;">Exit</button>
         </div>
     </div>
 </div>
 
-<!-- Hero Section -->
-<section class="pt-48 pb-20 text-center">
-    <h1 class="sync text-5xl font-black mb-4">Get Ready To Become The Best</h1>
-    <p class="text-dim text-lg">Powerful Rivals configs</p>
-    <div class="mt-10 flex justify-center gap-8 bg-white/5 border border-white/5 inline-flex mx-auto p-6 rounded-2xl backdrop-blur-sm">
-        <div class="text-center">
-            <div class="text-xl font-bold flex items-center justify-center gap-1"><span class="text-yellow-500">★</span> 4.99</div>
-            <div class="text-[10px] text-dim uppercase tracking-tighter">Feedback Rating</div>
+<div class="hero">
+    <h1 class="red-outline">Get Ready To Become The Best</h1>
+    <p>Powerful Rivals configs</p>
+    
+    <div class="stats-container">
+        <div class="stat-item">
+            <span class="stat-val"><span class="text-yellow-500 text-sm">★</span> 4.99</span>
+            <span class="stat-label">Feedback Rating</span>
         </div>
-        <div class="text-center border-x border-white/10 px-8">
-            <div class="text-xl font-bold">344</div>
-            <div class="text-[10px] text-dim uppercase tracking-tighter">Products Sold</div>
+        <div class="stat-item">
+            <span class="stat-val">344</span>
+            <span class="stat-label">Products Sold</span>
         </div>
-        <div class="text-center">
-            <div class="text-xl font-bold">230</div>
-            <div class="text-[10px] text-dim uppercase tracking-tighter">Total Customers</div>
+        <div class="stat-item">
+            <span class="stat-val">230</span>
+            <span class="stat-label">Total Customers</span>
         </div>
     </div>
-</section>
+</div>
 
-<!-- Products -->
-<section id="products" class="max-w-[1200px] mx-auto px-8 py-20">
-    <div class="mb-10">
-        <h2 class="text-3xl font-bold">Products</h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<section id="products" class="max-w-[1200px] mx-auto px-8">
+    <h2 class="text-xl font-bold mb-8 red-outline">Products</h2>
+    <div class="product-grid">
         <div class="product-card">
-            <div class="image-box"><div class="logo-ue">LE</div></div>
-            <div class="mt-4 px-1">
-                <div class="flex justify-between text-[10px] text-dim font-mono mb-1">
-                    <span>$4.71 - $8.23</span>
-                    <span>2766 In Stock</span>
-                </div>
-                <h3 class="font-bold text-sm">Unnamed Enhancements Config</h3>
+            <div class="img-placeholder"><span class="logo-text">LE</span></div>
+            <div class="prod-info">
+                <div class="prod-meta"><span>$4.71 - $8.23</span><span>2766 In Stock</span></div>
+                <h3 class="prod-title">Unnamed Enhancements Config</h3>
             </div>
         </div>
         <div class="product-card">
-            <div class="image-box"><div class="logo-kh">KH</div></div>
-            <div class="mt-4 px-1">
-                <div class="flex justify-between text-[10px] text-dim font-mono mb-1">
-                    <span>$5.30 <span class="line-through opacity-30">$7.06</span></span>
-                    <span>90 In Stock</span>
-                </div>
-                <h3 class="font-bold text-sm">Kiciahook Configs</h3>
+            <div class="img-placeholder"><span class="logo-text italic" style="font-family:serif">KH</span></div>
+            <div class="prod-info">
+                <div class="prod-meta"><span>$5.30</span><span>90 In Stock</span></div>
+                <h3 class="prod-title">Kiciahook Configs</h3>
             </div>
         </div>
         <div class="product-card">
-            <div class="image-box"><div class="logo-matrix">M</div></div>
-            <div class="mt-4 px-1">
-                <div class="flex justify-between text-[10px] text-dim font-mono mb-1">
-                    <span>$3.53 - $4.71</span>
-                    <span>203 In Stock</span>
-                </div>
-                <h3 class="font-bold text-sm">Matrix Configs</h3>
+            <div class="img-placeholder"><span class="logo-text" style="color:#00a2ff; text-shadow:0 0 10px #00a2ff">M</span></div>
+            <div class="prod-info">
+                <div class="prod-meta"><span>$3.53 - $4.71</span><span>203 In Stock</span></div>
+                <h3 class="prod-title">Matrix Configs</h3>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Reviews Section -->
-<section id="reviews" class="max-w-[1200px] mx-auto px-8 py-20">
-    <div class="mb-10">
-        <h2 class="text-3xl font-bold">Reviews</h2>
-        <p class="text-dim text-sm mt-2">Product reviews from our customers!</p>
-    </div>
-    <div class="review-grid">
-        <div class="review-card">
-            <div><div class="quote-icon">“</div><div class="review-stars">★★★★★</div><p class="review-text">Automatic feedback after 7 days.</p></div>
-            <div class="review-footer"><span>Matcha Configs (Match..</span><span>May 07, 2026</span></div>
-        </div>
-        <div class="review-card">
-            <div><div class="quote-icon">“</div><div class="review-stars">★★★★★</div><p class="review-text">W silly</p></div>
-            <div class="review-footer"><span>UE Bundle (Default)</span><span>May 06, 2026</span></div>
-        </div>
-        <div class="review-card">
-            <div><div class="quote-icon">“</div><div class="review-stars">★★★★★</div><p class="review-text">Good</p></div>
-            <div class="review-footer"><span>UE Bundle (Default)</span><span>May 04, 2026</span></div>
-        </div>
+<section class="socials">
+    <h2 class="text-xl font-bold red-outline">Follow our Socials!</h2>
+    <div class="flex justify-center gap-4 mt-8">
+        <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="social-link">
+            <div class="social-btn">Discord ↗</div>
+        </a>
+        <a href="https://www.tiktok.com/@scripts.left00" target="_blank" class="social-link">
+            <div class="social-btn">TikTok ↗</div>
+        </a>
     </div>
 </section>
 
-<footer class="mt-20 py-10 border-t border-white/5 text-center text-[10px] text-gray-600 tracking-widest uppercase">
-    © 2026 Left-Configs — ELITE CONFIGURATION SOLUTIONS
+<footer class="py-20 text-center text-[9px] text-white font-bold uppercase tracking-[0.3em]" style="text-shadow: 0 0 5px red;">
+    © 2026 LEFT-CONFIGS — ELITE CONFIGURATION SOLUTIONS
 </footer>
 
-<!-- Firebase SDK -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -353,7 +386,6 @@
     const db = getFirestore(app);
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-    // UI Elements
     const authBtn = document.getElementById('auth-btn');
     const userDisplay = document.getElementById('user-display');
     const modal = document.getElementById('login-modal');
@@ -364,16 +396,14 @@
     const usernameError = document.getElementById('username-error');
     const emailError = document.getElementById('email-error');
 
-    // Authentication & Session Persistence logic
+    authBtn.onclick = () => modal.style.display = 'flex';
+    closeBtn.onclick = () => modal.style.display = 'none';
+
     const initAuth = async () => {
-        try {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        } catch (err) {
-            console.error("Auth init failed", err);
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+            await signInAnonymously(auth);
         }
     };
 
@@ -381,97 +411,39 @@
         if (user) {
             const userRef = doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid);
             const userSnap = await getDoc(userRef);
-            if (userSnap.exists()) {
-                const userData = userSnap.data();
-                showLoggedIn(userData.username);
-            } else {
-                authBtn.classList.remove('hidden');
-                userDisplay.classList.add('hidden');
-            }
-        } else {
-            authBtn.classList.remove('hidden');
-            userDisplay.classList.add('hidden');
+            if (userSnap.exists()) showLoggedIn(userSnap.data().username);
         }
     });
 
     function showLoggedIn(username) {
         authBtn.classList.add('hidden');
-        userDisplay.textContent = `LOGGED IN: ${username.toUpperCase()}`;
+        userDisplay.textContent = username.toUpperCase();
         userDisplay.classList.remove('hidden');
         modal.style.display = 'none';
     }
 
-    // Modal Logic
-    authBtn.addEventListener('click', () => {
-        modal.style.display = 'flex';
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-        resetErrors();
-    });
-
-    function resetErrors() {
-        usernameError.classList.add('hidden');
-        emailError.classList.add('hidden');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = "Initialize Session";
-    }
-
-    // Gmail Existence Check Logic
-    async function validateGmailExists(email) {
-        // Step 1: Basic Regex and Domain Check
-        const gmailRegex = /^[a-z0-9](\.?[a-z0-9]){4,}@gmail\.com$/;
-        if (!gmailRegex.test(email.toLowerCase())) {
-            return { valid: false, message: "Invalid Gmail format or address too short." };
-        }
-
-        // Step 2: Query Google Auth to see if the email is associated with a Google Account
-        // fetchSignInMethodsForEmail will return an array of methods if the email is valid/exists in Google's ecosystem
-        try {
-            const methods = await fetchSignInMethodsForEmail(auth, email);
-            // In most cases, even if empty, if it doesn't throw auth/invalid-email, it's a "plausible" account
-            return { valid: true };
-        } catch (e) {
-            if (e.code === 'auth/invalid-email' || e.code === 'auth/user-not-found') {
-                return { valid: false, message: "This Gmail address does not exist." };
-            }
-            // For other errors, we allow it to pass to avoid blocking legitimate users on API hiccups
-            return { valid: true };
-        }
-    }
-
-    submitBtn.addEventListener('click', async () => {
+    submitBtn.onclick = async () => {
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const user = auth.currentUser;
-
         if (!username || !email || !user) return;
-        
-        resetErrors();
+
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="loading-spinner"></span> Verifying Identity...';
+        submitBtn.innerHTML = '<span class="loading-spinner"></span>';
 
         try {
-            // 1. Gmail Validation
-            const emailCheck = await validateGmailExists(email);
-            if (!emailCheck.valid) {
-                emailError.textContent = emailCheck.message;
+            const gmailRegex = /^[a-z0-9](\.?[a-z0-9]){4,}@gmail\.com$/;
+            if (!gmailRegex.test(email.toLowerCase())) {
                 emailError.classList.remove('hidden');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = "Initialize Session";
                 return;
             }
 
-            // 2. Duplicate Username Check
             const usersRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
-            const querySnapshot = await getDocs(usersRef);
+            const snap = await getDocs(usersRef);
             let exists = false;
-            querySnapshot.forEach((doc) => {
-                if (doc.data().username.toLowerCase() === username.toLowerCase()) {
-                    exists = true;
-                }
-            });
+            snap.forEach(d => { if(d.data().username.toLowerCase() === username.toLowerCase()) exists = true; });
 
             if (exists) {
                 usernameError.classList.remove('hidden');
@@ -480,25 +452,19 @@
                 return;
             }
 
-            // 3. Save Session
             await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', user.uid), {
-                username: username,
-                email: email,
-                createdAt: new Date().toISOString()
+                username, email, createdAt: new Date().toISOString()
             });
-
             showLoggedIn(username);
         } catch (e) {
-            console.error(e);
-            alert("Security protocol error. Identity could not be verified.");
             submitBtn.disabled = false;
             submitBtn.innerHTML = "Initialize Session";
         }
-    });
+    };
 
     initAuth();
 
-    // Background Animation
+    // Particles Background Logic
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
@@ -509,21 +475,20 @@
         constructor() { this.reset(); }
         reset() {
             this.x = Math.random() * w; this.y = Math.random() * h;
-            this.size = Math.random() * 1.5 + 0.1;
-            this.speedX = (Math.random() - 0.5) * 0.15; this.speedY = (Math.random() - 0.5) * 0.15;
-            this.alpha = Math.random(); this.twinkle = Math.random() * 0.01;
+            this.size = Math.random() * 1.5;
+            this.speedX = (Math.random() - 0.5) * 0.1; this.speedY = (Math.random() - 0.5) * 0.1;
+            this.alpha = Math.random();
         }
         update() {
             this.x += this.speedX; this.y += this.speedY;
-            this.alpha += this.twinkle; if (this.alpha > 1 || this.alpha < 0) this.twinkle *= -1;
             if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
         }
         draw() {
-            ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(this.alpha)})`;
+            ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha * 0.5})`;
             ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
         }
     }
-    for (let i = 0; i < 150; i++) particles.push(new Particle());
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
     function animate() {
         ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
         particles.forEach(p => { p.update(); p.draw(); });
