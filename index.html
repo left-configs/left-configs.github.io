@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>left-configs | Premium Gaming Scripts</title>
+    <title>left-configs | Elite Scripting Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
 
         :root {
             --accent-red: #ff0000;
-            --dark-bg: #050505;
-            --card-bg: #0e0e0e;
-            --text-gray: #888888;
+            --dark-bg: #030303;
+            --card-bg: #0a0a0a;
+            --silver-grad: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
         }
 
         body {
@@ -24,103 +24,130 @@
             scroll-behavior: smooth;
         }
 
-        /* 背景エフェクト */
+        /* 背景レイヤー */
         #background-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 0%, #1a0000 0%, #030303 100%);
+        }
+
+        .hero-watermark {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(150px, 25vw, 400px);
+            font-weight: 900;
+            color: white;
+            opacity: 0.02;
+            letter-spacing: -0.05em;
+            pointer-events: none;
             z-index: -1;
-            background: radial-gradient(circle at 50% 10%, #200000 0%, #050505 100%);
+            user-select: none;
         }
 
-        /* ヘッダー */
+        /* ナビゲーション */
         .glass-header {
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(3, 3, 3, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
+        /* カードデザイン */
         .premium-card {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
+            min-height: 580px; 
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
         }
 
         .premium-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-red);
-            box-shadow: 0 30px 60px rgba(255, 0, 0, 0.1);
+            transform: translateY(-12px) scale(1.01);
+            border-color: rgba(255, 0, 0, 0.4);
+            box-shadow: 0 40px 80px rgba(255, 0, 0, 0.12);
         }
 
-        .premium-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(255, 0, 0, 0.03) 100%);
-            opacity: 0;
-            transition: 0.5s;
+        /* シルバーボタン */
+        .btn-silver {
+            background: var(--silver-grad);
+            color: #000000;
+            font-weight: 800;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
         }
 
-        .premium-card:hover::after {
-            opacity: 1;
+        .btn-silver:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            background: #ffffff;
         }
 
+        /* タイポグラフィ */
         .syncopate {
             font-family: 'Syncopate', sans-serif;
             text-transform: uppercase;
+            letter-spacing: -0.04em;
         }
 
         .red-glow {
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            text-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
         }
 
-        .btn-action {
-            background: #ffffff;
-            color: #000000;
-            font-weight: 900;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
+        /* ステータスドット */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            box-shadow: 0 0 8px currentColor;
         }
 
-        .btn-action:hover {
-            background: var(--accent-red);
-            color: #ffffff;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-        }
-
-        .badge {
-            font-size: 0.6rem;
-            font-weight: 900;
-            padding: 4px 12px;
-            border-radius: 2px;
-            letter-spacing: 0.1em;
-        }
-
-        /* ページアニメーション */
+        /* ページ切替 */
         .page-content {
             display: none;
-            animation: slideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .page-content.active {
             display: block;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .logo-box {
-            background: #ff0000;
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+        /* サムネイル装飾 */
+        .thumb-glitch {
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+        .thumb-glitch::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px);
+            background-size: 100% 4px;
+            pointer-events: none;
         }
 
-        .video-overlay {
-            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+        /* コピーウィジェット */
+        .copy-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Courier New', Courier, monospace;
         }
     </style>
 </head>
@@ -130,169 +157,235 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-header">
-        <div class="flex items-center justify-between px-8 py-5 max-w-7xl mx-auto">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="location.reload()">
-                <div class="logo-box px-4 py-1">
-                    <span class="text-white font-black text-xl italic">L</span>
+        <div class="flex items-center justify-between px-10 py-6 max-w-7xl mx-auto">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                <div class="bg-red-600 w-10 h-10 flex items-center justify-center rounded-sm skew-x-[-10deg]">
+                    <span class="text-white font-black text-2xl italic skew-x-[10deg]">L</span>
                 </div>
-                <span class="text-lg font-black syncopate tracking-tighter">left-<span class="text-red-600">configs</span></span>
+                <span class="text-xl font-black syncopate">left-<span class="text-red-600">configs</span></span>
             </div>
-            <div class="hidden md:flex items-center space-x-10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
-                <a href="javascript:void(0)" onclick="location.reload()" class="hover:text-white transition">Home</a>
-                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-white transition">Inventory</a>
-                <a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-white transition">Legal</a>
-                <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-white transition">Support</a>
-                <a href="#" class="bg-white text-black px-6 py-2 rounded-sm hover:bg-red-600 hover:text-white transition shadow-lg">Console</a>
+            
+            <div class="hidden lg:flex items-center space-x-12 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-500">
+                <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-white transition">Main</a>
+                <a href="javascript:void(0)" onclick="scrollToProducts()" class="hover:text-white transition">Catalogue</a>
+                <a href="javascript:void(0)" onclick="showPage('terms')" class="hover:text-white transition">License</a>
+                <a href="https://discord.gg/jjefQyP2fU" target="_blank" class="hover:text-white transition">Discord</a>
+                
+                <div class="h-6 w-px bg-white/10 mx-2"></div>
+                
+                <a href="#" class="btn-silver px-8 py-2.5 rounded-sm flex items-center group">
+                    <span>Dashboard</span>
+                    <i class="fa-solid fa-arrow-right-long ml-3 text-[10px] group-hover:translate-x-1 transition"></i>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main Page -->
     <div id="home-page" class="page-content active pt-40">
+        
         <!-- Hero Section -->
-        <header class="text-center py-20 px-6">
-            <div class="inline-block border border-red-600/30 text-red-600 text-[10px] font-black px-4 py-1 mb-8 uppercase tracking-[0.3em]">
-                Unlocking Maximum Potential
+        <header class="relative text-center py-32 px-6 overflow-visible">
+            <div class="hero-watermark">LEFT</div>
+            
+            <div class="inline-flex items-center bg-white/5 border border-white/10 rounded-full px-5 py-1.5 mb-10">
+                <span class="status-dot text-green-500 bg-green-500 animate-pulse"></span>
+                <span class="text-[9px] font-black uppercase tracking-widest text-gray-400">System v4.2 Online</span>
             </div>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 italic syncopate leading-[0.9] tracking-tighter">
-                PRECISION <br><span class="text-red-600 red-glow">ENGINEERING.</span>
+            
+            <h1 class="text-7xl md:text-9xl font-black mb-10 italic syncopate leading-[0.85] tracking-tighter">
+                EVOLVE YOUR <br><span class="text-red-600 red-glow">INSTINCTS.</span>
             </h1>
-            <p class="max-w-2xl mx-auto text-gray-500 font-medium mb-12 text-lg">
-                left-configsは、あなたのプレイ体験を劇的に変える次世代のスクリプトソリューションを提供します。
+            
+            <p class="max-w-xl mx-auto text-gray-400 font-medium mb-16 text-lg leading-relaxed">
+                妥協なき性能。検知回避の最前線。left-configsは、選ばれしプレイヤーにのみ許される絶対的な優位性を提供します。
             </p>
-            <div class="flex justify-center space-x-16">
-                <div>
-                    <span class="block text-3xl font-black text-white">4,992+</span>
-                    <span class="text-[9px] font-bold text-gray-600 uppercase tracking-widest">Global Users</span>
+            
+            <div class="flex flex-wrap justify-center gap-12 opacity-40">
+                <div class="text-left border-l border-white/20 pl-6">
+                    <p class="text-3xl font-black text-white">5K+</p>
+                    <p class="text-[9px] font-bold uppercase tracking-widest">Global Clients</p>
                 </div>
-                <div class="w-px h-12 bg-white/10"></div>
-                <div>
-                    <span class="block text-3xl font-black text-red-600">UD</span>
-                    <span class="text-[9px] font-bold text-gray-600 uppercase tracking-widest">Status</span>
+                <div class="text-left border-l border-white/20 pl-6">
+                    <p class="text-3xl font-black text-red-600">0%</p>
+                    <p class="text-[9px] font-bold uppercase tracking-widest">Detection Rate</p>
+                </div>
+                <div class="text-left border-l border-white/20 pl-6">
+                    <p class="text-3xl font-black text-white">24/7</p>
+                    <p class="text-[9px] font-bold uppercase tracking-widest">Active Support</p>
                 </div>
             </div>
         </header>
 
         <!-- Product Grid -->
-        <main id="products-section" class="max-w-7xl mx-auto px-6 py-24">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <main id="products-section" class="max-w-7xl mx-auto px-10 py-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 
-                <!-- Matcha -->
-                <div class="premium-card rounded-xl p-10 flex flex-col group">
-                    <div class="flex justify-between items-start mb-16">
-                        <span class="badge bg-white text-black">INTERNAL</span>
-                        <div class="w-8 h-8 border border-white/10 rounded flex items-center justify-center text-red-600 group-hover:border-red-600 transition">
-                            <i class="fa-solid fa-bolt-lightning text-xs"></i>
-                        </div>
+                <!-- Card 1: Matcha -->
+                <div class="premium-card rounded-2xl p-10 group">
+                    <div class="flex justify-between items-center mb-16">
+                        <div class="text-[10px] font-black bg-white text-black px-3 py-1 skew-x-[-15deg]"><span class="inline-block skew-x-[15deg]">INTERNAL</span></div>
+                        <div class="text-white/20 group-hover:text-red-600 transition duration-500"><i class="fa-solid fa-microchip text-2xl"></i></div>
                     </div>
                     <div class="flex-grow text-center mb-16">
-                        <p class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.4em] mb-2">High Efficiency</p>
-                        <h3 class="text-5xl font-black italic tracking-tighter group-hover:scale-105 transition-transform duration-500">MATCHA</h3>
+                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.5em] mb-4">Supreme Performance</p>
+                        <h3 class="text-6xl font-black italic tracking-tighter syncopate">MATCHA</h3>
+                        <p class="text-xs text-gray-500 mt-4 max-w-[200px] mx-auto">軽量・高速。極限まで最適化されたコアシステム。</p>
                     </div>
-                    <div class="mt-auto">
+                    <div class="pt-8 border-t border-white/5">
                         <div class="flex justify-between items-end mb-8">
-                            <div class="text-3xl font-black">€9.97</div>
-                            <div class="text-[10px] text-green-500 font-bold uppercase tracking-widest">Working</div>
+                            <div>
+                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1">Pricing From</p>
+                                <p class="text-4xl font-black">€9.97</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="status-dot text-green-500 bg-green-500"></span>
+                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Safe</span>
+                            </div>
                         </div>
-                        <button class="btn-action w-full py-5 rounded-lg text-xs">Purchase License</button>
+                        <button class="btn-silver w-full py-5 rounded-lg text-xs">Buy License</button>
                     </div>
                 </div>
 
-                <!-- KH V2 (猫耳シルエット再現) -->
-                <div class="premium-card rounded-xl p-10 flex flex-col border-b-2 border-red-600 shadow-2xl shadow-red-900/10 group">
-                    <div class="flex justify-between items-start mb-16">
-                        <span class="badge bg-red-600 text-white">BEST SELLER</span>
-                        <div class="w-8 h-8 border border-red-600 rounded flex items-center justify-center text-red-600">
-                            <i class="fa-solid fa-crown text-xs"></i>
-                        </div>
+                <!-- Card 2: KH V2 (クリックで専用ページ) -->
+                <div class="premium-card rounded-2xl p-10 border-red-600/40 border-b-4 group shadow-2xl shadow-red-900/5" onclick="showPage('khv2')">
+                    <div class="flex justify-between items-center mb-16">
+                        <div class="text-[10px] font-black bg-red-600 text-white px-3 py-1 skew-x-[-15deg]"><span class="inline-block skew-x-[15deg]">PREMIUM</span></div>
+                        <div class="text-red-600 animate-pulse"><i class="fa-solid fa-fire-flame-curved text-2xl"></i></div>
                     </div>
                     <div class="flex-grow flex flex-col items-center mb-16">
-                        <p class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.4em] mb-4">Cloud Based</p>
-                        <!-- KHロゴ (猫耳シルエット) -->
-                        <div class="relative w-32 h-24">
-                            <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-[0_0_10px_rgba(255,0,0,0.5)]">
-                                <!-- 猫耳のアウトライン -->
+                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.5em] mb-6">Cloud Integrated</p>
+                        <!-- KH SVG Logo -->
+                        <div class="w-36 h-28 relative">
+                            <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-[0_0_15px_rgba(255,0,0,0.4)]">
                                 <path d="M15 40 Q15 10 35 25 L50 35 L65 25 Q85 10 85 40 L85 70 Q85 80 75 80 L25 80 Q15 80 15 70 Z" fill="none" stroke="#ff0000" stroke-width="2.5" />
                                 <text x="50" y="65" text-anchor="middle" fill="white" font-family="Inter" font-weight="900" font-size="28">KH</text>
                             </svg>
                         </div>
-                        <span class="text-[10px] font-black text-red-600 tracking-[0.5em] mt-2">VERSION 2</span>
+                        <p class="text-xs text-gray-500 mt-6 text-center max-w-[220px]">世界で最も信頼される多機能スクリプトの頂点。</p>
                     </div>
-                    <div class="mt-auto">
+                    <div class="pt-8 border-t border-white/5">
                         <div class="flex justify-between items-end mb-8">
-                            <div class="text-3xl font-black">€9.97</div>
-                            <div class="text-[10px] text-red-600 font-bold uppercase tracking-widest">Restocking</div>
+                            <div>
+                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1">Status</p>
+                                <p class="text-xl font-bold text-white">VIEW DETAILS</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="status-dot text-green-500 bg-green-500"></span>
+                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest italic">Stable</span>
+                            </div>
                         </div>
-                        <button class="w-full py-5 rounded-lg text-xs bg-white/5 text-gray-600 cursor-not-allowed uppercase font-bold">Sold Out</button>
+                        <button class="btn-silver w-full py-5 rounded-lg text-xs">Access Script</button>
                     </div>
                 </div>
 
-                <!-- YUB-X (三角形グラデーションロゴ再現) -->
-                <div class="premium-card rounded-xl p-10 flex flex-col group">
-                    <div class="flex justify-between items-start mb-16">
-                        <span class="badge bg-white/10 text-gray-400">EXECUTOR</span>
-                        <div class="w-8 h-8 border border-white/10 rounded flex items-center justify-center text-gray-400 group-hover:text-blue-500 group-hover:border-blue-500 transition">
-                            <i class="fa-solid fa-shield-halved text-xs"></i>
-                        </div>
+                <!-- Card 3: YUB-X (修正済みリンク) -->
+                <div class="premium-card rounded-2xl p-10 group" onclick="window.open('https://yub-x.net/', '_blank')">
+                    <div class="flex justify-between items-center mb-16">
+                        <div class="text-[10px] font-black bg-white/10 text-white px-3 py-1 skew-x-[-15deg]"><span class="inline-block skew-x-[15deg]">EXECUTOR</span></div>
+                        <div class="text-white/20 group-hover:text-blue-500 transition duration-500"><i class="fa-solid fa-terminal text-2xl"></i></div>
                     </div>
                     <div class="flex-grow flex flex-col items-center mb-16">
-                        <p class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.4em] mb-4">Core Tech</p>
-                        <!-- YUB-Xロゴ (三角形グラデーション) -->
-                        <div class="w-32 h-24 relative">
+                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.5em] mb-6">Open Source</p>
+                        <!-- YUB-X Logo -->
+                        <div class="w-36 h-28">
                             <svg viewBox="0 0 100 90" class="w-full h-full">
                                 <defs>
-                                    <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <linearGradient id="yubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                         <stop offset="0%" style="stop-color:#ff9000" />
                                         <stop offset="50%" style="stop-color:#e000ff" />
                                         <stop offset="100%" style="stop-color:#00e0ff" />
                                     </linearGradient>
                                 </defs>
-                                <path d="M50 5 L95 85 L5 85 Z" fill="none" stroke="url(#triGrad)" stroke-width="4" stroke-linejoin="round" />
-                                <text x="50" y="65" text-anchor="middle" fill="url(#triGrad)" font-family="Inter" font-weight="900" font-size="28">Y</text>
+                                <path d="M50 5 L95 85 L5 85 Z" fill="none" stroke="url(#yubGrad)" stroke-width="4" stroke-linejoin="round" />
+                                <text x="50" y="65" text-anchor="middle" fill="url(#yubGrad)" font-family="Inter" font-weight="900" font-size="28">Y</text>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-black italic tracking-widest uppercase mt-4">YUB-X</h3>
+                        <h3 class="text-2xl font-black italic tracking-widest mt-6">YUB-X</h3>
+                        <p class="text-xs text-gray-500 mt-2">コミュニティ主導の最速実行エンジン。</p>
                     </div>
-                    <div class="mt-auto">
+                    <div class="pt-8 border-t border-white/5">
                         <div class="flex justify-between items-end mb-8">
-                            <div class="text-3xl font-black text-green-500 italic">FREE</div>
-                            <div class="text-[10px] text-green-500 font-bold uppercase tracking-widest">Active</div>
+                            <div>
+                                <p class="text-[9px] text-gray-600 font-bold uppercase mb-1">Pricing From</p>
+                                <p class="text-4xl font-black text-green-500 italic">FREE</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="status-dot text-green-500 bg-green-500"></span>
+                                <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Working</span>
+                            </div>
                         </div>
-                        <a href="https://yub-x.net/" target="_blank" class="btn-action w-full py-5 rounded-lg text-xs block text-center">Download Now</a>
+                        <button class="btn-silver w-full py-5 rounded-lg text-xs">Official Site</button>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Showcase Section -->
-            <div class="mt-48">
-                <div class="flex flex-col items-center mb-20">
-                    <h2 class="text-4xl font-black syncopate italic text-white tracking-tighter">Performance Replays</h2>
-                    <div class="h-1 w-20 bg-red-600 mt-4"></div>
+            <!-- Showcase Section (4つの動画を完全実装) -->
+            <div class="mt-56">
+                <div class="flex flex-col items-center text-center mb-24">
+                    <span class="text-red-600 font-black text-[10px] tracking-[0.6em] uppercase mb-4">Showcase</span>
+                    <h2 class="text-5xl font-black syncopate italic leading-tight">DOMINANCE <br>IN ACTION</h2>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <a href="https://vt.tiktok.com/ZS9pRx8pK/" target="_blank" class="relative group rounded-2xl overflow-hidden aspect-video bg-zinc-900 border border-white/5">
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:bg-red-600 group-hover:scale-110 transition duration-500">
-                                <i class="fa-solid fa-play text-white ml-1"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Video 1 -->
+                    <a href="https://vt.tiktok.com/ZS9pRx8pK/" target="_blank" class="thumb-glitch group rounded-3xl overflow-hidden aspect-video border border-white/10 block relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110 opacity-60" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                            <div class="w-20 h-20 bg-red-600 text-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                                <i class="fa-solid fa-play text-2xl ml-1"></i>
                             </div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-8 video-overlay z-10">
-                            <p class="text-red-600 text-[10px] font-black uppercase mb-1">Combat Module</p>
-                            <h4 class="font-bold text-xl">Matcha External: Visual Showcase</h4>
+                        <div class="absolute bottom-10 left-10 text-left">
+                            <p class="text-red-600 font-black text-[9px] uppercase tracking-widest mb-2">Combat Module</p>
+                            <h4 class="text-2xl font-black italic">Matcha Performance</h4>
                         </div>
                     </a>
 
-                    <a href="https://vt.tiktok.com/ZS9pRbETM/" target="_blank" class="relative group rounded-2xl overflow-hidden aspect-video bg-zinc-900 border border-white/5">
-                        <div class="absolute inset-0 flex items-center justify-center z-20">
-                            <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:bg-red-600 group-hover:scale-110 transition duration-500">
-                                <i class="fa-solid fa-play text-white ml-1"></i>
+                    <!-- Video 2 -->
+                    <a href="https://vt.tiktok.com/ZS9pRbETM/" target="_blank" class="thumb-glitch group rounded-3xl overflow-hidden aspect-video border border-white/10 block relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110 opacity-60" style="background-image: url('https://images.unsplash.com/photo-1614011016016-9bafd573a4b6?auto=format&fit=crop&q=80&w=800');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                            <div class="w-20 h-20 bg-red-600 text-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                                <i class="fa-solid fa-play text-2xl ml-1"></i>
                             </div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-8 video-overlay z-10">
-                            <p class="text-red-600 text-[10px] font-black uppercase mb-1">Movement Module</p>
-                            <h4 class="font-bold text-xl">KH V2: Advanced Physics</h4>
+                        <div class="absolute bottom-10 left-10 text-left">
+                            <p class="text-red-600 font-black text-[9px] uppercase tracking-widest mb-2">Cloud Module</p>
+                            <h4 class="text-2xl font-black italic">KH V2 Showcase</h4>
+                        </div>
+                    </a>
+
+                    <!-- Video 3 -->
+                    <a href="https://vt.tiktok.com/ZS9pRQEoA/" target="_blank" class="thumb-glitch group rounded-3xl overflow-hidden aspect-video border border-white/10 block relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110 opacity-60" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                            <div class="w-20 h-20 bg-red-600 text-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                                <i class="fa-solid fa-play text-2xl ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-10 left-10 text-left">
+                            <p class="text-red-600 font-black text-[9px] uppercase tracking-widest mb-2">Visual Script</p>
+                            <h4 class="text-2xl font-black italic">Environment Glitch</h4>
+                        </div>
+                    </a>
+
+                    <!-- Video 4 -->
+                    <a href="https://vt.tiktok.com/ZS9pRvNy7/" target="_blank" class="thumb-glitch group rounded-3xl overflow-hidden aspect-video border border-white/10 block relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110 opacity-60" style="background-image: url('https://images.unsplash.com/photo-1605898399783-1820b735e127?auto=format&fit=crop&q=80&w=800');"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                            <div class="w-20 h-20 bg-red-600 text-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                                <i class="fa-solid fa-play text-2xl ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-10 left-10 text-left">
+                            <p class="text-red-600 font-black text-[9px] uppercase tracking-widest mb-2">Elite Series</p>
+                            <h4 class="text-2xl font-black italic">Advanced Physics 2.0</h4>
                         </div>
                     </a>
                 </div>
@@ -300,54 +393,170 @@
         </main>
     </div>
 
-    <!-- Legal Page -->
-    <div id="terms-page" class="page-content pt-40 pb-40">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="bg-zinc-900/50 border border-white/5 rounded-2xl p-16">
-                <div class="flex items-center space-x-4 mb-16">
-                    <div class="w-2 h-10 bg-red-600"></div>
-                    <h2 class="text-5xl font-black syncopate">Terms of Service</h2>
+    <!-- KH V2専用ページ -->
+    <div id="khv2-page" class="page-content pt-48 pb-48">
+        <div class="max-w-5xl mx-auto px-10 text-center">
+            <div class="hero-watermark">KICIA</div>
+            
+            <div class="mb-20 flex flex-col items-center">
+                <!-- 猫耳ロゴ -->
+                <div class="w-48 h-32 relative mb-8">
+                    <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-[0_0_30px_rgba(255,0,0,0.6)]">
+                        <path d="M15 40 Q15 10 35 25 L50 35 L65 25 Q85 10 85 40 L85 70 Q85 80 75 80 L25 80 Q15 80 15 70 Z" fill="none" stroke="#ff0000" stroke-width="2.5" />
+                        <text x="50" y="65" text-anchor="middle" fill="white" font-family="Inter" font-weight="900" font-size="28">KH</text>
+                    </svg>
+                </div>
+                <h2 class="text-6xl font-black syncopate italic mb-4">KH <span class="text-red-600">VERSION 2</span></h2>
+                <div class="flex items-center space-x-4">
+                    <span class="status-dot text-green-500 bg-green-500"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-gray-500">Undetected & Functional</span>
+                </div>
+            </div>
+
+            <!-- コピーウィジェット -->
+            <div class="max-w-3xl mx-auto mb-24">
+                <p class="text-left text-gray-500 text-[10px] font-black uppercase tracking-widest mb-4 ml-2">Loader Script</p>
+                <div class="copy-box p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-white/5 shadow-2xl relative">
+                    <div class="text-left overflow-x-auto w-full">
+                        <code id="scriptCode" class="text-xs text-white/80 whitespace-nowrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()</code>
+                    </div>
+                    <button onclick="copyToClipboard()" class="btn-silver px-10 py-4 rounded-lg text-xs whitespace-nowrap min-w-[160px]">
+                        <i class="fa-solid fa-copy mr-2"></i> Copy
+                    </button>
+                    <!-- コピー完了メッセージ -->
+                    <div id="copyAlert" class="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-6 py-2 rounded-full opacity-0 transition-all duration-300 pointer-events-none">
+                        COPIED TO CLIPBOARD
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white/5 border border-white/5 p-8 rounded-xl">
+                    <i class="fa-solid fa-bolt text-red-600 mb-4"></i>
+                    <h4 class="font-bold mb-2">Instant Load</h4>
+                    <p class="text-xs text-gray-500">高速なサーバーレスポンスにより、起動から数秒で全機能を展開可能。</p>
+                </div>
+                <div class="bg-white/5 border border-white/5 p-8 rounded-xl">
+                    <i class="fa-solid fa-ghost text-red-600 mb-4"></i>
+                    <h4 class="font-bold mb-2">Silent Mode</h4>
+                    <p class="text-xs text-gray-500">高度なアンチ検知アルゴリズムを搭載し、安全性を最優先に設計。</p>
+                </div>
+                <div class="bg-white/5 border border-white/5 p-8 rounded-xl">
+                    <i class="fa-solid fa-gears text-red-600 mb-4"></i>
+                    <h4 class="font-bold mb-2">Customizable</h4>
+                    <p class="text-xs text-gray-500">100種類以上の設定項目を自由にチューニングして、自分だけの環境を構築。</p>
+                </div>
+            </div>
+
+            <button onclick="showPage('home')" class="mt-20 text-[10px] font-black text-gray-600 hover:text-white uppercase tracking-[0.4em] transition">
+                <i class="fa-solid fa-arrow-left mr-3"></i> Return to Catalogue
+            </button>
+        </div>
+    </div>
+
+    <!-- Legal/Terms -->
+    <div id="terms-page" class="page-content pt-48 pb-48">
+        <div class="max-w-4xl mx-auto px-10">
+            <div class="bg-zinc-950 border border-white/5 rounded-3xl p-16 shadow-2xl">
+                <div class="flex items-center space-x-6 mb-20">
+                    <div class="w-1.5 h-12 bg-red-600"></div>
+                    <h2 class="text-5xl font-black syncopate italic">Rules of Engagement</h2>
                 </div>
                 
-                <div class="space-y-16 text-gray-500">
+                <div class="grid grid-cols-1 gap-16 text-gray-500 font-medium">
                     <section>
-                        <h3 class="text-white font-bold text-xl mb-4">01. Service Agreement</h3>
-                        <p class="leading-relaxed">left-configsが提供する全ての製品およびサービスは、娯楽目的でのみ提供されています。当サービスを利用することにより、全ての利用規約に同意したものとみなされます。</p>
+                        <h3 class="text-white font-bold text-xl mb-4 flex items-center"><span class="text-red-600 mr-4">01</span> Acceptable Use</h3>
+                        <p class="leading-relaxed">left-configsが提供する全ての製品は娯楽目的でのみ設計されています。当ツールを使用することで、あらゆるプラットフォームの利用規約に抵触する可能性があることを理解し、自己の責任において行動してください。</p>
                     </section>
                     
                     <section>
-                        <h3 class="text-white font-bold text-xl mb-4">02. No Refund Policy</h3>
-                        <p class="leading-relaxed">デジタル商品の性質上、一度ライセンスが付与された製品の返金および交換は一切受け付けておりません。互換性の問題等については、購入前に必ずサポートへお問い合わせください。</p>
+                        <h3 class="text-white font-bold text-xl mb-4 flex items-center"><span class="text-red-600 mr-4">02</span> Final Sale</h3>
+                        <p class="leading-relaxed">デジタルライセンスおよびサービスの性質上、購入後のキャンセル、返金、交換は一切お受けしておりません。製品のステータスはダッシュボードまたはDiscordにてリアルタイムで公開されています。</p>
                     </section>
                     
                     <section>
-                        <h3 class="text-white font-bold text-xl mb-4">03. User Responsibility</h3>
-                        <p class="leading-relaxed">当ツールの使用によって生じたアカウントの制限、停止、その他いかなる損害についても、left-configsは一切の責任を負いません。全てのリスクはユーザーが負うものとします。</p>
+                        <h3 class="text-white font-bold text-xl mb-4 flex items-center"><span class="text-red-600 mr-4">03</span> Limitation of Liability</h3>
+                        <p class="leading-relaxed">ツールの利用によって生じたアカウントの凍結、ハードウェアの不具合、その他の損害について、left-configs運営チームはいかなる状況下においても補償の責任を負いません。</p>
                     </section>
                 </div>
+                <button onclick="showPage('home')" class="mt-16 text-[10px] font-black text-gray-600 hover:text-white uppercase tracking-[0.4em] transition">
+                    <i class="fa-solid fa-arrow-left mr-3"></i> Back Home
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-20 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-600 font-bold text-[10px] uppercase tracking-widest">
-            <p>© 2026 left-configs. Developed for the elite.</p>
-            <div class="flex space-x-8 mt-6 md:mt-0">
-                <a href="#" class="hover:text-white transition">Discord</a>
-                <a href="#" class="hover:text-white transition">TikTok</a>
-                <a href="#" class="hover:text-white transition">Status Page</a>
+    <footer class="border-t border-white/5 py-24 bg-[#020202]">
+        <div class="max-w-7xl mx-auto px-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-20">
+                <!-- Branding -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="bg-red-600 w-8 h-8 flex items-center justify-center rounded-sm">
+                            <span class="text-white font-black text-lg italic">L</span>
+                        </div>
+                        <span class="text-md font-black syncopate">left-configs</span>
+                    </div>
+                    <p class="text-gray-600 text-xs font-bold leading-relaxed">
+                        Leading the market in premium script solutions. <br>Built for those who demand more.
+                    </p>
+                </div>
+                
+                <!-- Status Info -->
+                <div class="flex flex-col space-y-4">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Live Status</p>
+                    <div class="flex items-center justify-between text-xs font-bold">
+                        <span class="text-gray-500">Global Server</span>
+                        <span class="text-green-500 flex items-center"><span class="status-dot bg-green-500 mr-2"></span>Stable</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold">
+                        <span class="text-gray-500">API Latency</span>
+                        <span class="text-white">12ms</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold">
+                        <span class="text-gray-500">Active Users</span>
+                        <span class="text-white flex items-center"><i class="fa-solid fa-users mr-2 opacity-30"></i> 1,429 Online</span>
+                    </div>
+                </div>
+
+                <!-- Support -->
+                <div class="text-right md:text-right">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6 text-left md:text-right">Get Involved</p>
+                    <div class="flex justify-start md:justify-end space-x-6">
+                        <a href="#" class="w-12 h-12 bg-white/5 hover:bg-red-600 border border-white/10 hover:border-red-600 transition flex items-center justify-center rounded-full">
+                            <i class="fa-brands fa-discord text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white/5 hover:bg-red-600 border border-white/10 hover:border-red-600 transition flex items-center justify-center rounded-full">
+                            <i class="fa-brands fa-tiktok text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5">
+                <p class="text-gray-700 text-[9px] font-black uppercase tracking-[0.4em] mb-4 md:mb-0">© 2026 left-configs. Unauthorized duplication is a violation of applicable laws.</p>
+                <div class="flex space-x-10 text-[9px] font-bold text-gray-600 uppercase tracking-widest">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Cookies</a>
+                    <a href="#" class="hover:text-white">Service Level</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // ページ遷移ロジック
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId + '-page').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const target = document.getElementById(pageId + '-page');
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
+        // スムーズスクロール
         function scrollToProducts() {
             showPage('home');
             setTimeout(() => {
@@ -355,25 +564,44 @@
             }, 100);
         }
 
-        // 赤い浮遊パーティクル
+        // クリップボードへコピー
+        function copyToClipboard() {
+            const code = document.getElementById('scriptCode').innerText;
+            const el = document.createElement('textarea');
+            el.value = code;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            const alertBox = document.getElementById('copyAlert');
+            alertBox.style.opacity = '1';
+            alertBox.style.top = '-16px';
+            setTimeout(() => {
+                alertBox.style.opacity = '0';
+                alertBox.style.top = '-12px';
+            }, 2000);
+        }
+
+        // 高度なパーティクル背景
         function createParticles() {
             const container = document.getElementById('background-canvas');
-            const count = 25;
+            const count = 30;
             for(let i=0; i<count; i++) {
                 const p = document.createElement('div');
                 p.style.position = 'absolute';
                 p.style.width = Math.random() * 2 + 'px';
                 p.style.height = p.style.width;
-                p.style.background = '#ff0000';
+                p.style.background = i % 5 === 0 ? '#ff0000' : '#ffffff';
                 p.style.left = Math.random() * 100 + '%';
                 p.style.top = Math.random() * 100 + '%';
-                p.style.opacity = Math.random() * 0.4;
-                p.style.boxShadow = '0 0 8px #ff0000';
+                p.style.opacity = Math.random() * 0.3;
+                p.style.boxShadow = p.style.background === '#ff0000' ? '0 0 10px #ff0000' : 'none';
                 
-                const duration = Math.random() * 10000 + 10000;
+                const duration = Math.random() * 15000 + 10000;
                 p.animate([
-                    { transform: 'translateY(0) rotate(0deg)', opacity: p.style.opacity },
-                    { transform: `translateY(-200px) rotate(360deg)`, opacity: 0 }
+                    { transform: 'translateY(0) scale(1)', opacity: p.style.opacity },
+                    { transform: `translateY(-400px) scale(0.5)`, opacity: 0 }
                 ], {
                     duration: duration,
                     iterations: Infinity,
